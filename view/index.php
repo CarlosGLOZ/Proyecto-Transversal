@@ -27,15 +27,20 @@
         <button onClick="alertCreate()" class="btn btn-success btn-lg button-style" role="button" aria-disabled="true">Crear</button>
         <button disabled id="multiple-modify-button" onClick="alertMultipleModify()" class="btn btn-success btn-lg button-style" role="button" aria-disabled="true">Modificar</button>
         <button disabled id="multiple-delete-button" onClick="alertMultipleDelete()" class="btn btn-success btn-lg button-style" role="button" aria-disabled="true">Eliminar</button>
+        
+        <input id="scope-alumnos" class="btn-check"  onChange="changeDataVisualizationScope()" type="radio" value="alumnos" name="datos-scope" /> 
+        <label for="scope-alumnos">Alumnos</label>
+        <input id="scope-profesores" onChange="changeDataVisualizationScope()" type="radio" value="profesores" name="datos-scope" />
+        <label for="scope-profesores">Profesores</label>
     </div>
-    <div class="filtrar-container">
+    <div id="filtrar-container" class="filtrar-container">
         <!-- FILTRO -->
         <input id="filtro-dni" type="text" name="dni" class="form-control" placeholder="dni"/>
         <input id="filtro-nombre" type="text" name="nombre" class="form-control" placeholder="nombre"/>
         <input id="filtro-apellidos" type="text" name="apellidos" class="form-control" placeholder="apellidos"/>
         <input id="filtro-telefono" type="text" name="telefono" class="form-control" placeholder="telefono"/>
         <input id="filtro-email" type="email" name="email" class="form-control" placeholder="email"/>
-        <select id="filtro-clases" class="swal2-input" name='clases'></select>
+        <select id="filtro-select" class="swal2-input" name='clases'></select>
         <button class="btn btn-info btn-lg" onClick="storeLocalFilter()">Filtrar</button>
         <button class="btn btn-info btn-lg" onClick="voidLocalFilter()"><i class="fa-solid fa-xmark"></i></button>
         <!-- LIMITE -->

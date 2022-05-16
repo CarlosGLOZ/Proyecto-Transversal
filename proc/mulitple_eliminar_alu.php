@@ -2,7 +2,7 @@
 
 include './conexion.php';
 
-$alumnos = $_POST['alumnos'];
+$alumnos = $_POST['ids'];
 
 foreach ($alumnos as $id) {
     $sql = "DELETE FROM tbl_alumne WHERE `id_alumne` = $id";

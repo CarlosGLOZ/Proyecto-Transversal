@@ -1,6 +1,6 @@
-import { alertModify, alertDelete, alertCreate, alertMultipleModify, alertMultipleDelete } from './alerts.js'
+import { alertModify, alertDelete, alertCreate, alertMultipleModify, alertMultipleDelete, alertModifyProf } from './alerts.js'
 import { asyncShow, asyncShowClases } from './ajax.js'
-import { removeLimit, changeLimit, checkCheckedCheckboxes, checkAllCheckboxes, storeLocalFilter, voidLocalFilter, changePage, displayLocalFilter, changeOrderBy } from './utils.js'
+import { changeDataVisualizationScope, removeLimit, changeLimit, checkCheckedCheckboxes, checkAllCheckboxes, storeLocalFilter, voidLocalFilter, changePage, displayLocalFilter, changeOrderBy } from './utils.js'
 
 
 window.asyncShow = asyncShow;
@@ -18,10 +18,11 @@ window.changePage = changePage;
 window.changeOrderBy = changeOrderBy;
 window.removeLimit = removeLimit;
 window.changeLimit = changeLimit;
+window.changeDataVisualizationScope = changeDataVisualizationScope;
+window.alertModifyProf = alertModifyProf;
 
 
 window.onload = () => {
     asyncShow()
-    asyncShowClases('filtro-clases')
     displayLocalFilter()
 }
