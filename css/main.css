@@ -1,0 +1,140 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+}
+
+#table {
+    width: 100%;
+    height: 70vh;
+    display: block;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+td,
+th {
+    border: 1px solid rgb(172, 172, 172);
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+table .header-check {
+    width: 2%;
+}
+
+table .header-nombre {
+    width: 20%;
+}
+
+table .header-edad {
+    width: 4%;
+}
+
+table .header-correo {
+    width: 40%;
+}
+
+table .header-accion {
+    width: 8%;
+}
+
+.crear-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button-style {
+    margin: 20px;
+}
+
+.filtrar-container input,
+#filtro-clases {
+    margin-left: 10px;
+    display: unset !important;
+    width: 150px !important;
+    margin: 0px 10px !important;
+}
+
+.filtrar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row !important;
+}
+
+.filtrar-container button {
+    font-size: 16px;
+    padding: 8px 15px;
+    margin-left: 5px;
+}
+
+.page-buttons {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.page-buttons button {
+    border: 1px solid #d5d5d5;
+    cursor: pointer;
+}
+
+.headers-orderby-checked {
+    background-color: #d4d4d4;
+}
+
+.headers-orderby:hover {
+    cursor: pointer;
+    background-color: #c9c9c9;
+    transition: 0.2s ease-in-out;
+}
+
+.text-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    border: 12px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 12px solid #3498db;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+
+/* Safari */
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
