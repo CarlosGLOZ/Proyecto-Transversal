@@ -12,13 +12,24 @@
 </head>
 <body>
     <?php
-        session_start();
-        if (!isset($_SESSION['nombre_usuario'])) {
-            echo "<script>window.location.href = 'login.php'</script>";
-        } else {
-    ?>
+        error_reporting(E_ALL ^ E_WARNING); 
+        // comprobar que el usuario está logeado 
+        require "../proc/validar_sesion.php";
+        val_sesion();
 
-    <?php
+        // conexion a BDD
+        require "../proc/conexion.php";
+
+        if (!isset($_GET['usuarios'])) {
+            echo "<script>window.location.href = '?usuarios=alumno'</script>";
+        } else {
+            $usuarios_query = "SELECT * FROM tbl_alumne WHERE nom_alu LIKE '%".$_GET['filtro-nombre']."%' AND email_alu LIKE '%".$_GET['filtro-correo']."%' AND cognoms_alu LIKE '%".$_GET['filtro-apellidos']."%' AND telf_alu LIKE '%".$_GET['filtro-telefono']."%' AND classe LIKE '%%';";
+            // echo "QUERY: ".$usuarios_query."<br>";
+            $result = mysqli_query($conexion, $usuarios_query);
+            $result_assoc = mysqli_fetch_assoc($result);
+            foreach ($result_assoc as $key => $value) {
+                echo $key." -> ".$value."<br>";
+            }
         }
     ?>
 </body>

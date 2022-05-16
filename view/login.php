@@ -11,6 +11,10 @@
 
 </head>
 <body>
-    
+    <form action="../proc/validar_login.php" method="post">
+        <input type="email" name="email_login" placeholder="Email">
+        <input type="password" name="password_login">
+        <input type="submit" value="Entrar">
+    </form>
 </body>
 </html>

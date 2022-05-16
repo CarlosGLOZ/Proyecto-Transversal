@@ -12,14 +12,9 @@
 </head>
 <body>
     <?php
-        session_start();
-        if (!isset($_SESSION['nombre_usuario'])) {
-            echo "<script>window.location.href = 'login.php'</script>";
-        } else {
-    ?>
-
-    <?php
-        }
+        // comprobar que el usuario está logeado 
+        require "../proc/validar_sesion.php";
+        val_sesion();
     ?>
 </body>
 </html>
