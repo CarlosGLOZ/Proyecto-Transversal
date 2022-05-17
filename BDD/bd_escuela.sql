@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS tbl_professor(
 	email_prof varchar(50) NULL,
 	telf varchar (5) NULL, /* Son les extensions, per exemple: 32256*/
 	dept int(5) NOT NULL,
-    contra varchar(20) NOT NULL,
+    contra varchar(100) NOT NULL,
     `admin` boolean NOT NULL,
 	constraint pk_professor PRIMARY KEY (id_professor)
 );
@@ -103,11 +103,19 @@ CREATE TABLE IF NOT EXISTS tbl_dept(
 ALTER TABLE tbl_alumne
     ADD CONSTRAINT alumne_classe_fk FOREIGN KEY (classe)
     REFERENCES tbl_classe(id_classe);
-	
-ALTER TABLE tbl_classe
-    ADD CONSTRAINT classe_prof_fk FOREIGN KEY (tutor)
-    REFERENCES tbl_professor(id_professor);
 
 ALTER TABLE tbl_professor
     ADD CONSTRAINT prof_dept_fk FOREIGN KEY (dept)
     REFERENCES tbl_dept(id_dept);
+
+ALTER TABLE `tbl_classe` 
+    ADD CONSTRAINT `tbl_classe_ibfk_1` FOREIGN KEY (`tutor`) 
+    REFERENCES `tbl_professor`(`id_professor`) 
+    ON DELETE SET NULL 
+	ON UPDATE NO ACTION;
+
+ALTER TABLE `tbl_classe` 
+    ADD CONSTRAINT `classe_prof_fk` FOREIGN KEY (`tutor`) 
+    REFERENCES `tbl_professor`(`id_professor`) 
+    ON DELETE RESTRICT 
+	ON UPDATE SET NULL;
