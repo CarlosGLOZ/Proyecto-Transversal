@@ -5,7 +5,13 @@ val_sesion();
 
 include './conexion.php';
 
+/* VALIDACIONES */
+if (!isset($_GET['scope']) || !isset($_GET['id'])) {
+    echo "<script>window.location.href = '../view/'</script>";
+    die();
+}
 
+/* ELIMINAR */
 if ($_GET['scope'] == 'alumnos') {
     $sql = "DELETE FROM tbl_alumne WHERE id_alumne={$_GET['id']}";
 } else {
@@ -14,6 +20,6 @@ if ($_GET['scope'] == 'alumnos') {
 
 $delete = mysqli_query($conexion, $sql);
 
-//ALTER TABLE `tbl_classe` DROP FOREIGN KEY `tbl_classe_ibfk_1`;
-//ALTER TABLE `tbl_classe` ADD CONSTRAINT `tbl_classe_ibfk_1` FOREIGN KEY (`tutor`) REFERENCES `tbl_professor`(`id_professor`) ON DELETE SET NULL ON UPDATE NO ACTION;
-//ALTER TABLE `tbl_classe` ADD CONSTRAINT `classe_prof_fk` FOREIGN KEY (`tutor`) REFERENCES `tbl_professor`(`id_professor`) ON DELETE RESTRICT ON UPDATE SET NULL;
+
+
+

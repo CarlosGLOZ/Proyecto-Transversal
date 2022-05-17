@@ -5,6 +5,31 @@ val_sesion();
 
 include './conexion.php';
 
+
+/* VALIDACIONES COMUNES VARIABLES SETEADAS */
+if (!isset($_POST['scope']) || !isset($_POST['id']) || !isset($_POST['nombre']) || !isset($_POST['apellidos']) || !isset($_POST['telefono']) || !isset($_POST['email'])) {
+    echo "<script>window.location.href = '../view/'</script>";
+    die();
+}
+
+/* VALIDACIONES COMUNES VARIABLES VACIAS */
+if (empty($_POST['scope']) || empty($_POST['id']) || empty($_POST['nombre']) || empty($_POST['apellidos']) || empty($_POST['telefono']) || empty($_POST['email'])) {
+    echo "<script>window.location.href = '../view/'</script>";
+    die();
+}
+
+/* VALIDACIONES ALUMNOS */
+if ($_POST['scope'] == 'alumnos' && (!isset($_POST['dni']) || empty($_POST['dni']) || !isset($_POST['clase']) || empty($_POST['clase']))) {
+    echo "<script>window.location.href = '../view/'</script>";
+    die();
+}
+
+/* VALIDACIONES PROFESORES */
+if ($_POST['scope'] == 'profesores' && (!isset($_POST['dept']) || empty($_POST['dept']) )) {
+    echo "<script>window.location.href = '../view/'</script>";
+    die();
+}
+
 $id = $_POST['id'];
 $nombre = $_POST['nombre'];
 $apellidos = $_POST['apellidos'];

@@ -1,4 +1,5 @@
 import { asyncDelete, asyncModify, asyncCreate, asyncMultipleModify, asyncMultipleDelete, asyncShowDepts, asyncChangePassword  } from "./ajax.js"
+import { validaTexto, valida_DNI, valida_telefono } from './valida.js';
 
 
 export function alertDelete(id) {
@@ -193,7 +194,27 @@ export function alertCreateAlu() {
                <select id="select-clases" class="swal2-input" name='clases'></select>`,
         confirmButtonText: 'Crear',
         focusConfirm: false,
-        didOpen: () => asyncShowClases('select-clases'),
+        didOpen: () => {
+            asyncShowClases('select-clases')
+            document.getElementById("dni").onblur = validaTexto;
+            document.getElementById("dni").onblur = valida_DNI;
+
+            // VALIDAR NOMBRE:
+            document.getElementById("nombre").onblur = validaTexto;
+
+            // VALIDAR APELLIDOS:
+            document.getElementById("apellidos").onblur = validaTexto;
+
+            // VALIDAR TELÉFONO:
+            document.getElementById("telefono").onblur = validaTexto;
+            document.getElementById("telefono").onblur = valida_telefono;
+
+            // VALIDAR EMAIL: 
+            document.getElementById("email").onblur = validaTexto;
+
+            // VALIDA CLASE:
+            document.getElementById("select-clases").onblur = validaTexto;
+        },
         preConfirm: () => {
             let dni = Swal.getPopup().querySelector('#dni').value
             let nombre = Swal.getPopup().querySelector('#nombre').value
