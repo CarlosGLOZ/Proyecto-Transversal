@@ -114,6 +114,7 @@ foreach ($profesores as $profesor) {
         <td>
             <button class="btn btn-danger" onClick="alertDelete(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-trash-can"></i></button>
             <button class="btn btn-primary" onClick="alertModifyProf(<?php echo $profesor['id_professor']; ?>, '<?php echo $profesor['nom_prof']; ?>', '<?php echo $profesor['cognoms_prof']; ?>', '<?php echo $profesor['telf']; ?>', '<?php echo $profesor['email_prof']; ?>', <?php echo $profesor['id_dept']; ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="btn btn-secondary" onClick="alertChangePasswordProf(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-key"></i></button>
         </td>
     </tr>
     <?php

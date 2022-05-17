@@ -1,4 +1,4 @@
-import { asyncDelete, asyncModify, asyncCreate, asyncMultipleModify, asyncMultipleDelete, asyncShowDepts } from "./ajax.js"
+import { asyncDelete, asyncModify, asyncCreate, asyncMultipleModify, asyncMultipleDelete, asyncShowDepts, asyncChangePassword  } from "./ajax.js"
 
 
 export function alertDelete(id) {
@@ -94,6 +94,22 @@ export function alertMultipleModifyProf() {
         }
     }).then((result) => {
         asyncMultipleModify(result.value)
+    })
+}
+
+
+export function alertChangePasswordProf(id) {
+    Swal.fire({
+        title: 'Cambiar password',
+        html: `<input type="password" id="password" class="swal2-input" placeholder="Nuevo password">`,
+        confirmButtonText: 'Cambiar password',
+        focusConfirm: false,
+        preConfirm: () => {
+            let password = Swal.getPopup().querySelector('#password').value
+            return { id: id, password: password }
+        }
+    }).then((result) => {
+       asyncChangePassword(result.value)
     })
 }
 
@@ -200,6 +216,7 @@ export function alertCreateProf() {
                <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos">
                <input type="text" id="telefono" class="swal2-input" placeholder="Teléfono">
                <input type="email" id="email" class="swal2-input" placeholder="Email">
+               <input type="password" id="password" class="swal2-input" placeholder="Password">
                <select id="select-dept" class="swal2-input" name='dept'></select>`,
         confirmButtonText: 'Crear',
         focusConfirm: false,
@@ -209,8 +226,9 @@ export function alertCreateProf() {
             let apellidos = Swal.getPopup().querySelector('#apellidos').value
             let telefono = Swal.getPopup().querySelector('#telefono').value
             let email = Swal.getPopup().querySelector('#email').value
+            let password = Swal.getPopup().querySelector('#password').value
             let dept = Swal.getPopup().querySelector('#select-dept').value
-            return { nombre: nombre, email: email, apellidos: apellidos, telefono: telefono, email: email, dept: dept }
+            return { nombre: nombre, email: email, apellidos: apellidos, telefono: telefono, email: email, password: password, dept: dept }
             /* if (!login || !password) {
                 Swal.showValidationMessage(`Please enter login and password`)
             } */

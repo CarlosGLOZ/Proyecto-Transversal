@@ -1,4 +1,4 @@
-import { asyncShow, asyncShowDepts } from "./ajax.js";
+import { asyncShow, asyncShowClases, asyncShowDepts } from "./ajax.js";
 
 
 export function checkCheckedCheckboxes() {

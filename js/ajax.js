@@ -97,7 +97,7 @@ export function asyncCreate(values) {
         data = { nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
         url += 'insertar_alu.php';
     } else {
-        data = { nombre: values.nombre, apellidos: values.apellidos, email: values.email, telefono: values.telefono, dept: values.dept };
+        data = { nombre: values.nombre, apellidos: values.apellidos, email: values.email, telefono: values.telefono, password: values.password, dept: values.dept };
         url += 'insertar_prof.php';
     }
     $.ajax({
@@ -170,6 +170,18 @@ export function asyncMultipleDelete() {
             }
         })
     }
+}
+
+
+export function asyncChangePassword(values) {
+    $.ajax({
+        type: 'POST',
+        url: '../proc/cambiar_password.php',
+        data: {id: values.id, password: values.password},
+        success: function() {
+            asyncShow()
+        }
+    })
 }
 
 
