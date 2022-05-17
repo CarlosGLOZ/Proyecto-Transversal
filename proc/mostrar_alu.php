@@ -1,5 +1,8 @@
 <?php
 
+include '../proc/validar_sesion.php';
+val_sesion();
+
 include './conexion.php';
 
 if (!isset($_GET['nombre']) && !isset($_GET['dni']) && !isset($_GET['apellidos']) && !isset($_GET['telefono']) && !isset($_GET['email']) && !isset($_GET['clase'])) {

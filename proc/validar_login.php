@@ -5,7 +5,7 @@ if (isset($_POST['email_login']) && isset($_POST['email_login']))    {
     require "./conexion.php";
 
     $email_login = $_POST['email_login'];
-    $password_login = $_POST['password_login'];
+    $password_login = sha1($_POST['password_login']);
 
     // COMPROBAR LA CONEXIÓN A LA BDD (por alguna razón??)
     if (!$conexion) {
@@ -32,7 +32,7 @@ if (isset($_POST['email_login']) && isset($_POST['email_login']))    {
             $_SESSION['admin'] = $user['admin'];
         }
 
-        echo "<script>window.location.href = '../view/mostrar_usuarios.php';</script>";
+        echo "<script>window.location.href = '../view/';</script>";
     } else {
         echo "<script>window.location.href = '../view/login.php?val=false';</script>";
         die();

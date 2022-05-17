@@ -1,5 +1,8 @@
 <?php
 
+include '../proc/validar_sesion.php';
+val_sesion();
+
 include './conexion.php';
 
 $id = $_POST['id'];

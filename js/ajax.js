@@ -53,9 +53,9 @@ export function asyncDelete(id) {
     let url = '../proc/';
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
-        url += `eliminar_alu.php?id=${id}`;
+        url += `eliminar_reg.php?id=${id}&scope=alumnos`;
     } else {
-        url += `eliminar_prof.php?id=${id}`;
+        url += `eliminar_reg.php?id=${id}&scope=profesores`;
     }
     $.ajax({
         type: 'GET',
@@ -68,19 +68,16 @@ export function asyncDelete(id) {
 
 
 export function asyncModify(id, values) {
-    let url = '../proc/';
     let data;
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
-        data = { id: id, nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
-        url += 'modificar_alu.php';
+        data = { id: id, scope: scope,  nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
     } else {
-        data = { id: id, nombre: values.nombre, apellidos: values.apellidos, telefono: values.telefono, email: values.email, dept: values.dept };
-        url += 'modificar_prof.php';
+        data = { id: id, scope: scope, nombre: values.nombre, apellidos: values.apellidos, telefono: values.telefono, email: values.email, dept: values.dept };
     }
     $.ajax({
         type: 'POST',
-        url: url,
+        url: '../proc/modificar_reg.php',
         data: data,
         success: function(response) {
             asyncShow()
@@ -90,19 +87,16 @@ export function asyncModify(id, values) {
 
 
 export function asyncCreate(values) {
-    let url = '../proc/';
     let data;
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
-        data = { nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
-        url += 'insertar_alu.php';
+        data = { scope: scope, nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
     } else {
-        data = { nombre: values.nombre, apellidos: values.apellidos, email: values.email, telefono: values.telefono, password: values.password, dept: values.dept };
-        url += 'insertar_prof.php';
+        data = { scope: scope, nombre: values.nombre, apellidos: values.apellidos, email: values.email, telefono: values.telefono, password: values.password, dept: values.dept };
     }
     $.ajax({
         type: 'POST',
-        url: url,
+        url: '../proc/insertar_reg.php',
         data: data,
         success: function(response) {
             asyncShow()
@@ -112,18 +106,15 @@ export function asyncCreate(values) {
 
 
 export function asyncMultipleModify(values) {
-    let url = '../proc/';
     let query;
     let data;
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
         query = 'alumno'
-        url += 'mulitple_modificar_alu.php';
-        data = { nombre: values.nombre, dni: values.dni, email: values.email, apellidos: values.apellidos, telefono: values.telefono, clase: values.clase }
+        data = { nombre: values.nombre, scope: scope, dni: values.dni, email: values.email, apellidos: values.apellidos, telefono: values.telefono, clase: values.clase }
     } else {
         query = 'profesor'
-        url += 'mutiple_modificar_prof.php';
-        data = { nombre: values.nombre, email: values.email, apellidos: values.apellidos, telefono: values.telefono, dept: values.dept }
+        data = { nombre: values.nombre, scope: scope, email: values.email, apellidos: values.apellidos, telefono: values.telefono, dept: values.dept }
     }
     let checks = [];
     let checkedBoxes = document.querySelectorAll(`input[name=${query}]:checked`)
@@ -134,7 +125,7 @@ export function asyncMultipleModify(values) {
         data.ids = checks;
         $.ajax({
             type: 'POST',
-            url: url,
+            url: '../proc/mutiple_modificar_reg.php',
             data: data,
             success: function(response) {
                 asyncShow()
@@ -145,15 +136,12 @@ export function asyncMultipleModify(values) {
 
 
 export function asyncMultipleDelete() {
-    let url = '../proc/';
     let query;
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
         query = 'alumno'
-        url += 'mulitple_eliminar_alu.php';
     } else {
         query = 'profesor'
-        url += 'mulitple_eliminar_prof.php';
     }
     let checks = [];
     let checkedBoxes = document.querySelectorAll(`input[name=${query}]:checked`)
@@ -163,8 +151,8 @@ export function asyncMultipleDelete() {
     if (checks.length > 0) {
         $.ajax({
             type: 'POST',
-            url: url,
-            data: {ids: checks},
+            url: '../proc/mulitple_eliminar_reg.php',
+            data: {ids: checks, scope: scope},
             success: function() {
                 asyncShow()
             }
