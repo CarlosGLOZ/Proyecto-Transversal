@@ -20,6 +20,12 @@
     <title>CRUD - Alumnos</title>
 </head>
 <body>
+    <?php
+
+        include '../proc/validar_sesion.php';
+        val_sesion();
+
+    ?>
 
     <!-- OPCIONES -->
     <div class="crear-container">

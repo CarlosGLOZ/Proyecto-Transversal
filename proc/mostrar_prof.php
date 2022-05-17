@@ -1,5 +1,7 @@
 <?php
 
+include '../proc/validar_sesion.php';
+val_sesion();
 
 include './conexion.php';
 
@@ -27,6 +29,25 @@ if (!isset($_GET['nombre']) && !isset($_GET['apellidos']) && !isset($_GET['telef
                   FROM tbl_professor INNER JOIN tbl_dept ON tbl_professor.dept = tbl_dept.id_dept 
                   LEFT JOIN tbl_classe ON tbl_classe.tutor = tbl_professor.id_professor 
                   WHERE `nom_prof` LIKE '%$nombre%' AND `cognoms_prof` LIKE '%$apellidos%' AND `telf` LIKE '%$telefono%' AND `email_prof` LIKE '%$email%' AND `dept` LIKE '%$dept%'";
+}
+
+
+if (isset($_GET['orderby'])) {
+    /* ORDENAR REGISTROS POR CAMPO */
+    $orderby = $_GET['orderby'];
+    if ($orderby == 'nombre') {
+        $sql .= " ORDER BY nom_prof";
+    } else if ($orderby == 'apellidos') {
+        $sql .= " ORDER BY cognoms_prof";
+    } else if ($orderby == 'telefono') {
+        $sql .= " ORDER BY telf";
+    } else if ($orderby == 'email') {
+        $sql .= " ORDER BY email_prof";
+    } else if ($orderby == 'dept') {
+        $sql .= " ORDER BY id_dept";
+    }
+} else {
+    $sql .= " ORDER BY id_professor";
 }
 
 $total = mysqli_query($conexion, $sql_total);
@@ -72,11 +93,11 @@ $profesores = mysqli_query($conexion, $sql);
 <table>
 <tr>
 <th class="header-check"><input id="check-all" onClick="checkAllCheckboxes()" type="checkbox"/></th>
-<th>Nombre</th>
-<th>Apellidos</th>
-<th>Teléfono</th>
-<th>Email</th>
-<th>Departamento</th>
+<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'nombre' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('nombre')">Nombre</th>
+<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'apellidos' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('apellidos')">Apellidos</th>
+<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'telefono' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('telefono')">Teléfono</th>
+<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'email' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('email')">Email</th>
+<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'dept' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('dept')">Departamento</th>
 <th>Clase</th>
 <th>Accion</th>
 </tr>
@@ -95,6 +116,7 @@ foreach ($profesores as $profesor) {
         <td>
             <button class="btn btn-danger" onClick="alertDelete(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-trash-can"></i></button>
             <button class="btn btn-primary" onClick="alertModifyProf(<?php echo $profesor['id_professor']; ?>, '<?php echo $profesor['nom_prof']; ?>', '<?php echo $profesor['cognoms_prof']; ?>', '<?php echo $profesor['telf']; ?>', '<?php echo $profesor['email_prof']; ?>', <?php echo $profesor['id_dept']; ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="btn btn-secondary" onClick="alertChangePasswordProf(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-key"></i></button>
         </td>
     </tr>
     <?php

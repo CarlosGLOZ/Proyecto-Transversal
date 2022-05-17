@@ -1,4 +1,4 @@
-import { asyncShow, asyncShowDepts } from "./ajax.js";
+import { asyncShow, asyncShowClases, asyncShowDepts } from "./ajax.js";
 
 
 export function checkCheckedCheckboxes() {
@@ -200,7 +200,7 @@ export function changeDataVisualizationScope() {
     let dataScope = document.querySelector('input[name="datos-scope"]:checked').value;
     localStorage.setItem('data_scope', dataScope)
     asyncShow();
-    voidLocalFilter();
+    changeFilterInputs()
     displayLocalFilter()
 }
 
