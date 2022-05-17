@@ -44,7 +44,6 @@ export function asyncShow() {
             element.innerHTML = response;
             checkCheckedCheckboxes()
             updatePageButtons();
-            changeFilterInputs()
         }
     })
 }
