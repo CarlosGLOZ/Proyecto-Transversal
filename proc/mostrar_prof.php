@@ -98,7 +98,7 @@ $profesores = mysqli_query($conexion, $sql);
 <th class="headers-orderby <?php echo isset($orderby) && $orderby == 'telefono' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('telefono')">Teléfono</th>
 <th class="headers-orderby <?php echo isset($orderby) && $orderby == 'email' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('email')">Email</th>
 <th class="headers-orderby <?php echo isset($orderby) && $orderby == 'dept' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('dept')">Departamento</th>
-<th>Clase</th>
+<th>Tutor</th>
 <th>Accion</th>
 </tr>
 

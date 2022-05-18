@@ -1,5 +1,5 @@
 import { checkCheckedCheckboxes, updatePageButtons } from "./utils.js";
-import { alertFailed } from "./alerts.js";
+import { alertCreateAlu, alertCreateProf, alertFailed, alertModify, alertModifyProf, alertMultipleModifyAlu } from "./alerts.js";
 
 
 export function asyncShow() {
@@ -81,7 +81,22 @@ export function asyncModify(id, values) {
         url: '../proc/modificar_reg.php',
         data: data,
         success: function(response) {
-            asyncShow()
+            let error;
+            if (response == 'Correo ya existe') {
+                error = 'Correo ya existe';
+            } else if (response == 'DNI ya existe') {
+                error = 'DNI ya existe';
+            } 
+            if (error) {
+                let scope = localStorage.getItem('data_scope')
+                if (!scope || scope == 'alumnos') {
+                    alertFailed(error, alertModify, data)
+                } else {
+                    alertFailed(error, alertModifyProf, data)
+                }
+            } else {
+                asyncShow()
+            }
         }
     })
 }
@@ -100,10 +115,19 @@ export function asyncCreate(values) {
         url: '../proc/insertar_reg.php',
         data: data,
         success: function(response) {
-            if (response === 'Correo ya extiste') {
-                alertFailed('Correo ya en uso');
+            let error;
+            if (response == 'Correo ya existe') {
+                error = 'Correo ya existe';
             } else if (response == 'DNI ya existe') {
-                alertFailed('DNI ya en uso');
+                error = 'DNI ya existe';
+            } 
+            if (error) {
+                let scope = localStorage.getItem('data_scope')
+                if (!scope || scope == 'alumnos') {
+                    alertFailed(error, alertCreateAlu)
+                } else {
+                    alertFailed(error, alertCreateProf)
+                }
             } else {
                 asyncShow()
             }
