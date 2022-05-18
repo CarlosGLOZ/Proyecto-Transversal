@@ -52,7 +52,7 @@
             </div>
             <form class="d-flex">
                     <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-                        <a style="text-align: right;" href='../php/log_out.php'><button class='btn btn_logout form-control ms-1' type='button'>Log out</button></a>
+                        <a style="text-align: right;" href='../proc/destruir_sesion.php'><button class='btn btn_logout form-control ms-1' type='button'>Log out</button></a>
             </form>
         </div>
     </nav>
@@ -63,8 +63,8 @@
         <button onClick="alertCreate()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Crear</button>
         <button disabled id="multiple-modify-button" onClick="alertMultipleModify()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Modificar</button>
         <button disabled id="multiple-delete-button" onClick="alertMultipleDelete()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Eliminar</button>
-        <a href="../view/cargar_csv(temp).html"><button class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Cargar CSV</button></a>
-        <a href="../view/descargar_csv(temp).html"><button class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Descargar CSV</button></a>
+        <button onClick="alertDownloadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Cargar CSV</button>
+        <button onClick="alertUploadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Descargar CSV</button>
     </div>
     <div id="filtrar-container" class="filtrar-container">
         <!-- FILTRO -->
