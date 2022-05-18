@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS tbl_professor(
 	nom_prof varchar (20) NOT NULL,
 	cognoms_prof varchar (20) NULL,
 	email_prof varchar(50) NULL,
-	telf varchar (5) NULL, /* Son les extensions, per exemple: 32256*/
+	telf varchar (9) NULL, /* Son les extensions, per exemple: 32256*/
 	dept int(5) NOT NULL,
     contra varchar(100) NOT NULL,
     `admin` boolean NOT NULL,

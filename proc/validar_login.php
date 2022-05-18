@@ -1,7 +1,7 @@
 <?php
 
 // comprobar que los datos han sido introducidos en el formulario, redirigir al login con un GET de validación falsa
-if (isset($_POST['email_login']) && isset($_POST['email_login']))    {
+if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty($_POST['email_login']) && !empty($_POST['password_login'])))    {
     require "./conexion.php";
 
     $email_login = $_POST['email_login'];
@@ -32,12 +32,13 @@ if (isset($_POST['email_login']) && isset($_POST['email_login']))    {
             $_SESSION['admin'] = $user['admin'];
         }
 
-        echo "<script>window.location.href = '../view/';</script>";
+        echo "<script>localStorage.setItem('nombre_usuario', '{$_SESSION['nom_prof']}' )</script>";
+        echo "<script>window.location.href = '../view/index.php';</script>";
     } else {
         echo "<script>window.location.href = '../view/login.php?val=false';</script>";
         die();
     }
 } else {
-    echo "<script>window.location.href = '../view/login.php?val=false'</script>";
+    echo "<script>window.location.href = '../view/login.php?dat=false'</script>";
     die();
 }

@@ -82,7 +82,7 @@ $alumnos = mysqli_query($conexion, $sql);
 /* MOSTRAR LOS DATOS */
 ?>
 
-<b class="text-center">Resultados: <?php echo $total ?></b>
+<b style="color: rgb(142, 202, 230); margin-bottom: 10px;" class="text-center">Resultados: <?php echo $total ?></b>
 <table>
 <tr>
 <th class="header-check"><input id="check-all" onClick="checkAllCheckboxes()" type="checkbox"/></th>
