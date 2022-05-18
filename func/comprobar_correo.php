@@ -16,7 +16,7 @@ function comprobar_correo($conexion, $email, $id=null, $scope=null) {
     $total_correos = mysqli_fetch_assoc($result)['total'];
     
     if ($total_correos > 0) {
-        echo "CORREO YA EXISTE";
+        echo "Correo ya extiste";
         die();
     }
 }

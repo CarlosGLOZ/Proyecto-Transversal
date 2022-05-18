@@ -1,4 +1,5 @@
-import { checkCheckedCheckboxes, updatePageButtons, changeFilterInputs } from "./utils.js";
+import { checkCheckedCheckboxes, updatePageButtons } from "./utils.js";
+import { alertFailed } from "./alerts.js";
 
 
 export function asyncShow() {
@@ -99,7 +100,13 @@ export function asyncCreate(values) {
         url: '../proc/insertar_reg.php',
         data: data,
         success: function(response) {
-            asyncShow()
+            if (response === 'Correo ya extiste') {
+                alertFailed('Correo ya en uso');
+            } else if (response == 'DNI ya existe') {
+                alertFailed('DNI ya en uso');
+            } else {
+                asyncShow()
+            }
         }
     })
 }

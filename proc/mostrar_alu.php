@@ -39,7 +39,7 @@ if (isset($_GET['orderby'])) {
         $sql .= " ORDER BY classe";
     }
 } else {
-    $sql .= " ORDER BY id_alumne";
+    $sql .= " ORDER BY id_alumne DESC";
 }
 
 /* CALCULAR NUMERO DE PÁGINAS */

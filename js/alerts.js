@@ -261,3 +261,19 @@ export function alertCreateProf() {
         asyncCreate(result.value)
     })
 }
+
+
+export function alertFailed(error) {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error,
+    }).then(() => {
+        let scope = localStorage.getItem('scope')
+        if (!scope || scope == 'alumnos') {
+            alertCreateAlu()
+        } else {
+            alertCreateProf();
+        }
+    })
+}

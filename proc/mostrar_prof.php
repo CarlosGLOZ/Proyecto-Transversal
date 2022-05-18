@@ -47,7 +47,7 @@ if (isset($_GET['orderby'])) {
         $sql .= " ORDER BY id_dept";
     }
 } else {
-    $sql .= " ORDER BY id_professor";
+    $sql .= " ORDER BY id_professor DESC";
 }
 
 $total = mysqli_query($conexion, $sql_total);
