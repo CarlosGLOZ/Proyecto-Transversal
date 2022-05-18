@@ -5,7 +5,13 @@ val_sesion();
 
 include './conexion.php';
 
-$alumnos = $_POST['ids'];
+/* VALIDACIONES */
+if (!isset($_POST['scope']) || empty($_POST['scope']) || !isset($_POST['ids']) || empty($_POST['ids'])) {
+    echo "<script>window.location.href = '../view/'</script>";
+    die();
+}
+
+$registros = $_POST['ids'];
 
 if ($_POST['scope'] == 'alumnos') {
     $sql = "DELETE FROM tbl_alumne WHERE `id_alumne`";
@@ -13,7 +19,7 @@ if ($_POST['scope'] == 'alumnos') {
     $sql = "DELETE FROM tbl_professor WHERE `id_professor`";
 }
 
-foreach ($alumnos as $id) {
+foreach ($registros as $id) {
     mysqli_query($conexion, "$sql = $id");
 }
 

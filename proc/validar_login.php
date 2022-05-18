@@ -4,10 +4,14 @@
 if (isset($_POST['email_login']) && isset($_POST['email_login']))    {
     require "./conexion.php";
 
-    $email_login = $_POST['email_login'];
-    $password_login = sha1($_POST['password_login']);
+    // EVITAR INJECCIÓN SQL
+    $email_login = $conexion->real_escape_string($_POST['email_login']);
+    $password_login = $conexion->real_escape_string($_POST['password_login']);
 
-    // COMPROBAR LA CONEXIÓN A LA BDD (por alguna razón??)
+    // ENCRIPTAR PASSWORD
+    $password_login = sha1($password_login);
+
+    // COMPROBAR LA CONEXIÓN A LA BDD
     if (!$conexion) {
         echo "ERROR DE CONEXION CON LA BASE DE DATOS";
         echo "<a href='../view/login.php'>volver</a>";
@@ -30,9 +34,15 @@ if (isset($_POST['email_login']) && isset($_POST['email_login']))    {
             $_SESSION['contra'] = $user['contra'];
             $_SESSION['nom_prof'] = $user['nom_prof'];
             $_SESSION['admin'] = $user['admin'];
+            $_SESSION['2step_val'] = false;
         }
 
-        echo "<script>window.location.href = '../view/';</script>";
+        // enviar código de verificación
+        require "2step_auth.php";
+
+        twostep_auth($_SESSION['email_prof']);
+
+        echo "<script>window.location.href = '../view/codigo_auth.html';</script>";
     } else {
         echo "<script>window.location.href = '../view/login.php?val=false';</script>";
         die();

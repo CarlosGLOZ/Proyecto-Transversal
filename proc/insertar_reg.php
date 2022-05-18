@@ -29,20 +29,35 @@ if ($_POST['scope'] == 'profesores' && (!isset($_POST['password']) || empty($_PO
     die();
 }
 
-//RECUPERAR DATOS
-$nombre = $_POST['nombre'];
-$apellidos = $_POST['apellidos'];
-$telefono = $_POST['telefono'];
-$email = $_POST['email'];
+// RECUPERAR DATOS Y EVITAR INJECCIONES JS / HTML
+$nombre = strip_tags($_POST['nombre']);
+$apellidos = strip_tags($_POST['apellidos']);
+$telefono = strip_tags($_POST['telefono']);
+$email = strip_tags($_POST['email']);
+
+// ELIMINAR ESPACIOS EN BLANCO AL PRINCIPIO Y FINAL DEL STRING
+$telefono = trim($telefono);
+$email = trim($email);
+
+// COMPROBAR SI UN CORREO YA HA SIDO INTRODUCIDO EN LA BASE DE DATOS
+include '../func/comprobar_correo.php';
+comprobar_correo($conexion, $email);
 
 if ($_POST['scope'] == 'alumnos') {
-    $dni = $_POST['dni'];
-    $clase = $_POST['clase'];
+    // COMPROBACIONES DNI
+    $dni = strip_tags($_POST['dni']);
+    $dni = trim($dni);
+
+    // COMPROBAR SI UN DNI YA HA SIDO INTRODUCIDO EN LA BASE DE DATOS
+    include '../func/comprobar_dni.php';
+    comprobar_dni($conexion, $dni);
+
+    $clase = strip_tags($_POST['clase']);
     $sql = "INSERT INTO tbl_alumne (`dni_alu`, `nom_alu`, `cognoms_alu`, `telf_alu`, `email_alu`, `classe`) VALUES ('$dni', '$nombre', '$apellidos', '$telefono', '$email', $clase);";
 
 } else {
     $password = sha1($_POST['password']);
-    $dept = $_POST['dept'];
+    $dept = strip_tags($_POST['dept']);
     $sql = "INSERT INTO tbl_professor (`nom_prof`, `cognoms_prof`, `email_prof`, `telf`, `contra`, `dept`) VALUES ('$nombre', '$apellidos', '$email', '$telefono', '$password', $dept);";
 
 }

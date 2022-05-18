@@ -67,8 +67,9 @@
                     continue;
     
                 } else if (!in_array($campos[2],$lista_emails)) {
+                    // var_dump($campos);
                     $cont++;
-                    $datos= "'{$campos[0]}', '{$campos[1]}' , '{$campos[2]}', '{$campos[3]}', {$campos[4]}, '{$campos[5]}', {$campos[6]}";
+                    $datos= "'{$campos[0]}', '{$campos[1]}' , '{$campos[2]}', '{$campos[3]}', {$campos[4]}, '".sha1($campos[5])."', {$campos[6]}";
         
                     $insert_prof_query ="INSERT INTO `tbl_professor`(`nom_prof`, `cognoms_prof`, `email_prof`, `telf`, `dept`, `contra`, `admin` ) VALUES ($datos);";
                     
