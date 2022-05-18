@@ -30,21 +30,36 @@ if ($_POST['scope'] == 'profesores' && (!isset($_POST['dept']) || empty($_POST['
     die();
 }
 
-$id = $_POST['id'];
-$nombre = $_POST['nombre'];
-$apellidos = $_POST['apellidos'];
-$telefono = $_POST['telefono'];
-$email = $_POST['email'];
+// RECUPERAR DATOS Y EVITAR INJECCIONES JS / HTML
+$id = strip_tags($_POST['id']);
+$nombre = strip_tags($_POST['nombre']);
+$apellidos = strip_tags($_POST['apellidos']);
+$telefono = strip_tags($_POST['telefono']);
+$email = strip_tags($_POST['email']);
+
+// ELIMINAR ESPACIOS EN BLANCO AL PRINCIPIO Y FINAL DEL STRING
+$telefono = trim($telefono);
+$email = trim($email);
+
+// COMPROBAR SI UN CORREO YA HA SIDO INTRODUCIDO EN LA BASE DE DATOS
+include '../func/comprobar_correo.php';
+comprobar_correo($conexion, $email, $id, $_POST['scope']);
 
 if ($_POST['scope'] == 'alumnos') {
-    $dni = $_POST['dni'];
-    $clase = $_POST['clase'];
+    // COMPROBACIONES DNI
+    $dni = strip_tags($_POST['dni']);
+    $dni = trim($dni);
+
+    // COMPROBAR SI UN DNI YA HA SIDO INTRODUCIDO EN LA BASE DE DATOS
+    include '../func/comprobar_dni.php';
+    comprobar_dni($conexion, $dni, $id);
+    
+    $clase = strip_tags($_POST['clase']);
     $sql = "UPDATE `tbl_alumne` SET `dni_alu` = '$dni', `nom_alu` = '$nombre', `cognoms_alu` = '$apellidos', `telf_alu` = '$telefono', `email_alu` = '$email', `classe` = '$clase' WHERE `id_alumne` = $id";
 
 } else {
-    $dept = $_POST['dept'];
+    $dept = strip_tags($_POST['dept']);
     $sql = "UPDATE `tbl_professor` SET `nom_prof` = '$nombre', `cognoms_prof` = '$apellidos', `telf` = '$telefono', `email_prof` = '$email', `dept` = '$dept' WHERE `id_professor` = $id";
 }
 
 mysqli_query($conexion, $sql);
-
