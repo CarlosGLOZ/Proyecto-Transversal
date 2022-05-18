@@ -10,7 +10,11 @@
 
 <body>
     <form action="../proc/mandar_correo.php" method="post" enctype="multipart/form-data">
-        <input type="email" name="recipiente" placeholder="Recipiente" required>
+        <!-- <input type="email" name="recipiente" placeholder="Recipiente" required> -->
+        <input type="checkbox" name="correo-1" value="cgiraldolozano@gmail.com">
+        <label for="correo1">cgiraldolozano@gmail.com</label>
+        <input type="checkbox" name="correo-2" value="100007082.joan23@fje.edu">
+        <label for="correo2">100007082.joan23@fje.edu</label>
         <input type="text" name="asunto" placeholder="Asunto">
         <input type="text" name="mensaje" placeholder="Mensaje">
         <input type="file" name="adjunto">
