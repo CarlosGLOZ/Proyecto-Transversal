@@ -111,10 +111,10 @@ export function asyncMultipleModify(values) {
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
         query = 'alumno'
-        data = { nombre: values.nombre, scope: scope, dni: values.dni, email: values.email, apellidos: values.apellidos, telefono: values.telefono, clase: values.clase }
+        data = {scope: scope, clase: values.clase }
     } else {
         query = 'profesor'
-        data = { nombre: values.nombre, scope: scope, email: values.email, apellidos: values.apellidos, telefono: values.telefono, dept: values.dept }
+        data = { scope: scope, dept: values.dept }
     }
     let checks = [];
     let checkedBoxes = document.querySelectorAll(`input[name=${query}]:checked`)
