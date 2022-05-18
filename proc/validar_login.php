@@ -1,7 +1,7 @@
 <?php
 
 // comprobar que los datos han sido introducidos en el formulario, redirigir al login con un GET de validación falsa
-if (isset($_POST['email_login']) && isset($_POST['email_login']))    {
+if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty($_POST['email_login']) && !empty($_POST['password_login'])))    {
     require "./conexion.php";
 
     // EVITAR INJECCIÓN SQL
@@ -10,6 +10,7 @@ if (isset($_POST['email_login']) && isset($_POST['email_login']))    {
 
     // ENCRIPTAR PASSWORD
     $password_login = sha1($password_login);
+
 
     // COMPROBAR LA CONEXIÓN A LA BDD
     if (!$conexion) {
@@ -43,11 +44,13 @@ if (isset($_POST['email_login']) && isset($_POST['email_login']))    {
         twostep_auth($_SESSION['email_prof']);
 
         echo "<script>window.location.href = '../view/codigo_auth.html';</script>";
+        echo "<script>localStorage.setItem('nombre_usuario', '{$_SESSION['nom_prof']}' )</script>";
+        echo "<script>window.location.href = '../view/index.php';</script>";
     } else {
         echo "<script>window.location.href = '../view/login.php?val=false';</script>";
         die();
     }
 } else {
-    echo "<script>window.location.href = '../view/login.php?val=false'</script>";
+    echo "<script>window.location.href = '../view/login.php?dat=false'</script>";
     die();
 }

@@ -1,4 +1,5 @@
-import { checkCheckedCheckboxes, updatePageButtons, changeFilterInputs } from "./utils.js";
+import { checkCheckedCheckboxes, updatePageButtons } from "./utils.js";
+import { alertFailed } from "./alerts.js";
 
 
 export function asyncShow() {
@@ -99,7 +100,13 @@ export function asyncCreate(values) {
         url: '../proc/insertar_reg.php',
         data: data,
         success: function(response) {
-            asyncShow()
+            if (response === 'Correo ya extiste') {
+                alertFailed('Correo ya en uso');
+            } else if (response == 'DNI ya existe') {
+                alertFailed('DNI ya en uso');
+            } else {
+                asyncShow()
+            }
         }
     })
 }
@@ -111,10 +118,10 @@ export function asyncMultipleModify(values) {
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
         query = 'alumno'
-        data = { nombre: values.nombre, scope: scope, dni: values.dni, email: values.email, apellidos: values.apellidos, telefono: values.telefono, clase: values.clase }
+        data = {scope: scope, clase: values.clase }
     } else {
         query = 'profesor'
-        data = { nombre: values.nombre, scope: scope, email: values.email, apellidos: values.apellidos, telefono: values.telefono, dept: values.dept }
+        data = { scope: scope, dept: values.dept }
     }
     let checks = [];
     let checkedBoxes = document.querySelectorAll(`input[name=${query}]:checked`)

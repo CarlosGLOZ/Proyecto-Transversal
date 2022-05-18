@@ -4,22 +4,79 @@ table {
     width: 90%;
 }
 
+body {
+    background-color: rgb(2, 48, 71)!important;
+    font-family: 'Roboto Flex', sans-serif;
+    color: rgb(142, 202, 230) !important;
+}
+
+nav.navbar {
+    background-color: rgb(33, 158, 188)!important;
+}
+
+.btn_logout {
+    background-color: rgb(241, 89, 89)!important;
+}
+
+.btn_crud {
+    background-color: rgb(142, 202, 230) !important;
+}
+
+.filtro {
+    background-color: rgb(142, 202, 230) !important;
+}
+
+.btn_filtros {
+    background-color: rgb(251, 133, 0) !important;
+}
+
+#filtro-select {
+    background-color: rgb(142, 202, 230) !important;
+    color: grey;
+    margin-top: 5px;
+}
+
+.btn_check {
+    background-color: red;
+}
+
+
+/* BOTONES NAVBAR: PROF - ALU*/
+
+
+/* BOTONES PAGINACIÓN: */
+
+.paginacion {
+    background-color: rgb(255, 183, 3);
+    border-style: solid;
+    border-color: rgb(251, 133, 0) !important;
+    border-radius: 5px;
+}
+
 #table {
     width: 100%;
-    height: 70vh;
+    height: 62vh;
     display: block;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
+    color: black;
 }
 
-td,
-th {
-    border: 1px solid rgb(172, 172, 172);
+td {
+    border: 1px solid rgb(33, 158, 188);
     text-align: left;
     padding: 8px;
+    background-color: rgb(142, 202, 230);
+}
+
+th {
+    border: 2px solid rgb(33, 158, 188);
+    text-align: left;
+    padding: 8px;
+    background-color: rgb(67, 124, 151);
 }
 
 tr:nth-child(even) {

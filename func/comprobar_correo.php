@@ -16,7 +16,11 @@ function comprobar_correo($conexion, $email, $id=null, $scope=null) {
     $total_correos = mysqli_fetch_assoc($result)['total'];
     
     if ($total_correos > 0) {
+<<<<<<< HEAD
         echo "CORREO YA EXISTE";
+=======
+        echo "Correo ya extiste";
+>>>>>>> 1ae29927b6639f5be8d9f487dee1efcc1626ab3c
         die();
     }
 }

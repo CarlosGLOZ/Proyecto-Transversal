@@ -1,4 +1,4 @@
-import { asyncDelete, asyncModify, asyncCreate, asyncMultipleModify, asyncMultipleDelete, asyncShowDepts, asyncChangePassword  } from "./ajax.js"
+import { asyncDelete, asyncModify, asyncCreate, asyncMultipleModify, asyncMultipleDelete, asyncShowDepts, asyncChangePassword } from "./ajax.js"
 import { validaTexto, valida_DNI, valida_telefono } from './valida.js';
 
 
@@ -77,21 +77,13 @@ export function alertModifyProf(id, nombre, apellidos, telefono, email, dept) {
 export function alertMultipleModifyProf() {
     Swal.fire({
         title: 'Mulitple modify',
-        html: `<input type="text" id="nombre" class="swal2-input" placeholder="Nombre">
-               <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos">
-               <input type="text" id="telefono" class="swal2-input" placeholder="Teléfono">
-               <input type="email" id="email" class="swal2-input" placeholder="Email">
-               <select id="select-dept" class="swal2-input" name='dept'></select>`,
+        html: `<select id="select-dept" class="swal2-input" name='dept'></select>`,
         confirmButtonText: 'Modify',
         focusConfirm: false,
         didOpen: () => asyncShowDepts('select-dept'),
         preConfirm: () => {
-            let nombre = Swal.getPopup().querySelector('#nombre').value
-            let apellidos = Swal.getPopup().querySelector('#apellidos').value
-            let telefono = Swal.getPopup().querySelector('#telefono').value
-            let email = Swal.getPopup().querySelector('#email').value
             let dept = Swal.getPopup().querySelector('#select-dept').value
-            return { nombre: nombre, email: email, apellidos: apellidos, telefono: telefono, email: email, dept: dept }
+            return { dept: dept }
         }
     }).then((result) => {
         asyncMultipleModify(result.value)
@@ -110,7 +102,7 @@ export function alertChangePasswordProf(id) {
             return { id: id, password: password }
         }
     }).then((result) => {
-       asyncChangePassword(result.value)
+        asyncChangePassword(result.value)
     })
 }
 
@@ -149,23 +141,13 @@ export function alertModify(id, dni, nombre, apellidos, telefono, email, clase) 
 export function alertMultipleModifyAlu() {
     Swal.fire({
         title: 'Mulitple modify',
-        html: `<input type="text" id="dni" class="swal2-input" placeholder="DNI">
-               <input type="text" id="nombre" class="swal2-input" placeholder="Nombre">
-               <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos">
-               <input type="text" id="telefono" class="swal2-input" placeholder="Teléfono">
-               <input type="email" id="email" class="swal2-input" placeholder="Email">
-               <select id="select-clases" class="swal2-input" name='clases'></select>`,
+        html: `<select id="select-clases" class="swal2-input" name='clases'></select>`,
         confirmButtonText: 'Modify',
         focusConfirm: false,
         didOpen: () => asyncShowClases('select-clases'),
         preConfirm: () => {
-            let dni = Swal.getPopup().querySelector('#dni').value
-            let nombre = Swal.getPopup().querySelector('#nombre').value
-            let apellidos = Swal.getPopup().querySelector('#apellidos').value
-            let telefono = Swal.getPopup().querySelector('#telefono').value
-            let email = Swal.getPopup().querySelector('#email').value
             let clase = Swal.getPopup().querySelector('#select-clases').value
-            return { nombre: nombre, dni: dni, email: email, apellidos: apellidos, telefono: telefono, email: email, clase: clase }
+            return { clase: clase }
         }
     }).then((result) => {
         asyncMultipleModify(result.value)
@@ -189,13 +171,14 @@ export function alertCreateAlu() {
         html: `<input type="text" id="dni" class="swal2-input" placeholder="DNI">
                <input type="text" id="nombre" class="swal2-input" placeholder="Nombre">
                <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos">
-               <input type="text" id="telefono" class="swal2-input" placeholder="Teléfono">
+               <input type="number" id="telefono" class="swal2-input" placeholder="Teléfono">
                <input type="email" id="email" class="swal2-input" placeholder="Email">
                <select id="select-clases" class="swal2-input" name='clases'></select>`,
         confirmButtonText: 'Crear',
         focusConfirm: false,
         didOpen: () => {
             asyncShowClases('select-clases')
+                // VALIDAR DNI:
             document.getElementById("dni").onblur = validaTexto;
             document.getElementById("dni").onblur = valida_DNI;
 
@@ -235,13 +218,33 @@ export function alertCreateProf() {
         title: 'Crear',
         html: `<input type="text" id="nombre" class="swal2-input" placeholder="Nombre">
                <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos">
-               <input type="text" id="telefono" class="swal2-input" placeholder="Teléfono">
+               <input type="number" id="telefono" class="swal2-input" placeholder="Teléfono">
                <input type="email" id="email" class="swal2-input" placeholder="Email">
                <input type="password" id="password" class="swal2-input" placeholder="Password">
                <select id="select-dept" class="swal2-input" name='dept'></select>`,
         confirmButtonText: 'Crear',
         focusConfirm: false,
-        didOpen: () => asyncShowDepts('select-dept'),
+        didOpen: () => {
+            asyncShowDepts('select-dept')
+                // VALIDAR NOMBRE:
+            document.getElementById("nombre").onblur = validaTexto;
+
+            // VALIDAR APELLIDOS:
+            document.getElementById("apellidos").onblur = validaTexto;
+
+            // VALIDAR TELÉFONO:
+            document.getElementById("telefono").onblur = validaTexto;
+            document.getElementById("telefono").onblur = valida_telefono;
+
+            // VALIDAR EMAIL: 
+            document.getElementById("email").onblur = validaTexto;
+
+            // VALIDAR CONTRASEÑA:
+            document.getElementById("password").onblur = validaTexto;
+
+            // VALIDA CLASE:
+            document.getElementById("select-dept").onblur = validaTexto;
+        },
         preConfirm: () => {
             let nombre = Swal.getPopup().querySelector('#nombre').value
             let apellidos = Swal.getPopup().querySelector('#apellidos').value
@@ -255,6 +258,22 @@ export function alertCreateProf() {
             } */
         }
     }).then((result) => {
-       asyncCreate(result.value)
+        asyncCreate(result.value)
+    })
+}
+
+
+export function alertFailed(error) {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error,
+    }).then(() => {
+        let scope = localStorage.getItem('scope')
+        if (!scope || scope == 'alumnos') {
+            alertCreateAlu()
+        } else {
+            alertCreateProf();
+        }
     })
 }

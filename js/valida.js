@@ -42,7 +42,7 @@ export var valida_DNI = function(evento) {
 export var valida_telefono = function(evento) {
     //console.log(evento.target.name);
     var valor = evento.target.value;
-    if (valor.length != 5) {
+    if (valor.length != 9) {
         // document.getElementById(evento.target.id + "_msg").innerHTML = evento.target.name + " no es correcto";
         evento.target.style.borderColor = "red";
         evento.target.style.borderWidth = "2px";

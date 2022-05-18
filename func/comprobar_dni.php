@@ -12,7 +12,11 @@ function comprobar_dni($conexion, $dni, $id=null) {
     $total_dni = mysqli_fetch_assoc($result)['total'];
     
     if ($total_dni > 0) {
+<<<<<<< HEAD
         echo "DNI YA EXISTE";
+=======
+        echo "DNI ya existe";
+>>>>>>> 1ae29927b6639f5be8d9f487dee1efcc1626ab3c
         die();
     }
 }
