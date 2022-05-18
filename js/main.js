@@ -1,6 +1,6 @@
 import { alertModify, alertDelete, alertCreate, alertMultipleModify, alertMultipleDelete, alertModifyProf, alertChangePasswordProf } from './alerts.js'
 import { asyncShow, asyncShowClases, asyncShowDepts } from './ajax.js'
-import { changeDataVisualizationScope, removeLimit, changeLimit, checkCheckedCheckboxes, checkAllCheckboxes, storeLocalFilter, voidLocalFilter, changePage, displayLocalFilter, changeOrderBy } from './utils.js'
+import { changeUsername, changeDataVisualizationScope, removeLimit, changeLimit, checkCheckedCheckboxes, checkAllCheckboxes, storeLocalFilter, voidLocalFilter, changePage, displayLocalFilter, changeOrderBy } from './utils.js'
 
 
 window.asyncShow = asyncShow;
@@ -24,6 +24,7 @@ window.alertChangePasswordProf = alertChangePasswordProf;
 
 
 window.onload = () => {
+    changeUsername()
     asyncShow()
     displayLocalFilter()
     let scope = localStorage.getItem('data_scope');
@@ -32,6 +33,4 @@ window.onload = () => {
     } else {
         asyncShowDepts('filtro-select')
     }
-
-    
 }

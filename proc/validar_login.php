@@ -43,9 +43,8 @@ if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty
 
         twostep_auth($_SESSION['email_prof']);
 
-        echo "<script>window.location.href = '../view/codigo_auth.html';</script>";
         echo "<script>localStorage.setItem('nombre_usuario', '{$_SESSION['nom_prof']}' )</script>";
-        echo "<script>window.location.href = '../view/index.php';</script>";
+        echo "<script>window.location.href = '../view/codigo_auth.html';</script>";
     } else {
         echo "<script>window.location.href = '../view/login.php?val=false';</script>";
         die();

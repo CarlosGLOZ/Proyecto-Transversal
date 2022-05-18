@@ -313,6 +313,7 @@ export function alertFailed(error, callBack, values=null) {
         if (!values) {
             callBack();
         } else {
+            console.log('a')
             let scope = localStorage.getItem('data_scope')
             if (!scope || scope == 'alumnos') {
                 callBack(values.id, values.dni, values.nombre, values.apellidos, values.telefono, values.email, values.clase);

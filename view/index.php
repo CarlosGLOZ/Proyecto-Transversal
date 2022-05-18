@@ -33,7 +33,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <b><a class="navbar-brand">Usuario:</b><?php echo $_SESSION['nom_prof'];?></a>
+            <b><a id="nombre-usuario" class="navbar-brand">Usuario:</a></b>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -59,21 +59,21 @@
     
     <!-- OPCIONES -->
     <div class="crear-container">
-        <button onClick="asyncShow()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Recargar</button>
-        <button onClick="alertCreate()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Crear</button>
+        <button onClick="asyncShow()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true"><i class="fa-solid fa-rotate-left"></i></button>
+        <button onClick="alertCreate()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true"><i class="fa-solid fa-plus"></i> Crear</button>
         <button disabled id="multiple-modify-button" onClick="alertMultipleModify()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Modificar</button>
         <button disabled id="multiple-delete-button" onClick="alertMultipleDelete()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Eliminar</button>
-        <button onClick="alertDownloadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Cargar CSV</button>
-        <button onClick="alertUploadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Descargar CSV</button>
+        <button onClick="alertDownloadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true"><i class="fa-solid fa-file-arrow-up"></i> Cargar CSV</button>
+        <button onClick="alertUploadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true"><i class="fa-solid fa-floppy-disk"></i> Descargar CSV</button>
     </div>
     <div id="filtrar-container" class="filtrar-container">
         <!-- FILTRO -->
-        <input id="filtro-dni" type="text" name="dni" class="filtro form-control" placeholder="dni"/>
-        <input id="filtro-nombre" type="text" name="nombre" class="filtro form-control" placeholder="nombre"/>
-        <input id="filtro-apellidos" type="text" name="apellidos" class="filtro form-control" placeholder="apellidos"/>
-        <input id="filtro-telefono" type="text" name="telefono" class="filtro form-control" placeholder="telefono"/>
-        <input id="filtro-email" type="email" name="email" class="filtro form-control" placeholder="email"/>
-        <select id="filtro-select" class="swal2-input" name='clases'></select>
+        <input id="filtro-dni" type="text" name="dni" class="filtro form-control" placeholder="DNI"/>
+        <input id="filtro-nombre" type="text" name="nombre" class="filtro form-control" placeholder="Nombre"/>
+        <input id="filtro-apellidos" type="text" name="apellidos" class="filtro form-control" placeholder="Apellidos"/>
+        <input id="filtro-telefono" type="text" name="telefono" class="filtro form-control" placeholder="Telefono"/>
+        <input id="filtro-email" type="email" name="email" class="filtro form-control" placeholder="Email"/>
+        <select id="filtro-select" class="filtro form-control" name='clases'></select>
         <button class="btn btn-filtros btn-lg" onClick="storeLocalFilter()">Filtrar</button>
         <button class="btn btn-filtros btn-lg" onClick="voidLocalFilter()"><i class="fa-solid fa-xmark"></i></button>
         <!-- LIMITE -->
@@ -86,18 +86,13 @@
 
     <!-- PAGINACION -->
     <div class="page-buttons">
-        <button class="paginacion" id="start-page-button" onClick="changePage('start')"><<</button>
-        <button class="paginacion" id="reduce-page-button" onClick="changePage('reduce')"><</button>
+        <button class="paginacion" id="start-page-button" onClick="changePage('start')"><i class="fa-solid fa-angles-left"></i></button>
+        <button class="paginacion" id="reduce-page-button" onClick="changePage('reduce')"><i class="fa-solid fa-angle-left"></i></button>
         <span id="current-page">1</span>
-        <button class="paginacion" id="add-page-button" onClick="changePage('add')">></button>
-        <button class="paginacion" id="end-page-button" onClick="changePage('end')">>></button>
+        <button class="paginacion" id="add-page-button" onClick="changePage('add')"><i class="fa-solid fa-angle-right"></i></button>
+        <button class="paginacion" id="end-page-button" onClick="changePage('end')"><i class="fa-solid fa-angles-right"></i></button>
         <span id="num-pages">12 páginas</span>
     </div>
-
-    
-    <!-- Subida de varios archivos a la vez -->
-    <!-- Calendario con eventos de la escuela -->
-    <!-- Enlaces publicos para descargar deberes (FTP)  -->
 
 </body>
 </html>

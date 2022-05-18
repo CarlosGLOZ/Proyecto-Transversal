@@ -1,7 +1,9 @@
 <?php
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-require './PHPMailer/src/phpmailer.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/SMTP.php';
 // require 'vendor/autoload.php';
 
 function genAuthCode(int $length) {
@@ -27,6 +29,14 @@ function twostep_auth($user) {
     $cuerpo = '<div style="text-align: center;"><h3>TU CÓDIGO DE AUTENTICACIÓN EN DOS PASOS ES<h3> <h1><b>'.$_SESSION['codigo_auth'].'</b></h1></div>';
 
     $email = new PHPMailer(true);
+
+    $email->isSMTP();
+    $email->Host = 'smtp.gmail.com';
+    $email->Port = 587;
+    $email->SMTPSecure = 'tls';
+    $email->SMTPAuth = true;
+    $email->Username = 'phpsmtpfje@gmail.com';
+    $email->Password = 'asdASD123321';
 
     $email->isHTML(true);
     $email->CharSet = 'UTF-8';

@@ -1,4 +1,4 @@
-import { checkCheckedCheckboxes, updatePageButtons } from "./utils.js";
+import { changeUsername, checkCheckedCheckboxes, updatePageButtons } from "./utils.js";
 import { alertCreateAlu, alertCreateProf, alertFailed, alertModify, alertModifyProf, alertMultipleModifyAlu } from "./alerts.js";
 
 
@@ -96,6 +96,7 @@ export function asyncModify(id, values) {
                 }
             } else {
                 asyncShow()
+                changeUsername()
             }
         }
     })
@@ -122,6 +123,7 @@ export function asyncCreate(values) {
                 error = 'DNI ya existe';
             } 
             if (error) {
+                console.log('b')
                 let scope = localStorage.getItem('data_scope')
                 if (!scope || scope == 'alumnos') {
                     alertFailed(error, alertCreateAlu)

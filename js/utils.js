@@ -210,7 +210,7 @@ export function changeFilterInputs() {
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
         if (!document.getElementById("filtro-dni")) {
-            container.innerHTML = '<input id="filtro-dni" type="text" name="dni" class="form-control" placeholder="dni"/>' + container.innerHTML
+            container.innerHTML = '<input id="filtro-dni" type="text" name="dni" class="filtro form-control" placeholder="DNI"/>' + container.innerHTML
         }
         asyncShowClases('filtro-select')
     } else {
@@ -219,4 +219,10 @@ export function changeFilterInputs() {
         }
         asyncShowDepts('filtro-select')
     }
+}
+
+
+export function changeUsername() {
+    let nombreUsuario = localStorage.getItem('nombre_usuario');
+    document.getElementById('nombre-usuario').innerHTML = `Usuario: ${nombreUsuario}`;
 }

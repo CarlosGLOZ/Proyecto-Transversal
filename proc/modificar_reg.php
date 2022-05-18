@@ -56,10 +56,14 @@ if ($_POST['scope'] == 'alumnos') {
     
     $clase = strip_tags($_POST['clase']);
     $sql = "UPDATE `tbl_alumne` SET `dni_alu` = '$dni', `nom_alu` = '$nombre', `cognoms_alu` = '$apellidos', `telf_alu` = '$telefono', `email_alu` = '$email', `classe` = '$clase' WHERE `id_alumne` = $id";
-
+    
 } else {
     $dept = strip_tags($_POST['dept']);
     $sql = "UPDATE `tbl_professor` SET `nom_prof` = '$nombre', `cognoms_prof` = '$apellidos', `telf` = '$telefono', `email_prof` = '$email', `dept` = '$dept' WHERE `id_professor` = $id";
+
+    if ($id == $_SESSION['id_professor']) {
+        echo "<script>localStorage.setItem('nombre_usuario', '$nombre' )</script>";
+    }
 }
 
 mysqli_query($conexion, $sql);

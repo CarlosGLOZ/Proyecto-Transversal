@@ -24,16 +24,16 @@ nav.navbar {
 
 .filtro {
     background-color: rgb(142, 202, 230) !important;
+    color: black !important;
+    width: 150px !important;
+}
+
+.filtro::placeholder {
+    color: black !important;
 }
 
 .btn_filtros {
     background-color: rgb(251, 133, 0) !important;
-}
-
-#filtro-select {
-    background-color: rgb(142, 202, 230) !important;
-    color: grey;
-    margin-top: 5px;
 }
 
 .btn_check {
