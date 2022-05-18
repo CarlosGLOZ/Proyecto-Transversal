@@ -5,21 +5,26 @@ val_sesion();
 
 include './conexion.php';
 
+if (!isset($_POST['ids']) || empty($_POST['ids']) || !isset($_POST['scope']) || empty($_POST['scope']) ) {
+    echo "<script>window.location.href = '../view/'</script>";
+    die();
+}
 
-$nombre = $_POST['nombre'];
-$apellidos = $_POST['apellidos'];
-$telefono = $_POST['telefono'];
-$email = $_POST['email'];
-$alumnos = $_POST['ids'];
+// RECUPERAR DATOS Y EVITAR INJECCIONES JS / HTML
+$nombre = strip_tags($_POST['nombre']);
+$apellidos = strip_tags($_POST['apellidos']);
+$telefono = strip_tags($_POST['telefono']);
+$email = strip_tags($_POST['email']);
+$registros = $_POST['ids'];
 
 if ($_POST['scope'] == 'alumnos') {
-    $dni = $_POST['dni'];
-    $clase = $_POST['clase'];
+    $dni = strip_tags($_POST['dni']);
+    $clase = strip_tags($_POST['clase']);
     $scope = 'alu';
     $where = 'WHERE `id_alumne`';
     $sql = "UPDATE `tbl_alumne` SET ";
 } else {
-    $dept = $_POST['dept'];
+    $dept = strip_tags($_POST['dept']);
     $scope = 'prof';
     $where = 'WHERE `id_professor`';
     $sql = "UPDATE `tbl_professor` SET ";
@@ -83,6 +88,6 @@ if ($_POST['scope'] == 'profesores' && !empty($dept)) {
 }
 
 
-foreach ($alumnos as $id) {
+foreach ($registros as $id) {
     mysqli_query($conexion, "$sql $where = $id;");
 }

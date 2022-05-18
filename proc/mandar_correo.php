@@ -20,22 +20,33 @@ use PHPMailer\PHPMailer\PHPMailer;
 require './PHPMailer/src/phpmailer.php';
 // require 'vendor/autoload.php';
 
-if (!empty($_POST['recipiente']) && !empty($_POST['asunto']) && !empty($_POST['mensaje'])) {
+if (!empty($_POST['asunto']) && !empty($_POST['mensaje'])) {
 
     $asunto = $_POST['asunto'];
     $cuerpo = $_POST['mensaje'];
-    $recipiente = $_POST['recipiente'];
+    // $recipiente = $_POST['recipiente'];
 
     $email = new PHPMailer(true);
 
     
     $email->SetFrom('richiSecretaria@gmail.com'); //Name is optional
-    $email->Subject='holi';
-    $email->Body='cuerpo';
-    $email->AddAddress( 'cgiraldolozano@gmail.com' );
-    // var_dump($email);
+    $email->Subject=$asunto;
+    $email->Body=$cuerpo;
 
-    if (!empty($_FILES['adjunto'])) {
+    
+    foreach ($_POST as $key => $item) {
+
+        $keys = explode("-", $key);
+
+        if ($keys[0] == 'correo') {
+            // echo $item."<br>";
+            $email->AddAddress( $item );
+        }
+    }
+
+    // var_dump($_FILES['adjunto']['name']);
+
+    if (!empty($_FILES['adjunto']['name'])) {
         // var_dump($_FILES['adjunto']);
         $localPath = "./archivos_temporales/";
         move_uploaded_file($_FILES['adjunto']["tmp_name"], $localPath.$_FILES['adjunto']["full_path"]);

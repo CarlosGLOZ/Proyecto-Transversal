@@ -4,8 +4,12 @@
 if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty($_POST['email_login']) && !empty($_POST['password_login'])))    {
     require "./conexion.php";
 
-    $email_login = $_POST['email_login'];
-    $password_login = sha1($_POST['password_login']);
+    // EVITAR INJECCIÓN SQL
+    $email_login = $conexion->real_escape_string($_POST['email_login']);
+    $password_login = $conexion->real_escape_string($_POST['password_login']);
+
+    // ENCRIPTAR PASSWORD
+    $password_login = sha1($password_login);
 
     // COMPROBAR LA CONEXIÓN A LA BDD (por alguna razón??)
     if (!$conexion) {
