@@ -1,14 +1,15 @@
 <?php
 session_start();
 
-if (isset($_SESSION['2step_val'])) {
-    echo "<script>window.location.href = '../view/index.php'</script>";
-    die();
-}
-
 // comprobar que los datos han sido introducidos en el formulario, redirigir al login con un GET de validación falsa
 if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty($_POST['email_login']) && !empty($_POST['password_login'])))    {
     require "./conexion.php";
+
+    // SI EL USUARIO YA ESTÁ LOGUEADO CON EL MAIL INTRODUCIDO Y HA HECHO LA VALIDACIÓN EN DOS PASOS, ENVIARLO  A index.php
+    if (isset($_SESSION['2step_val']) && isset($_SESSION['2step_val']) && $_SESSION['email_prof'] == $_POST['email_login']) {
+        echo "<script>window.location.href = '../view/index.php'</script>";
+        die();
+    }
 
     // EVITAR INJECCIÓN SQL
     $email_login = $conexion->real_escape_string($_POST['email_login']);
