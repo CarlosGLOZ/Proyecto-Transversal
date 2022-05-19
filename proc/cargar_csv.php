@@ -7,7 +7,7 @@
 
         $errorThrown = false;
         $csvFileName = "csv_upload.csv";
-        move_uploaded_file($_FILES['csv']['tmp_name'], $csvFileName);
+        $exito = move_uploaded_file($_FILES['csv']['tmp_name'], $csvFileName);
         $lineas = file($csvFileName);
         $cont=0;
         $cont_repetidos = 0;
@@ -83,20 +83,22 @@
             }
         }
         if (!$errorThrown) {
-            unlink("csv_upload.csv");
             unlink($csvFileName);
             if ($cont > 1) {
-                echo "<script>alert('SE HAN INSERTADO ".($cont-1)." USUARIOS COMO [{$tipoUsuario}]');</script>";
+                // echo "SE HAN INSERTADO ".($cont-1)." USUARIOS COMO [{$tipoUsuario}]";
+                echo '{"inserts": "SE HAN INSERTADO '.($cont-1).' USUARIOS COMO ['.$tipoUsuario.']."}';
             }
             if ($cont_repetidos > 0) {
-                echo "<script>alert('SE HAN OMITIDO ".($cont_repetidos)." REGISTORS REPETIDOS');</script>";
+                // echo "SE HAN OMITIDO ".($cont_repetidos)." REGISTORS REPETIDOS.";
+                echo '{"repeats": "SE HAN OMITIDO '.($cont_repetidos).' REGISTORS REPETIDOS."}';
             }
-            echo "<script>window.location.href = '../view/index.php'</script>";
+            // echo "<script>window.location.href = '../view/index.php'</script>";
             die();
         } else {
-            echo "<script>alert('HA HABIDO UN ERROR INSERTANDO ALGUNOS REGISTROS. ES POSIBLE QUE SE HAYA SELECCIONADO EL CAMPO INCORRECTO O ALGUNA ENTRADA YA EXISTA CON ESOS DATOS.');</script>";
-
+            // echo "HA HABIDO UN ERROR INSERTANDO ALGUNOS REGISTROS. ES POSIBLE QUE SE HAYA SELECCIONADO EL CAMPO INCORRECTO O ALGUNA ENTRADA YA EXISTA CON ESOS DATOS.";
+            echo '{"error": "HA HABIDO UN ERROR INSERTANDO ALGUNOS REGISTROS. ES POSIBLE QUE SE HAYA SELECCIONADO EL CAMPO INCORRECTO O ALGUNA ENTRADA YA EXISTA CON ESOS DATOS."}';
         }
     } else {
-        echo "<script>window.location.href = '../view/cargar_csv(temp).html'</script>";
+        // echo "<script>window.location.href = '../view/cargar_csv(temp).html'</script>";
+        echo '{"parametros": "LOS PARÁMETROS INTRODUCIDOS SON INCORRECTOS."}';
     }

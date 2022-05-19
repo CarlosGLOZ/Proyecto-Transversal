@@ -5,14 +5,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticar</title>
+    <title>Autenticación en dos pasos</title>
+    <!-- CSS: -->
+    <link rel="stylesheet" href="../css/fondo.css">
+    <!-- Boostrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- FONT AWESOME: -->
+    <script src="https://kit.fontawesome.com/e0b63cee0f.js" crossorigin="anonymous"></script>
+    <!-- TIPO DE LETRA: -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet">
+    <!-- ANIMACIONES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
-    <form action="../proc/val_auth.php" method="post">
-        <input type="text" name="codigo" placeholder="código de autenticación">
-        <input type="submit" value="Confirmar">
-    </form>
+    <div class="back">
+        <h1 class="animate__fadeInDown">Codigo de autenticación:</h1>
+        <form action="../proc/val_auth.php" method="post">
+            <input class="form-control" type="text" name="codigo" placeholder="código de autenticación">
+            <input class="btn btn-success" type="submit" value="Confirmar">
+        </form>
+    </div>
 </body>
 
 </html>

@@ -1,0 +1,33 @@
+body {
+    background-color: rgb(2, 48, 71) !important;
+    font-family: 'Roboto Flex', sans-serif;
+    color: rgb(142, 202, 230) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back {
+    width: 700px;
+    height: 250px;
+    padding: 2%;
+    margin-top: 200px;
+    background-color: rgb(33, 158, 188);
+    border-style: solid;
+    border-color: rgb(151, 220, 238);
+    border-width: 3px;
+    border-radius: 10px;
+}
+
+h1 {
+    color: rgb(239, 246, 224) !important;
+    margin-bottom: 2% !important;
+}
+
+.btn {
+    margin-top: 2%;
+}
+
+.form-control {
+    background-color: rgb(142, 202, 230) !important;
+}
