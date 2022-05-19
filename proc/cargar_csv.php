@@ -10,11 +10,13 @@
         move_uploaded_file($_FILES['csv']['tmp_name'], $csvFileName);
         $lineas = file($csvFileName);
         $cont=0;
+        $cont_repetidos = 0;
 
         if ($_POST['tipo_usuario'] == 'alumnos') {
             require "./conexion.php";
             $alu_check_query="SELECT email_alu FROM tbl_alumne";
             $alu_check_request = mysqli_query($conexion,$alu_check_query);
+            $tipoUsuario = 'ALUMNO';
 
             $lista_emails = [];
             
@@ -28,7 +30,7 @@
                     $cont++;
                     continue;
     
-                } else if (!in_array($campos[4], $lista_emails)) {
+                } else if (!in_array($campos[4], $lista_emails)) { // SI EL CORREO NO ESTÁ EN LA BDD.
                     $cont++;
                     $datos= "'{$campos[0]}', '{$campos[1]}' , '{$campos[2]}', '{$campos[3]}', '{$campos[4]}', {$campos[5]}";
         
@@ -36,21 +38,19 @@
                     
                     try {
                         $insert_alu_request = mysqli_query($conexion,$insert_alu_query);
-                        unlink($csvFileName);
-                        echo "<script>alert('SE HAN INSERTADO ".($cont-1)." USUARIOS COMO [ALUMNO]');</script>";
-                        echo "<script>window.location.href = '../view/index.php'</script>";
-                        die();
                     } catch (\Throwable $th) {
-                        echo "HA HABIDO UN ERROR INSERTANDO ALGUNOS REGISTROS. ES POSIBLE QUE SE HAYA SELECCIONADO EL CAMPO INCORRECTO O ALGUNA ENTRADA YA EXISTA CON ESOS DATOS.<a href='../view/cargar_csv(temp).html'>VOLVER</a>";
                         $errorThrown = true;
                     }
 
+                } else { // SI EL CORREO ESTÁ EN LA BDD.
+                    $cont_repetidos++;
                 }
             }            
         } else {
             require "./conexion.php";
             $prof_check_query="SELECT email_prof FROM tbl_professor";
             $prof_check_request = mysqli_query($conexion,$prof_check_query);
+            $tipoUsuario = 'PROFESOR';
 
             $lista_emails = [];
             
@@ -66,8 +66,7 @@
                     $cont++;
                     continue;
     
-                } else if (!in_array($campos[2],$lista_emails)) {
-                    // var_dump($campos);
+                } else if (!in_array($campos[2],$lista_emails)) { // SI EL CORREO NO ESTÁ EN LA BDD.
                     $cont++;
                     $datos= "'{$campos[0]}', '{$campos[1]}' , '{$campos[2]}', '{$campos[3]}', {$campos[4]}, '".sha1($campos[5])."', {$campos[6]}";
         
@@ -75,21 +74,28 @@
                     
                     try {
                         $insert_prof_request = mysqli_query($conexion,$insert_prof_query);
-                        unlink($csvFileName);
-                        echo "<script>alert('SE HAN INSERTADO ".($cont-1)." USUARIOS COMO [PROFESOR]');</script>";
-                        echo "<script>window.location.href = '../view/index.php'</script>";
-                        die();
                     } catch (\Throwable $th) {
-                        echo "HA HABIDO UN ERROR INSERTANDO ALGUNOS REGISTROS. ES POSIBLE QUE SE HAYA SELECCIONADO EL CAMPO INCORRECTO O ALGUNA ENTRADA YA EXISTA CON ESOS DATOS.<a href='../view/cargar_csv(temp).html'>VOLVER</a>";
                         $errorThrown = true;
                     }
+                } else { // SI EL CORREO ESTÁ EN LA BDD.
+                    $cont_repetidos++;
                 }
             }
         }
         if (!$errorThrown) {
             unlink("csv_upload.csv");
+            unlink($csvFileName);
+            if ($cont > 1) {
+                echo "<script>alert('SE HAN INSERTADO ".($cont-1)." USUARIOS COMO [{$tipoUsuario}]');</script>";
+            }
+            if ($cont_repetidos > 0) {
+                echo "<script>alert('SE HAN OMITIDO ".($cont_repetidos)." REGISTORS REPETIDOS');</script>";
+            }
             echo "<script>window.location.href = '../view/index.php'</script>";
             die();
+        } else {
+            echo "<script>alert('HA HABIDO UN ERROR INSERTANDO ALGUNOS REGISTROS. ES POSIBLE QUE SE HAYA SELECCIONADO EL CAMPO INCORRECTO O ALGUNA ENTRADA YA EXISTA CON ESOS DATOS.');</script>";
+
         }
     } else {
         echo "<script>window.location.href = '../view/cargar_csv(temp).html'</script>";

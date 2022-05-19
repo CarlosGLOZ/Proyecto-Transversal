@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (isset($_SESSION['2step_val'])) {
+    echo "<script>window.location.href = '../view/index.php'</script>";
+    die();
+}
 
 // comprobar que los datos han sido introducidos en el formulario, redirigir al login con un GET de validación falsa
 if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty($_POST['email_login']) && !empty($_POST['password_login'])))    {
@@ -8,19 +14,21 @@ if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty
     $email_login = $conexion->real_escape_string($_POST['email_login']);
     $password_login = $conexion->real_escape_string($_POST['password_login']);
 
-    // ENCRIPTAR PASSWORD
-    $password_login = sha1($password_login);
+    // ENCRIPTAR PASSWORD si no es una cuenta de testeo
+    if ($email_login !== '100007082.joan23@fje.edu') {
+        $password_login = sha1($password_login);
+    }
 
 
     // COMPROBAR LA CONEXIÓN A LA BDD
     if (!$conexion) {
         echo "ERROR DE CONEXION CON LA BASE DE DATOS";
-        echo "<a href='../view/login.php'>volver</a>";
+        echo "<a href='../view/login.php?err=cnxBDD'>volver</a>";
         die();
     }
 
     // QUERY PARA VER SI EXISTE UN USUARIO CON ESOS DATOS
-    $query = "SELECT * FROM tbl_professor WHERE email_prof = '{$email_login}' AND contra = '{$password_login}'";
+    $query = "SELECT * FROM tbl_professor WHERE email_prof = '{$email_login}' AND contra = '{$password_login}';";
     $valid_login = mysqli_query($conexion, $query);
 
     $match = $valid_login -> num_rows;
@@ -45,6 +53,7 @@ if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty
 
         echo "<script>localStorage.setItem('nombre_usuario', '{$_SESSION['nom_prof']}' )</script>";
         echo "<script>window.location.href = '../view/codigo_auth.html';</script>";
+        die();
     } else {
         echo "<script>window.location.href = '../view/login.php?val=false';</script>";
         die();
