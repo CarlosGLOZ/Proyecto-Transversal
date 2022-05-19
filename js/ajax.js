@@ -1,4 +1,4 @@
-import { checkCheckedCheckboxes, updatePageButtons } from "./utils.js";
+import { changeUsername, checkCheckedCheckboxes, updatePageButtons } from "./utils.js";
 import { alertCreateAlu, alertCreateProf, alertFailed, alertModify, alertModifyProf, alertMultipleModifyAlu } from "./alerts.js";
 
 
@@ -81,21 +81,26 @@ export function asyncModify(id, values) {
         url: '../proc/modificar_reg.php',
         data: data,
         success: function(response) {
-            let error;
-            if (response == 'Correo ya existe') {
-                error = 'Correo ya existe';
-            } else if (response == 'DNI ya existe') {
-                error = 'DNI ya existe';
-            }
-            if (error) {
-                let scope = localStorage.getItem('data_scope')
-                if (!scope || scope == 'alumnos') {
-                    alertFailed(error, alertModify, data)
+            if (response) {
+                let error;
+                if (response == 'Correo ya existe') {
+                    error = 'Correo ya existe';
+                } else if (response == 'DNI ya existe') {
+                    error = 'DNI ya existe';
                 } else {
-                    alertFailed(error, alertModifyProf, data)
+                    localStorage.setItem('nombre_usuario', response)
+                    changeUsername()
                 }
+                if (error) {
+                    let scope = localStorage.getItem('data_scope')
+                    if (!scope || scope == 'alumnos') {
+                        alertFailed(error, alertModify, data)
+                    } else {
+                        alertFailed(error, alertModifyProf, data)
+                    }
             } else {
                 asyncShow()
+            }
             }
         }
     })
@@ -255,18 +260,17 @@ export function asyncUpload(value) {
         success: function(response) {
             console.log(response);
             var respuesta = JSON.parse(response);
-            if (respuesta.inserts) {
-                alert(respuesta.inserts);
-            }
+
             if (respuesta.repeats) {
-                alert(respuesta.repeats);
+                alertFailed(respuesta.repeats);
             }
             if (respuesta.error) {
-                alert(respuesta.error);
+                alertFailed(respuesta.error);
             }
             if (respuesta.parametros) {
-                alert(respuesta.parametros);
+                alertFailed(respuesta.parametros);
             }
+            asyncShow();
         }
     })
 }

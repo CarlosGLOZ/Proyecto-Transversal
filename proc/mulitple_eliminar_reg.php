@@ -3,6 +3,8 @@
 include '../proc/validar_sesion.php';
 val_sesion();
 
+include '../func/comprobar_admin.php';
+
 include './conexion.php';
 
 /* VALIDACIONES */

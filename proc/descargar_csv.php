@@ -3,6 +3,8 @@
     require "./validar_sesion.php";
     val_sesion();
 
+    include '../func/comprobar_admin.php';
+
     if (isset($_GET['tipo_usuario'])) {
         require "conexion.php";
 
