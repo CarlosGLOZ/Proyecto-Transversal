@@ -1,4 +1,4 @@
-import { alertModify, alertDelete, alertCreate, alertMultipleModify, alertMultipleDelete, alertModifyProf, alertChangePasswordProf } from './alerts.js'
+import { alertModify, alertDelete, alertCreate, alertMultipleModify, alertMultipleDelete, alertModifyProf, alertChangePasswordProf, alertUploadCSV, alertDownloadCSV } from './alerts.js'
 import { asyncShow, asyncShowClases, asyncShowDepts } from './ajax.js'
 import { changeDataVisualizationScope, removeLimit, changeLimit, checkCheckedCheckboxes, checkAllCheckboxes, storeLocalFilter, voidLocalFilter, changePage, displayLocalFilter, changeOrderBy } from './utils.js'
 
@@ -21,7 +21,8 @@ window.changeLimit = changeLimit;
 window.changeDataVisualizationScope = changeDataVisualizationScope;
 window.alertModifyProf = alertModifyProf;
 window.alertChangePasswordProf = alertChangePasswordProf;
-
+window.alertUploadCSV = alertUploadCSV;
+window.alertDownloadCSV = alertDownloadCSV;
 
 window.onload = () => {
     asyncShow()
@@ -33,5 +34,5 @@ window.onload = () => {
         asyncShowDepts('filtro-select')
     }
 
-    
+
 }

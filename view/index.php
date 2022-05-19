@@ -63,8 +63,8 @@
         <button onClick="alertCreate()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Crear</button>
         <button disabled id="multiple-modify-button" onClick="alertMultipleModify()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Modificar</button>
         <button disabled id="multiple-delete-button" onClick="alertMultipleDelete()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Eliminar</button>
-        <button onClick="alertDownloadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Cargar CSV</button>
-        <button onClick="alertUploadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Descargar CSV</button>
+        <button onClick="alertUploadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Cargar CSV</button>
+        <button onClick="alertDownloadCSV()" class="btn paginacion btn-lg button-style" role="button" aria-disabled="true">Descargar CSV</button>
     </div>
     <div id="filtrar-container" class="filtrar-container">
         <!-- FILTRO -->

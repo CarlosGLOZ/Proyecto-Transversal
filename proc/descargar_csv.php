@@ -3,10 +3,10 @@
     require "./validar_sesion.php";
     val_sesion();
 
-    if (isset($_POST['tipo_usuario'])) {
+    if (isset($_GET['tipo_usuario'])) {
         require "conexion.php";
 
-        if ($_POST['tipo_usuario'] == 'alumnos') {
+        if ($_GET['tipo_usuario'] == 'alumnos') {
             
             $alu_query = "SELECT tbl_alumne.*, tbl_classe.codi_classe FROM tbl_alumne INNER JOIN tbl_classe ON tbl_alumne.classe = tbl_classe.id_classe;";
             if ($alu_request = mysqli_query($conexion, $alu_query)) {

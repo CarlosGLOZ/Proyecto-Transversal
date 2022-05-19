@@ -1,4 +1,4 @@
-import { asyncDelete, asyncModify, asyncCreate, asyncMultipleModify, asyncMultipleDelete, asyncShowDepts, asyncChangePassword } from "./ajax.js"
+import { asyncDelete, asyncModify, asyncCreate, asyncMultipleModify, asyncMultipleDelete, asyncShowDepts, asyncChangePassword, asyncDownload, asyncUpload } from "./ajax.js"
 import { validaTexto, valida_DNI, valida_telefono } from './valida.js';
 
 
@@ -304,7 +304,7 @@ export function alertCreateProf() {
 }
 
 
-export function alertFailed(error, callBack, values=null) {
+export function alertFailed(error, callBack, values = null) {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -320,5 +320,51 @@ export function alertFailed(error, callBack, values=null) {
                 callBack(values.id, values.nombre, values.apellidos, values.telefono, values.email, values.dept)
             }
         }
+    })
+}
+
+export function alertDownloadCSV() {
+    Swal.fire({
+        title: 'Descargar CSV',
+        html: `
+        <select id="tipo_usuario" name="tipo_usuario">
+            <option value="profes">Profesores</option>
+            <option value="alumnos">Alumnos</option>
+        </select>`,
+        confirmButtonText: 'Descargar',
+        focusConfirm: false,
+        preConfirm: () => {
+            let tipo_usuario = Swal.getPopup().querySelector('#tipo_usuario').value
+            return { tipo_usuario: tipo_usuario }
+            /* if (!login || !password) {
+                Swal.showValidationMessage(`Please enter login and password`)
+            } */
+        }
+    }).then((result) => {
+        asyncDownload(result.value)
+    })
+}
+
+export function alertUploadCSV() {
+    Swal.fire({
+        title: 'Cargar CSV',
+        html: `
+        <input id="csv" type="file" name="csv">
+        <select id="tipo_usuario" name="tipo_usuario">
+            <option value="profes">Profesores</option>
+            <option value="alumnos">Alumnos</option>
+        </select>`,
+        confirmButtonText: 'Cargar',
+        focusConfirm: false,
+        preConfirm: () => {
+            let file = Swal.getPopup().querySelector('#csv').files[0]
+            let tipo_usuario = Swal.getPopup().querySelector('#tipo_usuario').value
+            return { file: file, tipo_usuario: tipo_usuario }
+            /* if (!login || !password) {
+                Swal.showValidationMessage(`Please enter login and password`)
+            } */
+        }
+    }).then((result) => {
+        asyncUpload(result.value)
     })
 }

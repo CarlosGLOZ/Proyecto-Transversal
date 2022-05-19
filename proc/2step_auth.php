@@ -1,7 +1,9 @@
 <?php
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-require './PHPMailer/src/phpmailer.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/SMTP.php';
 // require 'vendor/autoload.php';
 
 function genAuthCode(int $length) {
@@ -28,6 +30,14 @@ function twostep_auth($user) {
 
     $email = new PHPMailer(true);
 
+    $email->isSMTP();
+    $email->Host = 'smtp.gmail.com';
+    $email->Port = 587;
+    $email->SMTPSecure = 'tls';
+    $email->SMTPAuth = true;
+    $email->Username = 'phpsmtpfje@gmail.com';
+    $email->Password = 'asdASD123321';
+
     $email->isHTML(true);
     $email->CharSet = 'UTF-8';
     $email->SetFrom('richiSecretaria@gmail.com');
@@ -40,3 +50,4 @@ function twostep_auth($user) {
 
     return $codigo;
 }
+

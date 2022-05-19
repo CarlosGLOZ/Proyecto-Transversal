@@ -72,7 +72,7 @@ export function asyncModify(id, values) {
     let data;
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
-        data = { id: id, scope: scope,  nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
+        data = { id: id, scope: scope, nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
     } else {
         data = { id: id, scope: scope, nombre: values.nombre, apellidos: values.apellidos, telefono: values.telefono, email: values.email, dept: values.dept };
     }
@@ -86,7 +86,7 @@ export function asyncModify(id, values) {
                 error = 'Correo ya existe';
             } else if (response == 'DNI ya existe') {
                 error = 'DNI ya existe';
-            } 
+            }
             if (error) {
                 let scope = localStorage.getItem('data_scope')
                 if (!scope || scope == 'alumnos') {
@@ -120,7 +120,7 @@ export function asyncCreate(values) {
                 error = 'Correo ya existe';
             } else if (response == 'DNI ya existe') {
                 error = 'DNI ya existe';
-            } 
+            }
             if (error) {
                 let scope = localStorage.getItem('data_scope')
                 if (!scope || scope == 'alumnos') {
@@ -142,7 +142,7 @@ export function asyncMultipleModify(values) {
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
         query = 'alumno'
-        data = {scope: scope, clase: values.clase }
+        data = { scope: scope, clase: values.clase }
     } else {
         query = 'profesor'
         data = { scope: scope, dept: values.dept }
@@ -183,7 +183,7 @@ export function asyncMultipleDelete() {
         $.ajax({
             type: 'POST',
             url: '../proc/mulitple_eliminar_reg.php',
-            data: {ids: checks, scope: scope},
+            data: { ids: checks, scope: scope },
             success: function() {
                 asyncShow()
             }
@@ -196,7 +196,7 @@ export function asyncChangePassword(values) {
     $.ajax({
         type: 'POST',
         url: '../proc/cambiar_password.php',
-        data: {id: values.id, password: values.password},
+        data: { id: values.id, password: values.password },
         success: function() {
             asyncShow()
         }
@@ -233,4 +233,63 @@ export function asyncShowDepts(elemento, dept = null) {
             element.innerHTML = response;
         }
     })
+}
+
+// SUBIR O CARGAR CSV:
+
+export function asyncUpload(value) {
+    let url = "../proc/cargar_csv.php"
+        // var formData = new FormData();
+
+    var formData = new FormData();
+
+    formData.append("csv", value.file);
+    formData.append("tipo_usuario", value.tipo_usuario);
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            console.log(response);
+            var respuesta = JSON.parse(response);
+            if (respuesta.inserts) {
+                alert(respuesta.inserts);
+            }
+            if (respuesta.repeats) {
+                alert(respuesta.repeats);
+            }
+            if (respuesta.error) {
+                alert(respuesta.error);
+            }
+            if (respuesta.parametros) {
+                alert(respuesta.parametros);
+            }
+        }
+    })
+}
+
+
+
+
+// DESCARGAR CSV:
+
+export function asyncDownload(values) {
+    let url = "../view/descargar_csv.php"
+
+    fetch(`../proc/descargar_csv.php?tipo_usuario=${values.tipo_usuario}`)
+        .then(resp => resp.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = "datos.csv";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(() => alert('oh no!'));
 }
