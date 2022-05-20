@@ -7,6 +7,7 @@ if (isset($_FILES['csv']) && isset($_POST['tipo_usuario'])) {
 
     $errorThrown = false;
     $csvFileName = "csv_upload.csv";
+    
     $exito = move_uploaded_file($_FILES['csv']['tmp_name'], $csvFileName);
     $lineas = file($csvFileName);
     $cont=0;

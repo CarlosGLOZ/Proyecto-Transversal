@@ -21,7 +21,9 @@ val_sesion();
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-require './PHPMailer/src/phpmailer.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/SMTP.php';
 // require 'vendor/autoload.php';
 
 if (!empty($_POST['asunto']) && !empty($_POST['mensaje'])) {
@@ -31,6 +33,14 @@ if (!empty($_POST['asunto']) && !empty($_POST['mensaje'])) {
     // $recipiente = $_POST['recipiente'];
 
     $email = new PHPMailer(true);
+
+    $email->isSMTP();
+    $email->Host = 'smtp.gmail.com';
+    $email->Port = 587;
+    $email->SMTPSecure = 'tls';
+    $email->SMTPAuth = true;
+    $email->Username = 'richiSecretaria@gmail.com';
+    $email->Password = 'ptescuela';
 
     
     $email->SetFrom('richiSecretaria@gmail.com'); //Name is optional

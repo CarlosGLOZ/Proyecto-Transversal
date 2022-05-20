@@ -3,6 +3,7 @@ import { alertCreateAlu, alertCreateProf, alertFailed, alertModify, alertModifyP
 
 
 export function asyncShow() {
+    console.log('show')
     document.getElementById('table').innerHTML = '<div class="loader"></div>';
     let url = '../proc/';
     let scope = localStorage.getItem('data_scope');
@@ -98,11 +99,9 @@ export function asyncModify(id, values) {
                     } else {
                         alertFailed(error, alertModifyProf, data)
                     }
-            } else {
-                asyncShow()
-                changeUsername()
+                }
             }
-            }
+            asyncShow()
         }
     })
 }

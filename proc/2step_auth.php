@@ -32,8 +32,8 @@ function twostep_auth($user) {
 
     $email->isSMTP();
     $email->Host = 'smtp.gmail.com';
-    $email->Port = 587;
-    $email->SMTPSecure = 'tls';
+    $email->Port = 465;
+    $email->SMTPSecure = 'ssl';
     $email->SMTPAuth = true;
     $email->Username = 'richiSecretaria@gmail.com';
     $email->Password = 'ptescuela';
