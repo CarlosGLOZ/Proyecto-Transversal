@@ -3,12 +3,15 @@
 include '../proc/validar_sesion.php';
 val_sesion();
 
+$admin = $_SESSION['admin'];
+
 include './conexion.php';
 
 if (!isset($_GET['nombre']) && !isset($_GET['dni']) && !isset($_GET['apellidos']) && !isset($_GET['telefono']) && !isset($_GET['email']) && !isset($_GET['clase'])) {
     /* MOSTRAR TODO LOS REGISTROS SIN FILTROS */
     $sql = "SELECT * FROM tbl_alumne INNER JOIN tbl_classe ON tbl_alumne.classe = tbl_classe.id_classe";
     $sql_total = "SELECT count(1) as 'total' FROM tbl_alumne";
+    $filtrado = false;
     
 } else {
     /* MOSTRAR LOS REGISTROS CON FILTROS */
@@ -20,6 +23,7 @@ if (!isset($_GET['nombre']) && !isset($_GET['dni']) && !isset($_GET['apellidos']
     $clase = $_GET['clase'];
     $sql = "SELECT * FROM tbl_alumne INNER JOIN tbl_classe ON tbl_alumne.classe = tbl_classe.id_classe WHERE `dni_alu` LIKE '%$dni%' AND `nom_alu` LIKE '%$nombre%' AND `cognoms_alu` LIKE '%$apellidos%' AND `telf_alu` LIKE '%$telefono%' AND `email_alu` LIKE '%$email%' AND `classe` LIKE '%$clase%'";
     $sql_total = "SELECT count(1) as 'total' FROM tbl_alumne INNER JOIN tbl_classe ON tbl_alumne.classe = tbl_classe.id_classe WHERE `dni_alu` LIKE '%$dni%' AND `nom_alu` LIKE '%$nombre%' AND `cognoms_alu` LIKE '%$apellidos%' AND `telf_alu` LIKE '%$telefono%' AND `email_alu` LIKE '%$email%' AND `classe` LIKE '%$clase%'";
+    $filtrado = true;
 }
 
 if (isset($_GET['orderby'])) {
@@ -80,9 +84,13 @@ $alumnos = mysqli_query($conexion, $sql);
 
 
 /* MOSTRAR LOS DATOS */
-?>
+if (!$filtrado) {
+    echo "<b  style='color: rgb(142, 202, 230); margin-bottom: 10px' class='text-center'>$total registros</b>";
+} else {
+    echo "<b  style='color: rgb(142, 202, 230); margin-bottom: 10px' class='text-center'>$total registros coinciden con los criterios de busqueda</b>";
+}
 
-<b style="color: rgb(142, 202, 230); margin-bottom: 10px;" class="text-center">Resultados: <?php echo $total ?></b>
+?>
 <table>
 <tr>
 <th class="header-check"><input id="check-all" onClick="checkAllCheckboxes()" type="checkbox"/></th>
@@ -92,7 +100,13 @@ $alumnos = mysqli_query($conexion, $sql);
 <th class="headers-orderby <?php echo isset($orderby) && $orderby == 'telefono' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('telefono')">Teléfono</th>
 <th class="headers-orderby <?php echo isset($orderby) && $orderby == 'email' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('email')">Email</th>
 <th class="headers-orderby <?php echo isset($orderby) && $orderby == 'clase' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('clase')">Clase</th>
-<th>Accion</th>
+
+<?php
+if ($admin) {
+    echo "<th>Accion</th>";
+}
+?>
+
 </tr>
 
 <?php
@@ -106,10 +120,18 @@ foreach ($alumnos as $alumno) {
         <td><?php echo $alumno['telf_alu']; ?></td>
         <td><?php echo $alumno['email_alu']; ?></td>
         <td><?php echo $alumno['codi_classe']; ?></td>
-        <td>
-            <button class="btn btn-danger" onClick="alertDelete(<?php echo $alumno['id_alumne']; ?>)"><i class="fa-solid fa-trash-can"></i></button>
-            <button class="btn btn-primary" onClick="alertModify(<?php echo $alumno['id_alumne']; ?>, '<?php echo $alumno['dni_alu']; ?>', '<?php echo $alumno['nom_alu']; ?>', '<?php echo $alumno['cognoms_alu']; ?>', '<?php echo $alumno['telf_alu']; ?>', '<?php echo $alumno['email_alu']; ?>', <?php echo $alumno['id_classe']; ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
-        </td>
+
+        <?php
+            if ($admin) {
+                ?>
+                <td>
+                    <button class="btn btn-danger" onClick="alertDelete(<?php echo $alumno['id_alumne']; ?>)"><i class="fa-solid fa-trash-can"></i></button>
+                    <button class="btn btn-primary" onClick="alertModify(<?php echo $alumno['id_alumne']; ?>, '<?php echo $alumno['dni_alu']; ?>', '<?php echo $alumno['nom_alu']; ?>', '<?php echo $alumno['cognoms_alu']; ?>', '<?php echo $alumno['telf_alu']; ?>', '<?php echo $alumno['email_alu']; ?>', <?php echo $alumno['id_classe']; ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
+                </td>
+                <?php
+            }
+        ?>
+        
     </tr>
     <?php
 }

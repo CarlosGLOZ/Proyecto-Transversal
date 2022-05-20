@@ -3,8 +3,10 @@
 require "./validar_sesion.php";
 val_sesion();
 
-if (isset($_POST['tipo_usuario'])) {
-    require "conexion.php";
+    include '../func/comprobar_admin.php';
+
+    if (isset($_GET['tipo_usuario'])) {
+        require "conexion.php";
 
     if ($_POST['tipo_usuario'] == 'alumnos') {
         

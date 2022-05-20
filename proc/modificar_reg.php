@@ -3,6 +3,8 @@
 include '../proc/validar_sesion.php';
 val_sesion();
 
+include '../func/comprobar_admin.php';
+
 include './conexion.php';
 
 
@@ -62,7 +64,7 @@ if ($_POST['scope'] == 'alumnos') {
     $sql = "UPDATE `tbl_professor` SET `nom_prof` = '$nombre', `cognoms_prof` = '$apellidos', `telf` = '$telefono', `email_prof` = '$email', `dept` = '$dept' WHERE `id_professor` = $id";
 
     if ($id == $_SESSION['id_professor']) {
-        echo "<script>localStorage.setItem('nombre_usuario', '$nombre' )</script>";
+        echo "$nombre";
     }
 }
 

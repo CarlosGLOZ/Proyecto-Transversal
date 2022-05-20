@@ -3,6 +3,8 @@
 include '../proc/validar_sesion.php';
 val_sesion();
 
+include '../func/comprobar_admin.php';
+
 include './conexion.php';
 
 if (!isset($_POST['id']) || empty($_POST['id']) || !isset($_POST['password']) || empty($_POST['password'])) {

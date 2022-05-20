@@ -15,6 +15,10 @@
                 // }
 
 // CON PHPMAILER - CON ATTACHMENTS
+
+include '../proc/validar_sesion.php';
+val_sesion();
+
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 require './PHPMailer/src/phpmailer.php';

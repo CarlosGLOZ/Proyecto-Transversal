@@ -304,7 +304,7 @@ export function alertCreateProf() {
 }
 
 
-export function alertFailed(error, callBack, values = null) {
+export function alertFailed(error, callBack=null, values = null) {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -323,6 +323,7 @@ export function alertFailed(error, callBack, values = null) {
         }
     })
 }
+
 
 export function alertDownloadCSV() {
     Swal.fire({
@@ -345,6 +346,7 @@ export function alertDownloadCSV() {
         asyncDownload(result.value)
     })
 }
+
 
 export function alertUploadCSV() {
     Swal.fire({
