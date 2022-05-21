@@ -23,7 +23,7 @@ if (!isset($_GET['nombre']) && !isset($_GET['apellidos']) && !isset($_GET['telef
     $telefono = $_GET['telefono'];
     $email = $_GET['email'];
     $dept = $_GET['dept'];
-    $sql = "SELECT tbl_professor.id_professor, tbl_professor.nom_prof, tbl_professor.cognoms_prof, tbl_professor.email_prof, tbl_professor.telf, tbl_dept.id_dept, tbl_dept.nom_dept, tbl_classe.codi_classe, tbl_classe.id_classe
+    $sql = "SELECT tbl_professor.id_professor, tbl_professor.nom_prof, tbl_professor.cognoms_prof, tbl_professor.email_prof, tbl_professor.telf, tbl_professor.admin, tbl_dept.id_dept, tbl_dept.nom_dept, tbl_classe.codi_classe, tbl_classe.id_classe
             FROM tbl_professor INNER JOIN tbl_dept ON tbl_professor.dept = tbl_dept.id_dept 
             LEFT JOIN tbl_classe ON tbl_classe.tutor = tbl_professor.id_professor
             WHERE `nom_prof` LIKE '%$nombre%' AND `cognoms_prof` LIKE '%$apellidos%' AND `telf` LIKE '%$telefono%' AND `email_prof` LIKE '%$email%' AND `dept` LIKE '%$dept%'";
@@ -99,19 +99,26 @@ if (!$filtrado) {
 }
 
 ?>
-<table>
+<table id="table-prof" class="table">
 <tr>
-<th class="header-check"><input id="check-all" onClick="checkAllCheckboxes()" type="checkbox"/></th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'nombre' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('nombre')">Nombre</th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'apellidos' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('apellidos')">Apellidos</th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'telefono' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('telefono')">Teléfono</th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'email' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('email')">Email</th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'dept' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('dept')">Departamento</th>
-<th>Tutor</th>
+<th class="header-check">
+    <label class="checkbox bounce">
+        <input id="check-all" onClick="checkAllCheckboxes()" type="checkbox"/>
+        <svg viewBox="0 0 21 21">
+            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+        </svg>
+    </label>
+</th>
+<th class="header-nombre headers-orderby <?php echo isset($orderby) && $orderby == 'nombre' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('nombre')">Nombre</th>
+<th class="header-apellidos headers-orderby <?php echo isset($orderby) && $orderby == 'apellidos' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('apellidos')">Apellidos</th>
+<th class="header-telefono headers-orderby <?php echo isset($orderby) && $orderby == 'telefono' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('telefono')">Teléfono</th>
+<th class="header-correo headers-orderby <?php echo isset($orderby) && $orderby == 'email' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('email')">Email</th>
+<th class="header-dept headers-orderby <?php echo isset($orderby) && $orderby == 'dept' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('dept')">Departamento</th>
+<th class="header-tutor">Tutor</th>
 
 <?php
 if ($admin) {
-    echo "<th>Admin</th>";
+    echo "<th class='header-admin'>Admin</th>";
     echo "<th>Acción</th>";
 }
 ?>
@@ -122,21 +129,28 @@ if ($admin) {
 foreach ($profesores as $profesor) {
     ?>
     <tr>
-        <td><input onClick="checkCheckedCheckboxes()" type="checkbox" name='profesor' value="<?php echo $profesor['id_professor']; ?>"/></td>
+        <td >
+            <label class="checkbox bounce">
+                <input onClick="checkCheckedCheckboxes()" type="checkbox" name='profesor' value="<?php echo $profesor['id_professor']; ?>"/>
+                <svg viewBox="0 0 21 21">
+                    <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                </svg>
+            </label>
+        </td>
         <td><?php echo $profesor['nom_prof']; ?></td>
         <td><?php echo $profesor['cognoms_prof']; ?></td>
         <td><?php echo $profesor['telf']; ?></td>
         <td><?php echo $profesor['email_prof']; ?></td>
         <td><?php echo $profesor['nom_dept']; ?></td>
-        <td><?php echo !empty($profesor['codi_classe']) ? $profesor['codi_classe'] : '<i class="fa-solid fa-minus"></i>'; ?></td>
+        <td><?php echo !empty($profesor['codi_classe']) ? $profesor['codi_classe'] : '<i class="fa-solid fa-minus fa-lg"></i>'; ?></td>
         <?php
             if ($admin) {
                 ?>
-                <td><?php echo $profesor['admin'] ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>' ?></td>
+                <td><?php echo $profesor['admin'] ? '<i class="fa-solid fa-check fa-lg"></i>' : '<i class="fa-solid fa-xmark fa-lg"></i>' ?></td>
                 <td>
                     <div class="dropdown">
                         <button class="display-options" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                            <i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
                         </button>
                         <div class="dropdown-menu options" aria-labelledby="dropdownMenu2">
                             <button class="dropdown-item eliminar" onClick="alertDelete(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>

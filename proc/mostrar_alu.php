@@ -91,19 +91,26 @@ if (!$filtrado) {
 }
 
 ?>
-<table class="table">
+<table id="table-alu" class="table">
 <tr>
-<th scope="col" class="header-check"><input id="check-all" onClick="checkAllCheckboxes()" type="checkbox"/></th>
-<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'dni' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('dni')" >DNI</th>
-<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'nombre' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('nombre')">Nombre</th>
-<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'apellidos' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('apellidos')">Apellidos</th>
-<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'telefono' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('telefono')">Teléfono</th>
-<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'email' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('email')">Email</th>
-<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'clase' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('clase')">Clase</th>
+<th class="header-check">
+    <label class="checkbox bounce">
+        <input id="check-all" onClick="checkAllCheckboxes()" type="checkbox"/>
+        <svg viewBox="0 0 21 21">
+            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+        </svg>
+    </label>
+</th>
+<th class="header-dni headers-orderby <?php echo isset($orderby) && $orderby == 'dni' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('dni')" >DNI</th>
+<th class="header-nombre headers-orderby <?php echo isset($orderby) && $orderby == 'nombre' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('nombre')">Nombre</th>
+<th class="header-apellidos headers-orderby <?php echo isset($orderby) && $orderby == 'apellidos' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('apellidos')">Apellidos</th>
+<th class="header-telefono headers-orderby <?php echo isset($orderby) && $orderby == 'telefono' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('telefono')">Teléfono</th>
+<th class="header-correo headers-orderby <?php echo isset($orderby) && $orderby == 'email' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('email')">Email</th>
+<th class="header-clase headers-orderby <?php echo isset($orderby) && $orderby == 'clase' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('clase')">Clase</th>
 
 <?php
 if ($admin) {
-    echo "<th scope='col'>Acción</th>";
+    echo "<th>Acción</th>";
 }
 ?>
 
@@ -113,7 +120,15 @@ if ($admin) {
 foreach ($alumnos as $alumno) {
     ?>
     <tr>
-        <td scope="row"><input onClick="checkCheckedCheckboxes()" type="checkbox" name='alumno' value="<?php echo $alumno['id_alumne']; ?>"/></td>
+        <td>
+            <label class="checkbox bounce">
+                <input onClick="checkCheckedCheckboxes()" type="checkbox" name='alumno' value="<?php echo $alumno['id_alumne']; ?>"/>
+                <svg viewBox="0 0 21 21">
+                    <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                </svg>
+            </label>
+        </td>
+        
         <td><?php echo $alumno['dni_alu']; ?></td>
         <td><?php echo $alumno['nom_alu']; ?></td>
         <td><?php echo $alumno['cognoms_alu']; ?></td>
@@ -127,7 +142,7 @@ foreach ($alumnos as $alumno) {
                 <td>
                     <div class="dropdown">
                         <button class="display-options" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                            <i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
                         </button>
                         <div class="dropdown-menu options" aria-labelledby="dropdownMenu2">
                             <button class="dropdown-item eliminar" onClick="alertDelete(<?php echo $alumno['id_alumne']; ?>)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
