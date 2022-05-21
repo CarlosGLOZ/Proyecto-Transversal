@@ -10,12 +10,15 @@ export function checkCheckedCheckboxes() {
         checkedCheckboxes = document.querySelectorAll('input[name=profesor]:checked');
     }
     if (checkedCheckboxes.length > 0) {
-        document.getElementById('multiple-delete-button').disabled = false;
-        document.getElementById('multiple-modify-button').disabled = false;
+        if (document.getElementById('multiple-delete-button')) {
+            document.getElementById('multiple-delete-button').disabled = false;
+            document.getElementById('multiple-modify-button').disabled = false;
+        }
     } else {
-        document.getElementById('multiple-delete-button').disabled = true;
-        document.getElementById('multiple-modify-button').disabled = true;
-
+        if (document.getElementById('multiple-delete-button')) {
+            document.getElementById('multiple-delete-button').disabled = true;
+            document.getElementById('multiple-modify-button').disabled = true;
+        }
     }
 }
 
@@ -24,12 +27,12 @@ export function checkAllCheckboxes() {
     let scope = localStorage.getItem('data_scope')
     let ele;
     if (!scope || scope == 'alumnos') {
-        ele = document.getElementsByName('alumno');
+        ele =  document.getElementsByName('alumno');
     } else {
-        ele = document.getElementsByName('profesor');
+        ele  = document.getElementsByName('profesor');
     }
     let isChecked = document.getElementById('check-all').checked;
-
+    
     for (var i = 0; i < ele.length; i++) {
         if (ele[i].type == 'checkbox') {
             if (isChecked) {
@@ -206,17 +209,20 @@ export function changeDataVisualizationScope() {
 
 
 export function changeFilterInputs() {
+    localStorage.setItem('page', 1)
     let container = document.getElementById('filtros-container');
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
         if (!document.getElementById("filtro-dni")) {
             container.innerHTML = '<input id="filtro-dni" type="text" name="dni" class="filtro form-control" placeholder="DNI"/>' + container.innerHTML
         }
+        document.getElementById('multiple-mail-button').style.display = 'block';
         asyncShowClases('filtro-select')
     } else {
         if (document.getElementById("filtro-dni")) {
             document.getElementById('filtro-dni').remove()
         }
+        document.getElementById("multiple-mail-button").style.display = 'none';
         asyncShowDepts('filtro-select')
     }
 }

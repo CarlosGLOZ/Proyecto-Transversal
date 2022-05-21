@@ -55,3 +55,18 @@ export var valida_telefono = function(evento) {
         return true;
     }
 }
+
+
+export var valida_correo = function (evento) {
+    var valor = evento.target.value;
+    if (!(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(valor))) {
+        evento.target.style.borderColor = "red";
+        evento.target.style.borderWidth = "2px";
+        evento.target.focus();
+        return false;
+    } else {
+        evento.target.style.borderColor = "red";
+        evento.target.style.borderWidth = "2px";
+        return true;
+    }
+}

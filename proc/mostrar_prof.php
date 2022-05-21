@@ -9,7 +9,7 @@ include './conexion.php';
 
 if (!isset($_GET['nombre']) && !isset($_GET['apellidos']) && !isset($_GET['telefono']) && !isset($_GET['email']) && !isset($_GET['dept'])) {
     /* MOSTRAR TODO LOS REGISTROS SIN FILTROS */
-    $sql = "SELECT tbl_professor.id_professor, tbl_professor.nom_prof, tbl_professor.cognoms_prof, tbl_professor.email_prof, tbl_professor.telf, tbl_dept.id_dept, tbl_dept.nom_dept, tbl_classe.codi_classe 
+    $sql = "SELECT tbl_professor.id_professor, tbl_professor.nom_prof, tbl_professor.cognoms_prof, tbl_professor.email_prof, tbl_professor.telf, tbl_dept.id_dept, tbl_dept.nom_dept, tbl_classe.codi_classe, tbl_classe.id_classe
             FROM tbl_professor INNER JOIN tbl_dept ON tbl_professor.dept = tbl_dept.id_dept 
             LEFT JOIN tbl_classe ON tbl_classe.tutor = tbl_professor.id_professor";
 
@@ -23,7 +23,7 @@ if (!isset($_GET['nombre']) && !isset($_GET['apellidos']) && !isset($_GET['telef
     $telefono = $_GET['telefono'];
     $email = $_GET['email'];
     $dept = $_GET['dept'];
-    $sql = "SELECT tbl_professor.id_professor, tbl_professor.nom_prof, tbl_professor.cognoms_prof, tbl_professor.email_prof, tbl_professor.telf, tbl_dept.id_dept, tbl_dept.nom_dept, tbl_classe.codi_classe 
+    $sql = "SELECT tbl_professor.id_professor, tbl_professor.nom_prof, tbl_professor.cognoms_prof, tbl_professor.email_prof, tbl_professor.telf, tbl_dept.id_dept, tbl_dept.nom_dept, tbl_classe.codi_classe, tbl_classe.id_classe
             FROM tbl_professor INNER JOIN tbl_dept ON tbl_professor.dept = tbl_dept.id_dept 
             LEFT JOIN tbl_classe ON tbl_classe.tutor = tbl_professor.id_professor
             WHERE `nom_prof` LIKE '%$nombre%' AND `cognoms_prof` LIKE '%$apellidos%' AND `telf` LIKE '%$telefono%' AND `email_prof` LIKE '%$email%' AND `dept` LIKE '%$dept%'";
@@ -133,8 +133,9 @@ foreach ($profesores as $profesor) {
                 ?>
                 <td>
                     <button class="btn btn-danger" onClick="alertDelete(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-trash-can"></i></button>
-                    <button class="btn btn-primary" onClick="alertModifyProf(<?php echo $profesor['id_professor']; ?>, '<?php echo $profesor['nom_prof']; ?>', '<?php echo $profesor['cognoms_prof']; ?>', '<?php echo $profesor['telf']; ?>', '<?php echo $profesor['email_prof']; ?>', <?php echo $profesor['id_dept']; ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="btn btn-primary" onClick="alertModifyProf(<?php echo $profesor['id_professor']; ?>, '<?php echo $profesor['nom_prof']; ?>', '<?php echo $profesor['cognoms_prof']; ?>', '<?php echo $profesor['telf']; ?>', '<?php echo $profesor['email_prof']; ?>', <?php echo $profesor['id_dept']; ?>, <?php echo $profesor['id_classe']; ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
                     <button class="btn btn-secondary" onClick="alertChangePasswordProf(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-key"></i></button>
+                    <button class="btn btn-success" onClick="alertSendMail('<?php echo $profesor['email_prof']; ?>')"><i class="fa-solid fa-envelope"></i></button>
                 </td>
                 <?php
             }

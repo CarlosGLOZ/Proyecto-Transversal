@@ -1,9 +1,8 @@
 import { changeUsername, checkCheckedCheckboxes, updatePageButtons } from "./utils.js";
-import { alertCreateAlu, alertCreateProf, alertFailed, alertModify, alertModifyProf, alertMultipleModifyAlu } from "./alerts.js";
+import { alertCreateAlu, alertCreateProf, alertFailed, alertModify, alertModifyProf, alertSuccessAction } from "./alerts.js";
 
 
 export function asyncShow() {
-    console.log('show')
     document.getElementById('table').innerHTML = '<div class="loader"></div>';
     let url = '../proc/';
     let scope = localStorage.getItem('data_scope');
@@ -75,19 +74,21 @@ export function asyncModify(id, values) {
     if (!scope || scope == 'alumnos') {
         data = { id: id, scope: scope, nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
     } else {
-        data = { id: id, scope: scope, nombre: values.nombre, apellidos: values.apellidos, telefono: values.telefono, email: values.email, dept: values.dept };
+        data = { id: id, scope: scope, nombre: values.nombre, apellidos: values.apellidos, telefono: values.telefono, email: values.email, dept: values.dept, clase: values.clase };
     }
     $.ajax({
         type: 'POST',
         url: '../proc/modificar_reg.php',
         data: data,
         success: function(response) {
+            let error;
             if (response) {
-                let error;
                 if (response == 'Correo ya existe') {
                     error = 'Correo ya existe';
                 } else if (response == 'DNI ya existe') {
                     error = 'DNI ya existe';
+                } else if (response == 'Esta clase ya tiene tutor') {
+                    error = "Esta clase ya tiene tutor"
                 } else {
                     localStorage.setItem('nombre_usuario', response)
                     changeUsername()
@@ -99,7 +100,10 @@ export function asyncModify(id, values) {
                     } else {
                         alertFailed(error, alertModifyProf, data)
                     }
-                }
+                } 
+            }
+            if (!error) {
+                alertSuccessAction('Registro modificado')
             }
             asyncShow()
         }
@@ -127,7 +131,6 @@ export function asyncCreate(values) {
                 error = 'DNI ya existe';
             }
             if (error) {
-                console.log('b')
                 let scope = localStorage.getItem('data_scope')
                 if (!scope || scope == 'alumnos') {
                     alertFailed(error, alertCreateAlu)
@@ -135,8 +138,9 @@ export function asyncCreate(values) {
                     alertFailed(error, alertCreateProf)
                 }
             } else {
-                asyncShow()
+                alertSuccessAction('Registro creado')
             }
+            asyncShow()
         }
     })
 }
@@ -241,8 +245,8 @@ export function asyncShowDepts(elemento, dept = null) {
     })
 }
 
-// SUBIR O CARGAR CSV:
 
+// SUBIR O CARGAR CSV:
 export function asyncUpload(value) {
     let url = "../proc/cargar_csv.php"
         // var formData = new FormData();
@@ -277,10 +281,7 @@ export function asyncUpload(value) {
 }
 
 
-
-
 // DESCARGAR CSV:
-
 export function asyncDownload(values) {
     let url = "../view/descargar_csv.php"
 
@@ -297,4 +298,59 @@ export function asyncDownload(values) {
             window.URL.revokeObjectURL(url);
         })
         .catch(() => alert('oh no!'));
+}
+
+
+export function asyncSendMail(values) {
+    let data = {asunto: values.asunto, mensaje: values.mensaje, email: values.email}
+    $.ajax({
+        type: 'POST',
+        url: '../proc/enviar_mail_reg.php',
+        data: data,
+        success: function(response) {
+            alertSuccessAction('Correo enviado')
+        }
+    })
+}
+
+
+export function asyncSendMultipleMail(values) {
+    let data = {asunto: values.asunto, mensaje: values.mensaje, clase: values.clase}
+    Swal.fire({
+        title: 'Porfavor espere',
+        html: 'enviando correo',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading()
+            $.ajax({
+                type: 'POST',
+                url: '../proc/multiple_enviar_mail_reg.php',
+                data: data,
+                success: function(response) {
+                    swal.close();
+                    alertSuccessAction('Correo enviado')
+                }
+            })
+        },
+    });
+    
+}
+
+
+export function asyncUploadToServer(values) {
+    Swal.fire({
+        title: 'Porfavor espere',
+        html: 'subiendo archivo al servidor',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading()
+            $.ajax({
+                type: 'GET',
+                url: `../proc/descargar_csv_ftp.php?tipo_usuario=${values.tipo_usuario}`,
+                success: function(response) {
+                    alertSuccessAction('CSV subido al servidor')
+                }
+            })
+        },
+    });
 }

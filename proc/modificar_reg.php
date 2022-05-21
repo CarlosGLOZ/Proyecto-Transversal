@@ -55,13 +55,18 @@ if ($_POST['scope'] == 'alumnos') {
     // COMPROBAR SI UN DNI YA HA SIDO INTRODUCIDO EN LA BASE DE DATOS
     include '../func/comprobar_dni.php';
     comprobar_dni($conexion, $dni, $id);
-    
+
     $clase = strip_tags($_POST['clase']);
     $sql = "UPDATE `tbl_alumne` SET `dni_alu` = '$dni', `nom_alu` = '$nombre', `cognoms_alu` = '$apellidos', `telf_alu` = '$telefono', `email_alu` = '$email', `classe` = '$clase' WHERE `id_alumne` = $id";
     
 } else {
     $dept = strip_tags($_POST['dept']);
     $sql = "UPDATE `tbl_professor` SET `nom_prof` = '$nombre', `cognoms_prof` = '$apellidos', `telf` = '$telefono', `email_prof` = '$email', `dept` = '$dept' WHERE `id_professor` = $id";
+
+    if (isset($_POST['clase']) && !empty($_POST['clase'])) {
+        include '../func/comprobar_tutor.php';
+        comprobar_tutor($conexion, $_POST['clase'], $id);
+    }
 
     if ($id == $_SESSION['id_professor']) {
         echo "$nombre";

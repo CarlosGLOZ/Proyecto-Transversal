@@ -1,6 +1,6 @@
-import { alertModify, alertDelete, alertCreate, alertMultipleModify, alertMultipleDelete, alertModifyProf, alertChangePasswordProf, alertUploadCSV, alertDownloadCSV } from './alerts.js'
+import { alertMultipleMail, alertSendMail, alertModify, alertDelete, alertCreate, alertMultipleModify, alertMultipleDelete, alertModifyProf, alertChangePasswordProf, alertUploadCSV, alertDownloadCSV } from './alerts.js'
 import { asyncShow, asyncShowClases, asyncShowDepts } from './ajax.js'
-import { changeUsername, changeDataVisualizationScope, removeLimit, changeLimit, checkCheckedCheckboxes, checkAllCheckboxes, storeLocalFilter, voidLocalFilter, changePage, displayLocalFilter, changeOrderBy } from './utils.js'
+import { changeUsername, changeDataVisualizationScope, removeLimit, changeLimit, checkCheckedCheckboxes, checkAllCheckboxes, storeLocalFilter, voidLocalFilter, changePage, displayLocalFilter, changeOrderBy, updatePageButtons } from './utils.js'
 
 
 window.asyncShow = asyncShow;
@@ -23,6 +23,9 @@ window.alertModifyProf = alertModifyProf;
 window.alertChangePasswordProf = alertChangePasswordProf;
 window.alertUploadCSV = alertUploadCSV;
 window.alertDownloadCSV = alertDownloadCSV;
+window.alertSendMail = alertSendMail;
+window.alertMultipleMail = alertMultipleMail;
+
 
 window.onload = () => {
     changeUsername()
@@ -34,6 +37,5 @@ window.onload = () => {
     } else {
         asyncShowDepts('filtro-select')
     }
-
 
 }

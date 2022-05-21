@@ -679,6 +679,32 @@ input[type="radio"]{
     animation: spin 2s linear infinite;
 }
 
+.dropdown-item:hover {
+    background-color: #dfdfdf !important;
+    cursor: pointer !important;
+}
+
+
+/* ALERTAS */
+
+.swal-wide {
+    width: 750px !important;
+}
+
+.swal-wide .swal2-html-container {
+    text-align: left !important;
+}
+
+.swal-wide input {
+    width: 60% !important;
+}
+
+.swal-wide textarea {
+    width: 85% !important;
+    min-height: 300px !important;
+    resize: none;
+}
+
 
 /* Safari */
 
