@@ -65,10 +65,10 @@
             }
         ?>
         
+        <!-- FILTRO -->
         <div id="filtrar-container" class="dropdown filtrar-container">
             <input id="display-filtro" type="checkbox" />
             <label class="btn-style" for="display-filtro">Filtro</label>
-            <!-- FILTRO -->
             <div class="dropdown-content">
                 <div id="filtros-container" class="filtros-container">
                     <input id="filtro-dni" type="text" name="dni" class="filtro form-control" placeholder="DNI"/>

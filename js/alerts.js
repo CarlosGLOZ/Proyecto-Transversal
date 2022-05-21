@@ -1,7 +1,8 @@
 import { asyncUploadToServer, asyncSendMultipleMail, asyncSendMail, asyncDelete, asyncModify, asyncCreate, asyncMultipleModify, asyncMultipleDelete, asyncShowDepts, asyncChangePassword, asyncDownload, asyncUpload } from "./ajax.js"
-import { validaTexto, valida_DNI, valida_telefono, valida_correo } from './valida.js';
+import { validaTexto, valida_correo, validarFormularioInputAlu, validarFormularioInputProf, validarFormularioInputMail } from './valida.js';
 
 
+// ALERTA ELIMINAR REGISTROS
 export function alertDelete(id) {
     Swal.fire({
             title: '¿Estas seguro?',
@@ -9,16 +10,19 @@ export function alertDelete(id) {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Si',
+            allowOutsideClick: false,
         })
         .then((result) => {
             if (result.isConfirmed) {
+                // LLAMA A AL FUNCION AJAX DE ELIMINAR
                 asyncDelete(id);
             }
         })
 }
 
 
+// ALERTA ELIMINAR MULTIPLES REGISTROS A LA VEZ
 export function alertMultipleDelete() {
     Swal.fire({
             title: '¿Estas seguro?',
@@ -26,70 +30,76 @@ export function alertMultipleDelete() {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes'
+            confirmButtonText: 'Si',
+            allowOutsideClick: false,
         })
         .then((result) => {
             if (result.isConfirmed) {
+                // LLAMA A LA FUNCION AJAX DE ELIMINAR MULTIPLE
                 asyncMultipleDelete();
             }
         })
 }
 
 
+// ALERTA PARA DETERMINAR FUNCION DE MODIFICAR MUTIPLES REGISTROS
 export function alertMultipleModify() {
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
+        // SI EL SCOPE ES ALUMNOS LLAMA A LA ALERTA DE MODIFICAR MULTIPLES ALUMNOS
         alertMultipleModifyAlu()
     } else {
+        // SI EL SCOPE ES PROFESORES LLAMA A LA ALERTA DE MODIFICAR MULTIPLES PROFESORES
         alertMultipleModifyProf()
     }
 }
 
 
-export function alertModifyProf(id, nombre, apellidos, telefono, email, dept, clase) {
+// ALERTA MODIFICAAR LOS DATOS DE UN PROFESOR
+export function alertModifyProf(id, nombre, apellidos, telefono, email, dept, clase, admin) {
     Swal.fire({
         title: 'Modificar',
         html: `<input type="text" id="nombre" class="swal2-input" placeholder="Nombre" value="${nombre}">
                <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos" value="${apellidos}">
                <input type="text" id="telefono" class="swal2-input" placeholder="Teléfono" value="${telefono}">
-               <input type="email" id="email" class="swal2-input" placeholder="Email" value="${email}">
+               <input type="email" id="email" class="swal2-input" placeholder="Email" value="${email}"><br>
+               <label>Admin</label>
+               <input type="checkbox" id="admin" class="swal2-input" ${admin == 1 ? 'checked' : ''}  /><br>
                <select id="select-dept" class="swal2-input" name='dept'></select><br>
                <select id="select-clases" class="swal2-input" name='clases'></select>`,
         confirmButtonText: 'Modificar',
         showCancelButton: true,
         focusConfirm: false,
+        allowOutsideClick: false,
         didOpen: () => {
+            // MOSTRAR LISTA DE DEPARTAMENTOS
             asyncShowDepts('select-dept', dept)
-            asyncShowClases('select-clases', clase)
-            // VALIDAR NOMBRE:
-            document.getElementById("nombre").onblur = validaTexto;
-            // VALIDAR APELLIDOS:
-            document.getElementById("apellidos").onblur = validaTexto;
-            // VALIDAR TELÉFONO:
-            document.getElementById("telefono").onblur = validaTexto;
-            document.getElementById("telefono").onblur = valida_telefono;
-            // VALIDAR EMAIL: 
-            document.getElementById("email").onblur = validaTexto;
-            // VALIDAR CONTRASEÑA:
-            document.getElementById("password").onblur = validaTexto;
-            // VALIDA CLASE:
-            document.getElementById("select-dept").onblur = validaTexto;
+            // MOSTRAR LISTA DE CLASES
+            asyncShowClases('select-clases', clase, 'profesores')
+            // VALIDAR EL FORMULARIO
+            validarFormularioInputProf()
         },
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let nombre = Swal.getPopup().querySelector('#nombre').value
             let apellidos = Swal.getPopup().querySelector('#apellidos').value
             let telefono = Swal.getPopup().querySelector('#telefono').value
             let email = Swal.getPopup().querySelector('#email').value
             let dept = Swal.getPopup().querySelector('#select-dept').value
             let clase = Swal.getPopup().querySelector('#select-clases').value
-            return { nombre: nombre, email: email, apellidos: apellidos, telefono: telefono, email: email, dept: dept, clase: clase }
+            let admin = Swal.getPopup().querySelector('#admin').checked
+            return { nombre: nombre, email: email, apellidos: apellidos, telefono: telefono, email: email, dept: dept, clase: clase, admin: admin }
         }
     }).then((result) => {
-        asyncModify(id, result.value)
+        if (result.isConfirmed) {
+            // LLAMAR A LA FUNCION AJAX PARA MODIFICAR REGISTROS PASANDO LOS DATOS RECOGIDOS DEL FORMULARIO
+            asyncModify(id, result.value)
+        }
     })
 }
 
 
+// ALERTA MODIFICAR MULTIPLES PROFESORES
 export function alertMultipleModifyProf() {
     Swal.fire({
         title: 'Mulitple modify',
@@ -97,35 +107,48 @@ export function alertMultipleModifyProf() {
         confirmButtonText: 'Modify',
         showCancelButton: true,
         focusConfirm: false,
-        didOpen: () => asyncShowDepts('select-dept'),
+        allowOutsideClick: false,
+        didOpen: () => {
+            // MOSTRAR LISTA DE DEPARTAMENTOS
+            asyncShowDepts('select-dept')
+        },
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let dept = Swal.getPopup().querySelector('#select-dept').value
             return { dept: dept }
         }
     }).then((result) => {
+        // LLAMAR A LA FUNCION AJAX PARA MODIFICAR MULTIPLES REGISTROS PASANDO LOS DATOS RECOGIDOS DEL FORMULARIO
         asyncMultipleModify(result.value)
     })
 }
 
 
+// ALERTA PARA MODIFICAR EL PASSWORD DE LOS PROFESORES
 export function alertChangePasswordProf(id) {
     Swal.fire({
         title: 'Cambiar password',
         html: `<input type="password" id="password" class="swal2-input" placeholder="Nuevo password">`,
         confirmButtonText: 'Cambiar password',
+        showCancelButton: true,
         focusConfirm: false,
+        allowOutsideClick: false,
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let password = Swal.getPopup().querySelector('#password').value
             return { id: id, password: password }
         }
     }).then((result) => {
-        asyncChangePassword(result.value)
+        if (result.isConfirmed) {
+            // LLAMAR A LA FUNCION AJAX PARA MODIFICAR EL PASSWORD
+            asyncChangePassword(result.value)
+        }
     })
 }
 
 
-
-export function alertModify(id, dni, nombre, apellidos, telefono, email, clase) {
+// ALERTA PARA MODIFICAR LOS DATOS DE UN ALUMNO
+export function alertModifyAlu(id, dni, nombre, apellidos, telefono, email, clase) {
     Swal.fire({
         title: 'Modificar',
         html: `<input type="text" id="dni" class="swal2-input" placeholder="DNI" value="${dni}">
@@ -137,24 +160,15 @@ export function alertModify(id, dni, nombre, apellidos, telefono, email, clase) 
         confirmButtonText: 'Modificar',
         showCancelButton: true,
         focusConfirm: false,
+        allowOutsideClick: false,
         didOpen: () => {
+            // MOSTRAR LISTA DE CLASES
             asyncShowClases('select-clases', clase)
-            // VALIDAR DNI:
-            document.getElementById("dni").onblur = validaTexto;
-            document.getElementById("dni").onblur = valida_DNI;
-            // VALIDAR NOMBRE:
-            document.getElementById("nombre").onblur = validaTexto;
-            // VALIDAR APELLIDOS:
-            document.getElementById("apellidos").onblur = validaTexto;
-            // VALIDAR TELÉFONO:
-            document.getElementById("telefono").onblur = validaTexto;
-            document.getElementById("telefono").onblur = valida_telefono;
-            // VALIDAR EMAIL: 
-            document.getElementById("email").onblur = validaTexto;
-            // VALIDA CLASE:
-            document.getElementById("select-clases").onblur = validaTexto;
+            // VALIDARA FORMULARIO
+            validarFormularioInputAlu()
         },
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let dni = Swal.getPopup().querySelector('#dni').value
             let nombre = Swal.getPopup().querySelector('#nombre').value
             let apellidos = Swal.getPopup().querySelector('#apellidos').value
@@ -162,16 +176,17 @@ export function alertModify(id, dni, nombre, apellidos, telefono, email, clase) 
             let email = Swal.getPopup().querySelector('#email').value
             let clase = Swal.getPopup().querySelector('#select-clases').value
             return { nombre: nombre, dni: dni, email: email, apellidos: apellidos, telefono: telefono, email: email, clase: clase }
-            /* if (!login || !password) {
-                Swal.showValidationMessage(`Please enter login and password`)
-            } */
         }
     }).then((result) => {
-        asyncModify(id, result.value)
+        if (result.isConfirmed) {
+            // LLAMAR A LA FUNCION AJAX PARA MODIFICAR REGISTROS
+            asyncModify(id, result.value)
+        }
     })
 }
 
 
+// ALERTA PARA MODIFICAR MULTIPLES ALUMNOS
 export function alertMultipleModifyAlu() {
     Swal.fire({
         title: 'Mulitple modify',
@@ -179,17 +194,26 @@ export function alertMultipleModifyAlu() {
         confirmButtonText: 'Modify',
         showCancelButton: true,
         focusConfirm: false,
-        didOpen: () => asyncShowClases('select-clases'),
+        allowOutsideClick: false,
+        didOpen: () => {
+            // MOSTRAR LISTA DE CLASES
+            asyncShowClases('select-clases')
+        },
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let clase = Swal.getPopup().querySelector('#select-clases').value
             return { clase: clase }
         }
     }).then((result) => {
-        asyncMultipleModify(result.value)
+        if (result.isConfirmed) {
+            // LLAMAR A LA FUNCION AJAX PARA MODIFICAR MULTIPLES REGISTROS
+            asyncMultipleModify(result.value)
+        }
     })
 }
 
 
+// ALERTA PARA DETERMINAR FUNCION DE CREAR REGISTRO
 export function alertCreate() {
     let scope = localStorage.getItem('data_scope')
     if (!scope || scope == 'alumnos') {
@@ -200,6 +224,7 @@ export function alertCreate() {
 }
 
 
+// ALERTA PARA CREAR UN ALUMNO
 export function alertCreateAlu() {
     Swal.fire({
         title: 'Crear',
@@ -212,25 +237,17 @@ export function alertCreateAlu() {
         confirmButtonText: 'Crear',
         showCancelButton: true,
         focusConfirm: false,
+        allowOutsideClick: false,
         didOpen: () => {
+            // DESHABILITAR EL BOTON DE CONFIRMAR
+            document.getElementsByClassName('swal2-confirm')[0].disabled = true;
+            // MOSTRAR LISTA DE CLASES
             asyncShowClases('select-clases')
-            // VALIDAR DNI:
-            document.getElementById("dni").onblur = validaTexto;
-            document.getElementById("dni").onblur = valida_DNI;
-            // VALIDAR NOMBRE:
-            document.getElementById("nombre").onblur = validaTexto;
-            // VALIDAR APELLIDOS:
-            document.getElementById("apellidos").onblur = validaTexto;
-            // VALIDAR TELÉFONO:
-            document.getElementById("telefono").onblur = validaTexto;
-            document.getElementById("telefono").onblur = valida_telefono;
-            // VALIDAR EMAIL: 
-            document.getElementById("email").onblur = validaTexto;
-            document.getElementById("email").onblur = valida_correo;
-            // VALIDA CLASE:
-            document.getElementById("select-clases").onblur = validaTexto;
+            // VALIDAR FORMULARIO
+            validarFormularioInputAlu()
         },
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let dni = Swal.getPopup().querySelector('#dni').value
             let nombre = Swal.getPopup().querySelector('#nombre').value
             let apellidos = Swal.getPopup().querySelector('#apellidos').value
@@ -240,11 +257,15 @@ export function alertCreateAlu() {
             return { nombre: nombre, dni: dni, email: email, apellidos: apellidos, telefono: telefono, email: email, clase: clase }
         }
     }).then((result) => {
-        asyncCreate(result.value)
+        if (result.isConfirmed) {
+            // LLAMAR A LA FUNCION AJAX PARA CREAR REGISTROS
+            asyncCreate(result.value)
+        }
     })
 }
 
 
+// ALERTA PARA CREAR UN PROFESOR
 export function alertCreateProf() {
     Swal.fire({
         title: 'Crear',
@@ -257,23 +278,17 @@ export function alertCreateProf() {
         confirmButtonText: 'Crear',
         showCancelButton: true,
         focusConfirm: false,
+        allowOutsideClick: false,
         didOpen: () => {
+            // DESHABILITAR EL BOTON DE CONFIRMAR
+            document.getElementsByClassName('swal2-confirm')[0].disabled = true;
+            // MOSTRAR LISTA DE DEPARTAMENTOS
             asyncShowDepts('select-dept')
-            // VALIDAR NOMBRE:
-            document.getElementById("nombre").onblur = validaTexto;
-            // VALIDAR APELLIDOS:
-            document.getElementById("apellidos").onblur = validaTexto;
-            // VALIDAR TELÉFONO:
-            document.getElementById("telefono").onblur = validaTexto;
-            document.getElementById("telefono").onblur = valida_telefono;
-            // VALIDAR EMAIL: 
-            document.getElementById("email").onblur = validaTexto;
-            // VALIDAR CONTRASEÑA:
-            document.getElementById("password").onblur = validaTexto;
-            // VALIDA CLASE:
-            document.getElementById("select-dept").onblur = validaTexto;
+            // VALIDAR FORMULARIO
+            validarFormularioInputProf(true)
         },
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let nombre = Swal.getPopup().querySelector('#nombre').value
             let apellidos = Swal.getPopup().querySelector('#apellidos').value
             let telefono = Swal.getPopup().querySelector('#telefono').value
@@ -281,25 +296,29 @@ export function alertCreateProf() {
             let password = Swal.getPopup().querySelector('#password').value
             let dept = Swal.getPopup().querySelector('#select-dept').value
             return { nombre: nombre, email: email, apellidos: apellidos, telefono: telefono, email: email, password: password, dept: dept }
-            /* if (!login || !password) {
-                Swal.showValidationMessage(`Please enter login and password`)
-            } */
         }
     }).then((result) => {
-        asyncCreate(result.value)
+        if (result.isConfirmed) {
+            // LLAMAR A LA FUNCION AJAX PARA CREAR REGISTROS
+            asyncCreate(result.value)
+        }
     })
 }
 
 
+// ALERTA PARA PROCESO FALLIDO
 export function alertFailed(error, callBack=null, values = null) {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: error,
+        allowOutsideClick: false,
     }).then(() => {
         if (!values) {
+            // SI NO SE PASAN VALORES SE LLAMA A LA FUNCION DE CALLBACK
             callBack();
         } else {
+            // SI HAY VALORES SE COMPRUEBA EL SCOPE Y SE LLAMA A LA FUNCION DE CALLBACK PASANDOLE LOS PARAMETROS NECESARIOS
             let scope = localStorage.getItem('data_scope')
             if (!scope || scope == 'alumnos') {
                 callBack(values.id, values.dni, values.nombre, values.apellidos, values.telefono, values.email, values.clase);
@@ -311,58 +330,68 @@ export function alertFailed(error, callBack=null, values = null) {
 }
 
 
+// ALERTA PARA DESCARGAR FICHERO CSV
 export function alertDownloadCSV(mode) {
     Swal.fire({
         title: 'Descargar CSV',
-        html: `
-        <select id="tipo_usuario" name="tipo_usuario">
-            <option value="profes">Profesores</option>
-            <option value="alumnos">Alumnos</option>
-        </select>`,
+        html: `<select id="tipo_usuario" name="tipo_usuario">
+                    <option value="profes">Profesores</option>
+                    <option value="alumnos">Alumnos</option>
+                </select>`,
         confirmButtonText: 'Descargar',
         showCancelButton: true,
         focusConfirm: false,
+        allowOutsideClick: false,
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let tipo_usuario = Swal.getPopup().querySelector('#tipo_usuario').value
             return { tipo_usuario: tipo_usuario }
-            /* if (!login || !password) {
-                Swal.showValidationMessage(`Please enter login and password`)
-            } */
         }
     }).then((result) => {
-        if (mode == 'local') {
-            asyncDownload(result.value)
-        } else {
-            asyncUploadToServer(result.value)
+        if (result.isConfirmed) {
+            if (mode == 'local') {
+                // SI EL MODO ES EN LOCAL, SE DESCARGA EL FICHER CSV EN EL NAVEGADOR
+                asyncDownload(result.value)
+            } else {
+                // SI EL MODO ES EN SERVIDOR, SE CARGA EL FICHERO CSV EN EL SERVIDOR 
+                asyncUploadToServer(result.value)
+            }
         }
     })
 }
 
 
+// ALERTA PARA CARGAR FICHERO CSV A LA BASE DE DATOS
 export function alertUploadCSV() {
     Swal.fire({
         title: 'Cargar CSV',
-        html: `
-        <input id="csv" type="file" name="csv">
-        <select id="tipo_usuario" name="tipo_usuario">
-            <option value="profes">Profesores</option>
-            <option value="alumnos">Alumnos</option>
-        </select>`,
+        html: `<input id="csv" type="file" name="csv">
+               <select id="tipo_usuario" name="tipo_usuario">
+                    <option value="profes">Profesores</option>
+                    <option value="alumnos">Alumnos</option>
+               </select>`,
         confirmButtonText: 'Cargar',
         showCancelButton: true,
         focusConfirm: false,
+        allowOutsideClick: false,
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let file = Swal.getPopup().querySelector('#csv').files[0]
             let tipo_usuario = Swal.getPopup().querySelector('#tipo_usuario').value
             return { file: file, tipo_usuario: tipo_usuario }
         }
     }).then((result) => {
-        asyncUpload(result.value)
+        if (result.isConfirmed) {
+            // LLAMAR A LA FUNCION AJAX PARA SUBIR CSV
+            asyncUpload(result.value)
+        }
     })
 }
 
 
+// ALERTA PARA ACCION EXITOSA
 export function alertSuccessAction(msg) {
+    // SE DEFINE ALERTA PERSONALIZADA
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -370,11 +399,13 @@ export function alertSuccessAction(msg) {
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+            // SI PASA EL MOUSE POR ENCIMA DEL ELEMENTO SE DETIENE EL CONTADOR
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            // SI SE SALE EL MOUSE DEL ELEMENTO CONTINUA EL CONTADOR
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     })
-    
+    // SE MUESTRA ALERTA PERSONALIZADA
     Toast.fire({
         icon: 'success',
         title: msg
@@ -382,6 +413,7 @@ export function alertSuccessAction(msg) {
 }
 
 
+// ALERTA PARA ENVIAR MAIL
 export function alertSendMail(email) {
     Swal.fire({
         title: 'Enviar correo',
@@ -392,27 +424,30 @@ export function alertSendMail(email) {
         showCancelButton: true,
         customClass: 'swal-wide',
         focusConfirm: false,
+        allowOutsideClick: false,
         didOpen: () => {
-            // VALIDAR CORREO
-            document.getElementById("email").onblur = valida_correo;
-            document.getElementById("email").onblur = validaTexto;
-            // VALIDAR ASUNTO
-            document.getElementById("asunto").onblur = validaTexto;
-            // VALIDAR MENSAJE
-            document.getElementById("mensaje").onblur = validaTexto;
+            // DEHABILITAR BOTON DE ENVIAR
+            document.getElementsByClassName('swal2-confirm')[0].disabled = true;
+            // VALIDAR FORMULARIO
+            validarFormularioInputMail(false)
         },
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let email = Swal.getPopup().querySelector('#email').value
             let asunto = Swal.getPopup().querySelector('#asunto').value
             let mensaje = Swal.getPopup().querySelector('#mensaje').value
             return { email: email, asunto: asunto, mensaje: mensaje }
         }
     }).then((result) => {
-        asyncSendMail(result.value)
+        if (result.isConfirmed) {
+            // LLAMAR A FUNCION AJAX PARA ENVIAR MAIL
+            asyncSendMail(result.value)
+        }
     })
 }
 
 
+// ALERTA PARA ENVIAR MULTIPLES MAILS
 export function alertMultipleMail() {
     Swal.fire({
         title: 'Enviar correo multiple',
@@ -423,23 +458,28 @@ export function alertMultipleMail() {
         showCancelButton: true,
         customClass: 'swal-wide',
         focusConfirm: false,
+        allowOutsideClick: false,
         didOpen: () => {
+            // MOSTRAR LISTA DE CLASES
             asyncShowClases('select-clases')
-            // VALIDAR ASUNTO
-            document.getElementById("asunto").onblur = validaTexto;
-            // VALIDAR MENSAJE
-            document.getElementById("mensaje").onblur = validaTexto;
-            // VALIDA CLASE:
-            document.getElementById("select-clases").onblur = validaTexto;
+            // DEHABILITAR BOTON DE ENVIAR
+            document.getElementsByClassName('swal2-confirm')[0].disabled = true;
+            // VALIDAR FORMULARIO
+            validarFormularioInputMail()
         },
         preConfirm: () => {
+            // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
             let clase = Swal.getPopup().querySelector('#select-clases').value
             let asunto = Swal.getPopup().querySelector('#asunto').value
             let mensaje = Swal.getPopup().querySelector('#mensaje').value
             return { clase: clase, asunto: asunto, mensaje: mensaje }
         }
     }).then((result) => {
-        asyncSendMultipleMail(result.value)
-        Swal.showLoading()
+        if (result.isConfirmed) {
+            // LLAMAR A FUNCION AJAX PARA ENVIAR MULTIPLES MAILS
+            asyncSendMultipleMail(result.value)
+            // LA ALERTA SE QUEDA CARGANDO HASTA RECIBIR RESPUESTA
+            Swal.showLoading()
+        }
     })
 }

@@ -9,7 +9,7 @@ include './conexion.php';
 
 if (!isset($_GET['nombre']) && !isset($_GET['apellidos']) && !isset($_GET['telefono']) && !isset($_GET['email']) && !isset($_GET['dept'])) {
     /* MOSTRAR TODO LOS REGISTROS SIN FILTROS */
-    $sql = "SELECT tbl_professor.id_professor, tbl_professor.nom_prof, tbl_professor.cognoms_prof, tbl_professor.email_prof, tbl_professor.telf, tbl_dept.id_dept, tbl_dept.nom_dept, tbl_classe.codi_classe, tbl_classe.id_classe
+    $sql = "SELECT tbl_professor.id_professor, tbl_professor.nom_prof, tbl_professor.cognoms_prof, tbl_professor.email_prof, tbl_professor.telf, tbl_professor.admin, tbl_dept.id_dept, tbl_dept.nom_dept, tbl_classe.codi_classe, tbl_classe.id_classe
             FROM tbl_professor INNER JOIN tbl_dept ON tbl_professor.dept = tbl_dept.id_dept 
             LEFT JOIN tbl_classe ON tbl_classe.tutor = tbl_professor.id_professor";
 
@@ -111,7 +111,8 @@ if (!$filtrado) {
 
 <?php
 if ($admin) {
-    echo "<th>Accion</th>";
+    echo "<th>Admin</th>";
+    echo "<th>Acción</th>";
 }
 ?>
 
@@ -127,15 +128,23 @@ foreach ($profesores as $profesor) {
         <td><?php echo $profesor['telf']; ?></td>
         <td><?php echo $profesor['email_prof']; ?></td>
         <td><?php echo $profesor['nom_dept']; ?></td>
-        <td><?php echo !empty($profesor['codi_classe']) ? $profesor['codi_classe'] : '---'; ?></td>
+        <td><?php echo !empty($profesor['codi_classe']) ? $profesor['codi_classe'] : '<i class="fa-solid fa-minus"></i>'; ?></td>
         <?php
             if ($admin) {
                 ?>
+                <td><?php echo $profesor['admin'] ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>' ?></td>
                 <td>
-                    <button class="btn btn-danger" onClick="alertDelete(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-trash-can"></i></button>
-                    <button class="btn btn-primary" onClick="alertModifyProf(<?php echo $profesor['id_professor']; ?>, '<?php echo $profesor['nom_prof']; ?>', '<?php echo $profesor['cognoms_prof']; ?>', '<?php echo $profesor['telf']; ?>', '<?php echo $profesor['email_prof']; ?>', <?php echo $profesor['id_dept']; ?>, <?php echo $profesor['id_classe']; ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button class="btn btn-secondary" onClick="alertChangePasswordProf(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-key"></i></button>
-                    <button class="btn btn-success" onClick="alertSendMail('<?php echo $profesor['email_prof']; ?>')"><i class="fa-solid fa-envelope"></i></button>
+                    <div class="dropdown">
+                        <button class="display-options" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <div class="dropdown-menu options" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item eliminar" onClick="alertDelete(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
+                            <button class="dropdown-item modificar" onClick="alertModifyProf(<?php echo $profesor['id_professor']; ?>, '<?php echo $profesor['nom_prof']; ?>', '<?php echo $profesor['cognoms_prof']; ?>', '<?php echo $profesor['telf']; ?>', '<?php echo $profesor['email_prof']; ?>', <?php echo $profesor['id_dept']; ?>, <?php echo $profesor['id_classe'] ? $profesor['id_classe'] : "'none'"; ?>, <?php echo $profesor['admin']; ?>)"><i class="fa-solid fa-pen-to-square"></i> Modificar</button>
+                            <button class="dropdown-item password" onClick="alertChangePasswordProf(<?php echo $profesor['id_professor']; ?>)"><i class="fa-solid fa-key"></i> Password</button>
+                            <button class="dropdown-item correo" onClick="alertSendMail('<?php echo $profesor['email_prof']; ?>')"><i class="fa-solid fa-envelope"></i> Correo</button>
+                        </div>
+                    </div>
                 </td>
                 <?php
             }

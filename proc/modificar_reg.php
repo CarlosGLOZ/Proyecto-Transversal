@@ -27,7 +27,7 @@ if ($_POST['scope'] == 'alumnos' && (!isset($_POST['dni']) || empty($_POST['dni'
 }
 
 /* VALIDACIONES PROFESORES */
-if ($_POST['scope'] == 'profesores' && (!isset($_POST['dept']) || empty($_POST['dept']) )) {
+if ($_POST['scope'] == 'profesores' && (!isset($_POST['dept']) || empty($_POST['dept']) || !isset($_POST['admin']) || empty($_POST['admin']) )) {
     echo "<script>window.location.href = '../view/'</script>";
     die();
 }
@@ -61,7 +61,14 @@ if ($_POST['scope'] == 'alumnos') {
     
 } else {
     $dept = strip_tags($_POST['dept']);
-    $sql = "UPDATE `tbl_professor` SET `nom_prof` = '$nombre', `cognoms_prof` = '$apellidos', `telf` = '$telefono', `email_prof` = '$email', `dept` = '$dept' WHERE `id_professor` = $id";
+
+    if($_POST['admin'] == 'true') {
+        $admin = 1;
+    } else {
+        $admin = 0;
+    }
+
+    $sql = "UPDATE `tbl_professor` SET `nom_prof` = '$nombre', `cognoms_prof` = '$apellidos', `telf` = '$telefono', `email_prof` = '$email', `dept` = '$dept', `admin` = $admin WHERE `id_professor` = $id";
 
     if (isset($_POST['clase']) && !empty($_POST['clase'])) {
         include '../func/comprobar_tutor.php';

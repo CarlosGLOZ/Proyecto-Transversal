@@ -1,11 +1,11 @@
-import { alertMultipleMail, alertSendMail, alertModify, alertDelete, alertCreate, alertMultipleModify, alertMultipleDelete, alertModifyProf, alertChangePasswordProf, alertUploadCSV, alertDownloadCSV } from './alerts.js'
+import { alertMultipleMail, alertSendMail, alertModifyAlu, alertDelete, alertCreate, alertMultipleModify, alertMultipleDelete, alertModifyProf, alertChangePasswordProf, alertUploadCSV, alertDownloadCSV } from './alerts.js'
 import { asyncShow, asyncShowClases, asyncShowDepts } from './ajax.js'
 import { changeUsername, changeDataVisualizationScope, removeLimit, changeLimit, checkCheckedCheckboxes, checkAllCheckboxes, storeLocalFilter, voidLocalFilter, changePage, displayLocalFilter, changeOrderBy, updatePageButtons } from './utils.js'
 
 
 window.asyncShow = asyncShow;
 window.asyncShowClases = asyncShowClases;
-window.alertModify = alertModify;
+window.alertModifyAlu = alertModifyAlu;
 window.alertDelete = alertDelete;
 window.alertCreate = alertCreate;
 window.alertMultipleModify = alertMultipleModify;

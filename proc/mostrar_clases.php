@@ -8,6 +8,10 @@ include './conexion.php';
 $sql = "SELECT * FROM tbl_classe";
 $clases = mysqli_query($conexion, $sql);
 
+if (isset($_GET['scope']) && $_GET['scope'] == 'profesores') {
+    echo "<option value='null'>Sin clase</option>";
+}
+
 if (!isset($_GET['id'])) {
     echo "<option value=''>-- Clase --</option>";
     foreach ($clases as $clase) {

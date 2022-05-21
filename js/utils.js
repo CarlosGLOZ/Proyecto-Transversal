@@ -85,6 +85,13 @@ export function displayLocalFilter() {
     if (limit && limit != 'none') {
         document.getElementById('limite-registros').value = limit;
     }
+    let scope = localStorage.getItem('data_scope')
+    if (!scope || scope == 'profesores') {
+        if (document.getElementById("filtro-dni")) {
+            document.getElementById('filtro-dni').remove()
+        }
+        document.getElementById("multiple-mail-button").style.display = 'none';
+    }
 }
 
 

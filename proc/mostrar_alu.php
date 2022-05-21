@@ -103,7 +103,7 @@ if (!$filtrado) {
 
 <?php
 if ($admin) {
-    echo "<th>Accion</th>";
+    echo "<th>Acción</th>";
 }
 ?>
 
@@ -125,9 +125,16 @@ foreach ($alumnos as $alumno) {
             if ($admin) {
                 ?>
                 <td>
-                    <button class="btn btn-danger" onClick="alertDelete(<?php echo $alumno['id_alumne']; ?>)"><i class="fa-solid fa-trash-can"></i></button>
-                    <button class="btn btn-primary" onClick="alertModify(<?php echo $alumno['id_alumne']; ?>, '<?php echo $alumno['dni_alu']; ?>', '<?php echo $alumno['nom_alu']; ?>', '<?php echo $alumno['cognoms_alu']; ?>', '<?php echo $alumno['telf_alu']; ?>', '<?php echo $alumno['email_alu']; ?>', <?php echo $alumno['id_classe']; ?>)"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button class="btn btn-success" onClick="alertSendMail('<?php echo $alumno['email_alu']; ?>')"><i class="fa-solid fa-envelope"></i></button>
+                    <div class="dropdown">
+                        <button class="display-options" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <div class="dropdown-menu options" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item eliminar" onClick="alertDelete(<?php echo $alumno['id_alumne']; ?>)"><i class="fa-solid fa-trash-can"></i> Eliminar</button>
+                            <button class="dropdown-item modificar" onClick="alertModifyAlu(<?php echo $alumno['id_alumne']; ?>, '<?php echo $alumno['dni_alu']; ?>', '<?php echo $alumno['nom_alu']; ?>', '<?php echo $alumno['cognoms_alu']; ?>', '<?php echo $alumno['telf_alu']; ?>', '<?php echo $alumno['email_alu']; ?>', <?php echo $alumno['id_classe']; ?>)"><i class="fa-solid fa-pen-to-square"></i> Modificar</button>
+                            <button class="dropdown-item correo" onClick="alertSendMail('<?php echo $alumno['email_alu']; ?>')"><i class="fa-solid fa-envelope"></i> Correo</button>
+                        </div>
+                    </div>
                 </td>
                 <?php
             }

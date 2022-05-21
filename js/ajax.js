@@ -1,49 +1,72 @@
 import { changeUsername, checkCheckedCheckboxes, updatePageButtons } from "./utils.js";
-import { alertCreateAlu, alertCreateProf, alertFailed, alertModify, alertModifyProf, alertSuccessAction } from "./alerts.js";
+import { alertCreateAlu, alertCreateProf, alertFailed, alertModifyAlu, alertModifyProf, alertSuccessAction } from "./alerts.js";
 
 
+// FUNCION AJAX PARA MOSTRAR LA TABLA DE REGISTROS
 export function asyncShow() {
+    // MOSTRAR ELEMENTO DE LOADING
     document.getElementById('table').innerHTML = '<div class="loader"></div>';
+    // INICIALIZAR URL
     let url = '../proc/';
+    // RECOGER SCOPE
     let scope = localStorage.getItem('data_scope');
+    // RECOGER FILTRO
     let filter = localStorage.getItem('filter');
     if (!scope || scope == 'alumnos') {
+        // SI EL SCOPE ES DE ALUMNOS
         url += 'mostrar_alu.php?';
         if (filter) {
+            // CONVERTIR EL FILTRO (STRING) A FORMATO JSON (OBJETO)
             filter = JSON.parse(filter)
+            // DETERMINAR SI HAY ALGUN FILTRO ACTIVO 
             if (filter.nombre || filter.dni || filter.apellidos || filter.telefono || filter.email || filter.clase) {
+                // SI HAY ALGUN FILTRO ACTIVO, AÑADIR LOS PARAMETROS DE ALUMNOS A LA URL
                 url += `nombre=${filter.nombre}&dni=${filter.dni}&apellidos=${filter.apellidos}&telefono=${filter.telefono}&email=${filter.email}&clase=${filter.clase}&`
             }
         }
     } else {
+        // SI EL SCOPE ES DE PROFESORES
         url += 'mostrar_prof.php?';
         if (filter) {
+            // CONVERTIR EL FILTRO (STRING) A FORMATO JSON (OBJETO)
             filter = JSON.parse(filter)
+             // DETERMINAR SI HAY ALGUN FILTRO ACTIVO 
             if (filter.nombre || filter.apellidos || filter.telefono || filter.email || filter.dept) {
+                // SI HAY ALGUN FILTRO ACTIVO, AÑADIR LOS PARAMETROS DE PROFESORES A LA URL
                 url += `nombre=${filter.nombre}&apellidos=${filter.apellidos}&telefono=${filter.telefono}&email=${filter.email}&dept=${filter.dept}&`
             }
         }
     }
+    // RECOGER PAGINA ACTUAL
     let page = localStorage.getItem('page');
+    // RECOGER ORDEN DE REGISTROS
     let orderby = localStorage.getItem('orderby');
+    // RECOGER LIMITE DE REGISTROS
     let limit = localStorage.getItem('limit');
     if (page) {
+        // SI LA PAGINA ESTA SETEADA, SE AÑADE A LA URL
         page = JSON.parse(page)
         url += `page=${page}&`
     }
     if (orderby) {
+        // SI EL ORDEN ESTA SETEADO, SE AÑADE A LA URL
         url += `orderby=${orderby}&`
     }
     if (limit) {
+        // SI EL LIMITE ESTA SETEADO, SE AÑADE A LA URL
         url += `limit=${limit}&`
     }
+    // ENVIAR PETICION
     $.ajax({
         type: 'GET',
         url: url,
         success: function(response) {
+            // RECIBIR RESPUESTA Y MOSTRAR LOS REGISTROS EN LA TABLA
             let element = document.getElementById('table');
             element.innerHTML = response;
+            // ACTUALIZAR CHECKBOXES DE SELECCION DE REGISTROS
             checkCheckedCheckboxes()
+            // ACTUALIZAR BOTONES DE FILTROS Y ACCIONES
             updatePageButtons();
         }
     })
@@ -74,7 +97,7 @@ export function asyncModify(id, values) {
     if (!scope || scope == 'alumnos') {
         data = { id: id, scope: scope, nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
     } else {
-        data = { id: id, scope: scope, nombre: values.nombre, apellidos: values.apellidos, telefono: values.telefono, email: values.email, dept: values.dept, clase: values.clase };
+        data = { id: id, scope: scope, nombre: values.nombre, apellidos: values.apellidos, telefono: values.telefono, email: values.email, dept: values.dept, clase: values.clase, admin: values.admin};
     }
     $.ajax({
         type: 'POST',
@@ -96,7 +119,7 @@ export function asyncModify(id, values) {
                 if (error) {
                     let scope = localStorage.getItem('data_scope')
                     if (!scope || scope == 'alumnos') {
-                        alertFailed(error, alertModify, data)
+                        alertFailed(error, alertModifyAlu, data)
                     } else {
                         alertFailed(error, alertModifyProf, data)
                     }
@@ -214,10 +237,13 @@ export function asyncChangePassword(values) {
 }
 
 
-export function asyncShowClases(elemento, clase = null) {
-    let url = "../proc/mostrar_clases.php"
+export function asyncShowClases(elemento, clase = null, scope = null) {
+    let url = "../proc/mostrar_clases.php?"
     if (clase) {
-        url += `?id=${clase}`
+        url += `id=${clase}&`
+    }
+    if (scope) {
+        url += `scope=${scope}&`
     }
     $.ajax({
         type: 'GET',
