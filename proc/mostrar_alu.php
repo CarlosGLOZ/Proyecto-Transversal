@@ -91,19 +91,19 @@ if (!$filtrado) {
 }
 
 ?>
-<table>
+<table class="table">
 <tr>
-<th class="header-check"><input id="check-all" onClick="checkAllCheckboxes()" type="checkbox"/></th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'dni' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('dni')" >DNI</th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'nombre' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('nombre')">Nombre</th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'apellidos' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('apellidos')">Apellidos</th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'telefono' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('telefono')">Teléfono</th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'email' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('email')">Email</th>
-<th class="headers-orderby <?php echo isset($orderby) && $orderby == 'clase' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('clase')">Clase</th>
+<th scope="col" class="header-check"><input id="check-all" onClick="checkAllCheckboxes()" type="checkbox"/></th>
+<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'dni' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('dni')" >DNI</th>
+<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'nombre' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('nombre')">Nombre</th>
+<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'apellidos' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('apellidos')">Apellidos</th>
+<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'telefono' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('telefono')">Teléfono</th>
+<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'email' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('email')">Email</th>
+<th scope="col" class="headers-orderby <?php echo isset($orderby) && $orderby == 'clase' ? 'headers-orderby-checked' : '' ?>" onClick="changeOrderBy('clase')">Clase</th>
 
 <?php
 if ($admin) {
-    echo "<th>Acción</th>";
+    echo "<th scope='col'>Acción</th>";
 }
 ?>
 
@@ -113,7 +113,7 @@ if ($admin) {
 foreach ($alumnos as $alumno) {
     ?>
     <tr>
-        <td><input onClick="checkCheckedCheckboxes()" type="checkbox" name='alumno' value="<?php echo $alumno['id_alumne']; ?>"/></td>
+        <td scope="row"><input onClick="checkCheckedCheckboxes()" type="checkbox" name='alumno' value="<?php echo $alumno['id_alumne']; ?>"/></td>
         <td><?php echo $alumno['dni_alu']; ?></td>
         <td><?php echo $alumno['nom_alu']; ?></td>
         <td><?php echo $alumno['cognoms_alu']; ?></td>

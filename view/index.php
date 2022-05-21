@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="../css/index.css">
     <!-- Boostrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -24,6 +22,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet">
     <!-- MAIN JS -->
     <script type="module" src="../js/main.js"></script>
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../css/index.css">
     <title>CRUD - Alumnos</title>
 </head>
 <body>
@@ -108,8 +108,8 @@
         ?>
         
         <div class="wrapper">
-            <input id="scope-alumnos" class="btn-check " onChange="changeDataVisualizationScope()" type="radio" value="alumnos" name="datos-scope" /> 
-            <input id="scope-profesores" class="btn-check " onChange="changeDataVisualizationScope()" type="radio" value="profesores" name="datos-scope" />
+            <input id="scope-alumnos" class="btn-check" onChange="changeDataVisualizationScope()" type="radio" value="alumnos" name="datos-scope" /> 
+            <input id="scope-profesores" class="btn-check" onChange="changeDataVisualizationScope()" type="radio" value="profesores" name="datos-scope" />
             <label class="option option-1 btn-style" for="scope-alumnos"><div class="dot"></div><span>Alumnos</span></label>
             <label class="option option-2 btn-style" for="scope-profesores"><div class="dot"></div><span>Profesores</span></label>
         </div>
@@ -129,7 +129,7 @@
         <button class="paginacion" id="end-page-button" onClick="changePage('end')"><i class="fa-solid fa-angles-right"></i></button>
         <span id="num-pages">12 páginas</span>
     </div>
-    <div class="custom-file">
+
 </body>
 </html>
 
