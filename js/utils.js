@@ -209,8 +209,8 @@ export function changeLimit() {
 export function changeDataVisualizationScope() {
     let dataScope = document.querySelector('input[name="datos-scope"]:checked').value;
     localStorage.setItem('data_scope', dataScope)
-    asyncShow();
     changeFilterInputs()
+    asyncShow();
     displayLocalFilter()
 }
 
