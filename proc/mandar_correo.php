@@ -63,10 +63,9 @@ if (!empty($_POST['asunto']) && !empty($_POST['mensaje'])) {
     if (!empty($_FILES['adjunto']['name'])) {
         // var_dump($_FILES['adjunto']);
         $localPath = "./archivos_temporales/";
-        move_uploaded_file($_FILES['adjunto']["tmp_name"], $localPath.$_FILES['adjunto']["full_path"]);
+        move_uploaded_file($_FILES['adjunto']["tmp_name"], $localPath.$_FILES['adjunto']["name"]);
 
-        $fichero = $localPath.$_FILES['adjunto']['full_path'];
-        // echo $fichero;
+        $fichero = $localPath.$_FILES['adjunto']['name'];
         $email->AddAttachment( $fichero );
         $email->Send();
         unlink($fichero);
