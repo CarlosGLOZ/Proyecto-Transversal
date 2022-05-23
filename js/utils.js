@@ -236,5 +236,5 @@ export function changeFilterInputs() {
 
 export function changeUsername() {
     let nombreUsuario = localStorage.getItem('nombre_usuario');
-    document.getElementById('nombre-usuario').innerHTML = `Usuario: ${nombreUsuario}`;
+    document.getElementById('nombre-usuario').innerHTML = `Bienvenido, ${nombreUsuario}`;
 }

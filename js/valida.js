@@ -125,6 +125,7 @@ export function validarFormularioInputAlu() {
     document.getElementById("email").addEventListener('input', () => {valida_correo('email'), validarFormularioAlu()})
     // VALIDA CLASE
     document.getElementById("select-clases").addEventListener('input', () => {validaTexto('select-clases'), validarFormularioAlu()})
+    validarFormularioAlu()
 }
 
 

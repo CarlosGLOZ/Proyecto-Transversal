@@ -11,6 +11,7 @@ export function alertDelete(id) {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si',
+            cancelButtonText: 'Cancelar',
             allowOutsideClick: false,
         })
         .then((result) => {
@@ -31,6 +32,7 @@ export function alertMultipleDelete() {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si',
+            cancelButtonText: 'Cancelar',
             allowOutsideClick: false,
         })
         .then((result) => {
@@ -70,6 +72,7 @@ export function alertModifyProf(id, nombre, apellidos, telefono, email, dept, cl
         confirmButtonText: 'Modificar',
         showCancelButton: true,
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         didOpen: () => {
             // MOSTRAR LISTA DE DEPARTAMENTOS
@@ -107,6 +110,7 @@ export function alertMultipleModifyProf() {
         confirmButtonText: 'Modify',
         showCancelButton: true,
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         didOpen: () => {
             // MOSTRAR LISTA DE DEPARTAMENTOS
@@ -132,6 +136,7 @@ export function alertChangePasswordProf(id) {
         confirmButtonText: 'Cambiar password',
         showCancelButton: true,
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         preConfirm: () => {
             // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
@@ -160,6 +165,7 @@ export function alertModifyAlu(id, dni, nombre, apellidos, telefono, email, clas
         confirmButtonText: 'Modificar',
         showCancelButton: true,
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         didOpen: () => {
             // MOSTRAR LISTA DE CLASES
@@ -194,6 +200,7 @@ export function alertMultipleModifyAlu() {
         confirmButtonText: 'Modify',
         showCancelButton: true,
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         didOpen: () => {
             // MOSTRAR LISTA DE CLASES
@@ -227,7 +234,7 @@ export function alertCreate() {
 // ALERTA PARA CREAR UN ALUMNO
 export function alertCreateAlu() {
     Swal.fire({
-        title: 'Crear',
+        title: 'Crear alumno',
         html: `<input type="text" id="dni" class="swal2-input" placeholder="DNI">
                <input type="text" id="nombre" class="swal2-input" placeholder="Nombre">
                <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos">
@@ -236,6 +243,7 @@ export function alertCreateAlu() {
                <select id="select-clases" class="swal2-input" name='clases'></select>`,
         confirmButtonText: 'Crear',
         showCancelButton: true,
+        cancelButtonText: 'Cancelar',
         focusConfirm: false,
         allowOutsideClick: false,
         didOpen: () => {
@@ -278,6 +286,7 @@ export function alertCreateProf() {
         confirmButtonText: 'Crear',
         showCancelButton: true,
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         didOpen: () => {
             // DESHABILITAR EL BOTON DE CONFIRMAR
@@ -341,6 +350,7 @@ export function alertDownloadCSV(mode) {
         confirmButtonText: 'Descargar',
         showCancelButton: true,
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         preConfirm: () => {
             // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
@@ -373,6 +383,7 @@ export function alertUploadCSV() {
         confirmButtonText: 'Cargar',
         showCancelButton: true,
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         preConfirm: () => {
             // RECOGER DATOS DEL FORMULARIO CUANDO SE CONFIRME
@@ -424,6 +435,7 @@ export function alertSendMail(email) {
         showCancelButton: true,
         customClass: 'swal-wide',
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         didOpen: () => {
             // DEHABILITAR BOTON DE ENVIAR
@@ -458,6 +470,7 @@ export function alertMultipleMail() {
         showCancelButton: true,
         customClass: 'swal-wide',
         focusConfirm: false,
+        cancelButtonText: 'Cancelar',
         allowOutsideClick: false,
         didOpen: () => {
             // MOSTRAR LISTA DE CLASES

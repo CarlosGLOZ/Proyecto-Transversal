@@ -58,7 +58,7 @@ td {
     border-left: 1px solid rgb(33, 158, 188);
     border-bottom: 1px solid rgb(33, 158, 188);
     text-align: left;
-    padding: 8px;
+    padding: 0px 8px;
     display: table-cell;
     vertical-align: middle !important;
 }
@@ -66,7 +66,7 @@ td {
 th {
     border: 2px solid rgb(33, 158, 188);
     text-align: left;
-    padding: 8px;
+    padding: 0px 8px;
     background-color: rgb(67, 124, 151);
     display: table-cell;
     vertical-align: middle !important;
@@ -154,9 +154,24 @@ nav.navbar {
     background-color: rgb(33, 158, 188)!important;
 }
 
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .btn_logout {
     background-color: rgb(241, 89, 89)!important;
     color: black !important;
+    cursor: pointer;
+    border: 3px solid rgb(211, 80, 80);
+}
+
+.btn_settings {
+    background-color: rgb(114, 114, 198) !important;
+    color: black !important;
+    cursor: pointer;
+    border: 3px solid rgb(99, 99, 173);
 }
 
 .btn_crud {
@@ -512,6 +527,18 @@ input[type="radio"]{
     resize: none;
 }
 
+.swal2-modal {
+    width: 650px !important;
+}
+
+.swal2-html-container input {
+    width: 80% !important;
+}
+
+.swal2-html-container select {
+    width: 50% !important;
+}
+
 
 /* CHECKBOX */
 
@@ -600,7 +627,22 @@ input[type="radio"]{
    }
 }
 
+.animated-button {
+    transition: 0.2s ease-in-out;
+}
 
+.animated-button:focus {
+    outline: none !important;
+}
+
+.animated-button:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+.animated-button:disabled:hover {
+    transform: none;
+}
 
 
 /* Safari */

@@ -22,9 +22,9 @@
 
 <body>
     <div class="back">
-        <h1 class="animate__fadeInDown">Codigo de autenticación:</h1>
+        <h1 class="auth2_card animate__fadeInDown">Codigo de autenticación:</h1>
         <form action="../proc/val_auth.php" method="post">
-            <input class="form-control" type="text" name="codigo" placeholder="código de autenticación">
+            <input maxlength='8' class="input-code" type="text" name="codigo">
             <input class="botones" type="submit" value="Confirmar">
         </form>
     </div>

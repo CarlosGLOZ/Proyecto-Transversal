@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // comprobar que los datos han sido introducidos en el formulario, redirigir al login con un GET de validación falsa
 if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty($_POST['email_login']) && !empty($_POST['password_login'])))    {

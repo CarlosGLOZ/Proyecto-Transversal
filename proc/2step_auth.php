@@ -22,8 +22,7 @@ function genAuthCode(int $length) {
 
 
 function twostep_auth($user) {
-
-    session_start();
+    
     $_SESSION['codigo_auth'] = genAuthCode(8);
     $asunto = 'AUTENTICACIÓN EN DOS PASOS';
     $cuerpo = '<div style="text-align: center;"><h3>TU CÓDIGO DE AUTENTICACIÓN EN DOS PASOS ES<h3> <h1><b>'.$_SESSION['codigo_auth'].'</b></h1></div>';
@@ -48,6 +47,5 @@ function twostep_auth($user) {
 
     $email->Send();
 
-    return $codigo;
 }
 
