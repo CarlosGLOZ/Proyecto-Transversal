@@ -33,11 +33,11 @@ if (isset($_GET['tipo_usuario'])) {
         }
         
     } else {
-        $prof_query = "SELECT tbl_professor.*, tbl_dept.codi_dept FROM tbl_professor INNER JOIN tbl_dept ON tbl_professor.dept = tbl_dept.id_dept;";
+        $prof_query = "SELECT tbl_professor.*, tbl_dept.nom_dept FROM tbl_professor INNER JOIN tbl_dept ON tbl_professor.dept = tbl_dept.id_dept;";
         if ($prof_request = mysqli_query($conexion, $prof_query)) {
             file_put_contents("profesores.csv", "nombre;apellidos;email;telf;dept;admin\n");
             foreach ($prof_request as $key => $prof) {
-                $line = $prof['nom_prof'].";".$prof['cognoms_prof'].";".$prof['email_prof'].";".$prof['telf'].";".$prof['dept'].";".$prof['admin']."\n";
+                $line = $prof['nom_prof'].";".$prof['cognoms_prof'].";".$prof['email_prof'].";".$prof['telf'].";".$prof['nom_dept'].";".$prof['admin']."\n";
                 file_put_contents("profesores.csv", $line, FILE_APPEND);
             }
 
