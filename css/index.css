@@ -531,13 +531,33 @@ input[type="radio"]{
     width: 650px !important;
 }
 
-.swal2-html-container input {
+.swal2-html-container input[type="text"], 
+.swal2-html-container input[type="password"],
+.swal2-html-container input[type="number"],
+.swal2-html-container input[type="email"] {
     width: 80% !important;
 }
 
 .swal2-html-container select {
     width: 50% !important;
 }
+
+.swal2-html-container input[type="checkbox"] {
+    margin: 0 !important;
+    width: 3% !important;
+}
+
+.swal2-html-container .admin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.swal2-html-container .admin-container label {
+    margin: 0 !important;
+}
+
 
 
 /* CHECKBOX */

@@ -65,10 +65,12 @@ export function alertModifyProf(id, nombre, apellidos, telefono, email, dept, cl
                <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos" value="${apellidos}">
                <input type="text" id="telefono" class="swal2-input" placeholder="Teléfono" value="${telefono}">
                <input type="email" id="email" class="swal2-input" placeholder="Email" value="${email}"><br>
-               <label>Admin</label>
-               <input type="checkbox" id="admin" class="swal2-input" ${admin == 1 ? 'checked' : ''}  /><br>
                <select id="select-dept" class="swal2-input" name='dept'></select><br>
-               <select id="select-clases" class="swal2-input" name='clases'></select>`,
+               <select id="select-clases" class="swal2-input" name='clases'></select>
+               <div class="admin-container">
+               <input type="checkbox" id="admin" class="swal2-input" ${admin == 1 ? 'checked' : ''}  />
+               <label for="admin">Administrador</label>
+               </div>`,
         confirmButtonText: 'Modificar',
         showCancelButton: true,
         focusConfirm: false,
