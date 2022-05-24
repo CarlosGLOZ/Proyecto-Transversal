@@ -72,4 +72,4 @@ if (!empty($_POST['asunto']) && !empty($_POST['mensaje'])) {
     } else {
         $email->Send();
     }
-}g
+}
