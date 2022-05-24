@@ -703,6 +703,12 @@ input[type="radio"]{
     #table-alu .column-telefono {
         display: none;
     }
+    #table-prof .header-telefono {
+        display: none;
+    }
+    #table-prof .column-telefono {
+        display: none;
+    }
 }
 
 @media (max-width: 1100px) {
@@ -716,10 +722,16 @@ input[type="radio"]{
 }
 
 @media (max-width: 1000px) {
-    #table-alu .header-apellidos {
+    #table-alu .header-nombre {
         display: none;
     }
-    #table-alu .column-apellidos {
+    #table-alu .column-nombre {
+        display: none;
+    }
+    #table-prof .header-nombre {
+        display: none;
+    }
+    #table-prof .column-nombre {
         display: none;
     }
 }
@@ -731,8 +743,16 @@ input[type="radio"]{
     #table-alu .column-correo {
         display: none;
     }
-
     #table-alu .column-accion {
+        width: 2%;
+    }
+    #table-prof .header-correo {
+        display: none;
+    }
+    #table-prof .column-correo {
+        display: none;
+    }
+    #table-prof .column-accion {
         width: 2%;
     }
 }
@@ -742,6 +762,13 @@ input[type="radio"]{
     .dropdown-content {
         top: -140px;
         right: 0px;
+    }
+
+    #table-prof .column-admin {
+        display: none;
+    }
+    #table-prof .header-admin {
+        display: none;
     }
 }
 

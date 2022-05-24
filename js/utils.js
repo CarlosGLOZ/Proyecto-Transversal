@@ -223,13 +223,17 @@ export function changeFilterInputs() {
         if (!document.getElementById("filtro-dni")) {
             container.innerHTML = '<input id="filtro-dni" type="text" name="dni" class="filtro form-control" placeholder="DNI"/>' + container.innerHTML
         }
-        document.getElementById('multiple-mail-button').style.display = 'block';
+        if (document.getElementById('multiple-mail-button')) {
+            document.getElementById('multiple-mail-button').style.display = 'block';
+        }
         asyncShowClases('filtro-select')
     } else {
         if (document.getElementById("filtro-dni")) {
             document.getElementById('filtro-dni').remove()
         }
-        document.getElementById("multiple-mail-button").style.display = 'none';
+        if (document.getElementById('multiple-mail-button')) {
+            document.getElementById("multiple-mail-button").style.display = 'none';
+        }
         asyncShowDepts('filtro-select')
     }
 }
