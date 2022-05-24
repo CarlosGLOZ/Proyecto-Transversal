@@ -110,7 +110,7 @@ if (!$filtrado) {
 
 <?php
 if ($admin) {
-    echo "<th>Acción</th>";
+    echo "<th class='header-accion'>Acción</th>";
 }
 ?>
 
@@ -120,7 +120,7 @@ if ($admin) {
 foreach ($alumnos as $alumno) {
     ?>
     <tr>
-        <td>
+        <td class="column-check">
             <label class="checkbox bounce">
                 <input onClick="checkCheckedCheckboxes()" type="checkbox" name='alumno' value="<?php echo $alumno['id_alumne']; ?>"/>
                 <svg viewBox="0 0 21 21">
@@ -129,17 +129,17 @@ foreach ($alumnos as $alumno) {
             </label>
         </td>
         
-        <td><?php echo $alumno['dni_alu']; ?></td>
-        <td><?php echo $alumno['nom_alu']; ?></td>
-        <td><?php echo $alumno['cognoms_alu']; ?></td>
-        <td><?php echo $alumno['telf_alu']; ?></td>
-        <td><?php echo $alumno['email_alu']; ?></td>
-        <td><?php echo $alumno['codi_classe']; ?></td>
+        <td class="column-dni"><?php echo $alumno['dni_alu']; ?></td>
+        <td class="column-nombre"><?php echo $alumno['nom_alu']; ?></td>
+        <td class="column-apellidos"><?php echo $alumno['cognoms_alu']; ?></td>
+        <td class="column-telefono"><?php echo $alumno['telf_alu']; ?></td>
+        <td class="column-correo"><?php echo $alumno['email_alu']; ?></td>
+        <td class="column-clase"><?php echo $alumno['codi_classe']; ?></td>
 
         <?php
             if ($admin) {
                 ?>
-                <td>
+                <td class="column-accion">
                     <div class="dropdown">
                         <button class="display-options" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa-solid fa-ellipsis-vertical fa-lg"></i>

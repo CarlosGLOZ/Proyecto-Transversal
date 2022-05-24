@@ -137,17 +137,17 @@ foreach ($profesores as $profesor) {
                 </svg>
             </label>
         </td>
-        <td><?php echo $profesor['nom_prof']; ?></td>
+        <td class="column-nombre"><?php echo $profesor['nom_prof']; ?></td>
         <td><?php echo $profesor['cognoms_prof']; ?></td>
-        <td><?php echo $profesor['telf']; ?></td>
-        <td><?php echo $profesor['email_prof']; ?></td>
+        <td class="column-telefono"><?php echo $profesor['telf']; ?></td>
+        <td class="column-correo"><?php echo $profesor['email_prof']; ?></td>
         <td><?php echo $profesor['nom_dept']; ?></td>
         <td><?php echo !empty($profesor['codi_classe']) ? $profesor['codi_classe'] : '<i class="fa-solid fa-minus fa-lg"></i>'; ?></td>
         <?php
             if ($admin) {
                 ?>
-                <td><?php echo $profesor['admin'] ? '<i class="fa-solid fa-check fa-lg"></i>' : '<i class="fa-solid fa-xmark fa-lg"></i>' ?></td>
-                <td>
+                <td class="column-admin"><?php echo $profesor['admin'] ? '<i class="fa-solid fa-check fa-lg"></i>' : '<i class="fa-solid fa-xmark fa-lg"></i>' ?></td>
+                <td class="column-accion">
                     <div class="dropdown">
                         <button class="display-options" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
