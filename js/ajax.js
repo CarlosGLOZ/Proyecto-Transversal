@@ -86,6 +86,7 @@ export function asyncDelete(id) {
         url: url,
         success: function(response) {
             asyncShow()
+            alertSuccessAction('Registro eliminado')
         }
     })
 }
@@ -193,6 +194,7 @@ export function asyncMultipleModify(values) {
             data: data,
             success: function(response) {
                 asyncShow()
+                alertSuccessAction('Registros modificados')
             }
         })
     }
@@ -219,6 +221,7 @@ export function asyncMultipleDelete() {
             data: { ids: checks, scope: scope },
             success: function() {
                 asyncShow()
+                alertSuccessAction('Registros eliminados')
             }
         })
     }
@@ -275,10 +278,7 @@ export function asyncShowDepts(elemento, dept = null) {
 // SUBIR O CARGAR CSV:
 export function asyncUpload(value) {
     let url = "../proc/cargar_csv.php"
-        // var formData = new FormData();
-
     var formData = new FormData();
-
     formData.append("csv", value.file);
     formData.append("tipo_usuario", value.tipo_usuario);
 
@@ -294,12 +294,12 @@ export function asyncUpload(value) {
 
             if (respuesta.repeats) {
                 alertFailed(respuesta.repeats);
-            }
-            if (respuesta.error) {
+            } else if (respuesta.error) {
                 alertFailed(respuesta.error);
-            }
-            if (respuesta.parametros) {
+            } else if (respuesta.parametros) {
                 alertFailed(respuesta.parametros);
+            } else {
+                alertSuccessAction('Fichero CSV cargado')
             }
             asyncShow();
         }

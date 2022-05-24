@@ -26,7 +26,7 @@ export function alertDelete(id) {
 // ALERTA ELIMINAR MULTIPLES REGISTROS A LA VEZ
 export function alertMultipleDelete() {
     Swal.fire({
-            title: '¿Estas seguro?',
+            title: '¿Seguro que quieres eliminar todos los registros seleccionados?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -60,7 +60,7 @@ export function alertMultipleModify() {
 // ALERTA MODIFICAAR LOS DATOS DE UN PROFESOR
 export function alertModifyProf(id, nombre, apellidos, telefono, email, dept, clase, admin) {
     Swal.fire({
-        title: 'Modificar',
+        title: 'Modificar profesor',
         html: `<input type="text" id="nombre" class="swal2-input" placeholder="Nombre" value="${nombre}">
                <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos" value="${apellidos}">
                <input type="text" id="telefono" class="swal2-input" placeholder="Teléfono" value="${telefono}">
@@ -107,7 +107,7 @@ export function alertModifyProf(id, nombre, apellidos, telefono, email, dept, cl
 // ALERTA MODIFICAR MULTIPLES PROFESORES
 export function alertMultipleModifyProf() {
     Swal.fire({
-        title: 'Mulitple modify',
+        title: 'Cambiar departamento',
         html: `<select id="select-dept" class="swal2-input" name='dept'></select>`,
         confirmButtonText: 'Modify',
         showCancelButton: true,
@@ -197,7 +197,7 @@ export function alertModifyAlu(id, dni, nombre, apellidos, telefono, email, clas
 // ALERTA PARA MODIFICAR MULTIPLES ALUMNOS
 export function alertMultipleModifyAlu() {
     Swal.fire({
-        title: 'Mulitple modify',
+        title: 'Cambiar clase',
         html: `<select id="select-clases" class="swal2-input" name='clases'></select>`,
         confirmButtonText: 'Modify',
         showCancelButton: true,
@@ -278,7 +278,7 @@ export function alertCreateAlu() {
 // ALERTA PARA CREAR UN PROFESOR
 export function alertCreateProf() {
     Swal.fire({
-        title: 'Crear',
+        title: 'Crear profesor',
         html: `<input type="text" id="nombre" class="swal2-input" placeholder="Nombre">
                <input type="text" id="apellidos" class="swal2-input" placeholder="Apellidos">
                <input type="number" id="telefono" class="swal2-input" placeholder="Teléfono">
@@ -344,8 +344,8 @@ export function alertFailed(error, callBack=null, values = null) {
 // ALERTA PARA DESCARGAR FICHERO CSV
 export function alertDownloadCSV(mode) {
     Swal.fire({
-        title: 'Descargar CSV',
-        html: `<select id="tipo_usuario" name="tipo_usuario">
+        title: `Descargar CSV en ${mode}`,
+        html: `<select class="swal2-input" id="tipo_usuario" name="tipo_usuario">
                     <option value="profes">Profesores</option>
                     <option value="alumnos">Alumnos</option>
                 </select>`,
@@ -377,8 +377,11 @@ export function alertDownloadCSV(mode) {
 export function alertUploadCSV() {
     Swal.fire({
         title: 'Cargar CSV',
-        html: `<input id="csv" type="file" name="csv">
-               <select id="tipo_usuario" name="tipo_usuario">
+        html: `<div class="custom-file">
+                    <input id="csv" class="custom-file-input" type="file" name="csv" aria-describedby="inputGroupFileAddon01" required>
+                    <label class="custom-file-label" for="csv">Selecciona el archivo</label>
+                </div>
+               <select class="swal2-input" id="tipo_usuario" name="tipo_usuario">
                     <option value="profes">Profesores</option>
                     <option value="alumnos">Alumnos</option>
                </select>`,

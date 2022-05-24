@@ -672,6 +672,14 @@ input[type="radio"]{
     transform: none;
 }
 
+.custom-file {
+    width: 75% !important;
+}
+
+.custom-file input[type="file"]:valid~label {
+    border-color: #e28743;
+}
+
 
 /* Safari */
 
