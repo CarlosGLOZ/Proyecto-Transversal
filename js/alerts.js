@@ -135,7 +135,7 @@ export function alertChangePasswordProf(id) {
     Swal.fire({
         title: 'Cambiar password',
         html: `<input type="password" id="password" class="swal2-input" placeholder="Nuevo password">`,
-        confirmButtonText: 'Cambiar password',
+        confirmButtonText: 'Cambiar',
         showCancelButton: true,
         focusConfirm: false,
         cancelButtonText: 'Cancelar',
