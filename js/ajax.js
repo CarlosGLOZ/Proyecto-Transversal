@@ -18,7 +18,7 @@ export function asyncShow() {
         if (filter) {
             // CONVERTIR EL FILTRO (STRING) A FORMATO JSON (OBJETO)
             filter = JSON.parse(filter)
-            // DETERMINAR SI HAY ALGUN FILTRO ACTIVO 
+                // DETERMINAR SI HAY ALGUN FILTRO ACTIVO 
             if (filter.nombre || filter.dni || filter.apellidos || filter.telefono || filter.email || filter.clase) {
                 // SI HAY ALGUN FILTRO ACTIVO, AÑADIR LOS PARAMETROS DE ALUMNOS A LA URL
                 url += `nombre=${filter.nombre}&dni=${filter.dni}&apellidos=${filter.apellidos}&telefono=${filter.telefono}&email=${filter.email}&clase=${filter.clase}&`
@@ -30,7 +30,7 @@ export function asyncShow() {
         if (filter) {
             // CONVERTIR EL FILTRO (STRING) A FORMATO JSON (OBJETO)
             filter = JSON.parse(filter)
-             // DETERMINAR SI HAY ALGUN FILTRO ACTIVO 
+                // DETERMINAR SI HAY ALGUN FILTRO ACTIVO 
             if (filter.nombre || filter.apellidos || filter.telefono || filter.email || filter.dept) {
                 // SI HAY ALGUN FILTRO ACTIVO, AÑADIR LOS PARAMETROS DE PROFESORES A LA URL
                 url += `nombre=${filter.nombre}&apellidos=${filter.apellidos}&telefono=${filter.telefono}&email=${filter.email}&dept=${filter.dept}&`
@@ -66,7 +66,7 @@ export function asyncShow() {
             element.innerHTML = response;
             // ACTUALIZAR CHECKBOXES DE SELECCION DE REGISTROS
             checkCheckedCheckboxes()
-            // ACTUALIZAR BOTONES DE FILTROS Y ACCIONES
+                // ACTUALIZAR BOTONES DE FILTROS Y ACCIONES
             updatePageButtons();
         }
     })
@@ -97,7 +97,7 @@ export function asyncModify(id, values) {
     if (!scope || scope == 'alumnos') {
         data = { id: id, scope: scope, nombre: values.nombre, dni: values.dni, apellidos: values.apellidos, telefono: values.telefono, email: values.email, clase: values.clase };
     } else {
-        data = { id: id, scope: scope, nombre: values.nombre, apellidos: values.apellidos, telefono: values.telefono, email: values.email, dept: values.dept, clase: values.clase, admin: values.admin};
+        data = { id: id, scope: scope, nombre: values.nombre, apellidos: values.apellidos, telefono: values.telefono, email: values.email, dept: values.dept, clase: values.clase, admin: values.admin };
     }
     $.ajax({
         type: 'POST',
@@ -123,7 +123,7 @@ export function asyncModify(id, values) {
                     } else {
                         alertFailed(error, alertModifyProf, data)
                     }
-                } 
+                }
             }
             if (!error) {
                 alertSuccessAction('Registro modificado')
@@ -328,11 +328,27 @@ export function asyncDownload(values) {
 
 
 export function asyncSendMail(values) {
-    let data = {asunto: values.asunto, mensaje: values.mensaje, email: values.email}
+    console.log(":: " + values.adjunto);
+    if (values.adjunto == null) {
+        var data = new FormData();
+        data.append("asunto", values.asunto);
+        data.append("mensaje", values.mensaje);
+        data.append("email", values.email);
+        console.log(data);
+    } else {
+        var data = new FormData();
+        data.append("asunto", values.asunto);
+        data.append("mensaje", values.mensaje);
+        data.append("email", values.email);
+        data.append("adjunto", values.adjunto);
+        console.log(data);
+    }
     $.ajax({
         type: 'POST',
         url: '../proc/enviar_mail_reg.php',
         data: data,
+        processData: false,
+        contentType: false,
         success: function(response) {
             alertSuccessAction('Correo enviado')
         }
@@ -341,7 +357,7 @@ export function asyncSendMail(values) {
 
 
 export function asyncSendMultipleMail(values) {
-    let data = {asunto: values.asunto, mensaje: values.mensaje, clase: values.clase}
+    let data = { asunto: values.asunto, mensaje: values.mensaje, clase: values.clase }
     Swal.fire({
         title: 'Porfavor espere',
         html: 'enviando correo',
@@ -359,7 +375,7 @@ export function asyncSendMultipleMail(values) {
             })
         },
     });
-    
+
 }
 
 

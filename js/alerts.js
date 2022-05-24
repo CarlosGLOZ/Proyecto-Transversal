@@ -79,9 +79,9 @@ export function alertModifyProf(id, nombre, apellidos, telefono, email, dept, cl
         didOpen: () => {
             // MOSTRAR LISTA DE DEPARTAMENTOS
             asyncShowDepts('select-dept', dept)
-            // MOSTRAR LISTA DE CLASES
+                // MOSTRAR LISTA DE CLASES
             asyncShowClases('select-clases', clase, 'profesores')
-            // VALIDAR EL FORMULARIO
+                // VALIDAR EL FORMULARIO
             validarFormularioInputProf()
         },
         preConfirm: () => {
@@ -172,7 +172,7 @@ export function alertModifyAlu(id, dni, nombre, apellidos, telefono, email, clas
         didOpen: () => {
             // MOSTRAR LISTA DE CLASES
             asyncShowClases('select-clases', clase)
-            // VALIDARA FORMULARIO
+                // VALIDARA FORMULARIO
             validarFormularioInputAlu()
         },
         preConfirm: () => {
@@ -253,7 +253,7 @@ export function alertCreateAlu() {
             document.getElementsByClassName('swal2-confirm')[0].disabled = true;
             // MOSTRAR LISTA DE CLASES
             asyncShowClases('select-clases')
-            // VALIDAR FORMULARIO
+                // VALIDAR FORMULARIO
             validarFormularioInputAlu()
         },
         preConfirm: () => {
@@ -295,7 +295,7 @@ export function alertCreateProf() {
             document.getElementsByClassName('swal2-confirm')[0].disabled = true;
             // MOSTRAR LISTA DE DEPARTAMENTOS
             asyncShowDepts('select-dept')
-            // VALIDAR FORMULARIO
+                // VALIDAR FORMULARIO
             validarFormularioInputProf(true)
         },
         preConfirm: () => {
@@ -318,7 +318,7 @@ export function alertCreateProf() {
 
 
 // ALERTA PARA PROCESO FALLIDO
-export function alertFailed(error, callBack=null, values = null) {
+export function alertFailed(error, callBack = null, values = null) {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -406,19 +406,19 @@ export function alertUploadCSV() {
 export function alertSuccessAction(msg) {
     // SE DEFINE ALERTA PERSONALIZADA
     const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            // SI PASA EL MOUSE POR ENCIMA DEL ELEMENTO SE DETIENE EL CONTADOR
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            // SI SE SALE EL MOUSE DEL ELEMENTO CONTINUA EL CONTADOR
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-    })
-    // SE MUESTRA ALERTA PERSONALIZADA
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                // SI PASA EL MOUSE POR ENCIMA DEL ELEMENTO SE DETIENE EL CONTADOR
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                    // SI SE SALE EL MOUSE DEL ELEMENTO CONTINUA EL CONTADOR
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        // SE MUESTRA ALERTA PERSONALIZADA
     Toast.fire({
         icon: 'success',
         title: msg
@@ -432,7 +432,8 @@ export function alertSendMail(email) {
         title: 'Enviar correo',
         html: `<input id="email" class="swal2-input" type="text" value="${email}" placeholder="Correo" />
                <input id="asunto" class="swal2-input" type="text" placeholder="Asunto" />
-               <textarea id="mensaje" class="swal2-input" placeholder="Mensaje"></textarea>`,
+               <textarea id="mensaje" class="swal2-input" placeholder="Mensaje"></textarea>
+               <input id="adjunto" type="file">`,
         confirmButtonText: 'Enviar',
         showCancelButton: true,
         customClass: 'swal-wide',
@@ -450,7 +451,13 @@ export function alertSendMail(email) {
             let email = Swal.getPopup().querySelector('#email').value
             let asunto = Swal.getPopup().querySelector('#asunto').value
             let mensaje = Swal.getPopup().querySelector('#mensaje').value
-            return { email: email, asunto: asunto, mensaje: mensaje }
+            if (Swal.getPopup().querySelector('#adjunto').files.length > 0) {
+                let adjunto = Swal.getPopup().querySelector('#adjunto').files[0]
+                console.log("TIPO: " + adjunto);
+                return { email: email, asunto: asunto, mensaje: mensaje, adjunto: adjunto }
+            } else {
+                return { email: email, asunto: asunto, mensaje: mensaje }
+            }
         }
     }).then((result) => {
         if (result.isConfirmed) {
@@ -477,7 +484,7 @@ export function alertMultipleMail() {
         didOpen: () => {
             // MOSTRAR LISTA DE CLASES
             asyncShowClases('select-clases')
-            // DEHABILITAR BOTON DE ENVIAR
+                // DEHABILITAR BOTON DE ENVIAR
             document.getElementsByClassName('swal2-confirm')[0].disabled = true;
             // VALIDAR FORMULARIO
             validarFormularioInputMail()
@@ -493,7 +500,7 @@ export function alertMultipleMail() {
         if (result.isConfirmed) {
             // LLAMAR A FUNCION AJAX PARA ENVIAR MULTIPLES MAILS
             asyncSendMultipleMail(result.value)
-            // LA ALERTA SE QUEDA CARGANDO HASTA RECIBIR RESPUESTA
+                // LA ALERTA SE QUEDA CARGANDO HASTA RECIBIR RESPUESTA
             Swal.showLoading()
         }
     })
