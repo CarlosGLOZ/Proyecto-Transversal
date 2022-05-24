@@ -41,7 +41,6 @@ if (isset($_FILES['csv']) && isset($_POST['tipo_usuario'])) {
                     $insert_alu_request = mysqli_query($conexion,$insert_alu_query);
                 } catch (\Throwable $th) {
                     echo $insert_alu_query;
-                    die();
                     $errorThrown = true;
                 }
 
