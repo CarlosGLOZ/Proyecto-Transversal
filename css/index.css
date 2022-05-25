@@ -1,4 +1,3 @@
-
 .table-container {
     width: 100%;
     height: 71vh;
@@ -20,17 +19,17 @@
 }
 
 #table::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
-  }
-   
+}
+
 #table::-webkit-scrollbar-thumb {
     background-color: rgb(33, 158, 188);
     border-radius: 10px;
 }
 
 #table::-webkit-scrollbar-thumb:hover {
-    background: rgb(30, 135, 161); 
+    background: rgb(30, 135, 161);
 }
 
 table {
@@ -72,7 +71,6 @@ th {
     vertical-align: middle !important;
 }
 
-
 table .header-check {
     width: 2%;
 }
@@ -109,7 +107,6 @@ table .header-check {
     width: 15%;
 }
 
-
 #table-alu .header-dni {
     width: 10%;
 }
@@ -138,7 +135,6 @@ table .header-check {
     width: 15%;
 }
 
-
 body {
     font-family: 'Roboto Flex', sans-serif;
     color: rgb(142, 202, 230) !important;
@@ -149,8 +145,8 @@ body.swal2-height-auto {
     height: 100vh !important;
 }
 
-.crud-content  {
-    background: linear-gradient(180deg, rgba(54,97,116,1) 0%, rgba(4,52,68,1) 100%);
+.crud-content {
+    background: linear-gradient(180deg, rgba(54, 97, 116, 1) 0%, rgba(4, 52, 68, 1) 100%);
     height: fit-content;
     min-height: 100vh;
 }
@@ -214,7 +210,7 @@ nav.navbar {
     background-color: rgb(255, 183, 3);
     color: black;
 }
-  
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -223,7 +219,7 @@ nav.navbar {
     width: fit-content;
     margin-top: 200px;
     margin-left: 50px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 16px;
     z-index: 1;
     border-radius: 5px;
@@ -240,9 +236,7 @@ nav.navbar {
     }
 }
 
-
-  
-.dropdown input:checked ~ .dropdown-content {
+.dropdown input:checked~.dropdown-content {
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -257,7 +251,6 @@ nav.navbar {
 .filtros-container:first-of-type {
     margin-bottom: 10px;
 }
-
 
 .filtrar-container input,
 #filtro-clases {
@@ -281,7 +274,7 @@ nav.navbar {
 
 /* BOTONES NAVBAR: PROF - ALU*/
 
-.wrapper{
+.wrapper {
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -289,7 +282,7 @@ nav.navbar {
     border-radius: 5px;
 }
 
-.wrapper .option{
+.wrapper .option {
     background-color: rgb(255, 183, 3);
     border-style: solid;
     border-color: rgb(251, 133, 0) !important;
@@ -302,7 +295,7 @@ nav.navbar {
     color: black;
 }
 
-.wrapper .option .dot{
+.wrapper .option .dot {
     height: 20px;
     width: 20px;
     background: #d9d9d9;
@@ -311,7 +304,7 @@ nav.navbar {
     margin-right: 10px;
 }
 
-.wrapper .option .dot::before{
+.wrapper .option .dot::before {
     position: absolute;
     content: "";
     top: 4px;
@@ -325,34 +318,34 @@ nav.navbar {
     transition: all 0.3s ease;
 }
 
-input[type="radio"]{
+input[type="radio"] {
     display: none;
 }
 
-#scope-alumnos:checked:checked ~ .option-1,
-#scope-profesores:checked:checked ~ .option-2{
+#scope-alumnos:checked:checked~.option-1,
+#scope-profesores:checked:checked~.option-2 {
     background-color: rgb(255, 183, 3);
     background-color: rgb(255, 183, 3);
 }
 
-#scope-alumnos:checked:checked ~ .option-1 .dot,
-#scope-profesores:checked:checked ~ .option-2 .dot{
+#scope-alumnos:checked:checked~.option-1 .dot,
+#scope-profesores:checked:checked~.option-2 .dot {
     background: #fff;
 }
 
-#scope-alumnos:checked:checked ~ .option-1 .dot::before,
-#scope-profesores:checked:checked ~ .option-2 .dot::before{
+#scope-alumnos:checked:checked~.option-1 .dot::before,
+#scope-profesores:checked:checked~.option-2 .dot::before {
     opacity: 1;
     transform: scale(1);
 }
 
-.wrapper .option span{
+.wrapper .option span {
     font-size: 20px;
     color: #808080;
 }
 
-#scope-alumnos:checked:checked ~ .option-1 span,
-#scope-profesores:checked:checked ~ .option-2 span{
+#scope-alumnos:checked:checked~.option-1 span,
+#scope-profesores:checked:checked~.option-2 span {
     color: black;
 }
 
@@ -388,7 +381,6 @@ input[type="radio"]{
     gap: 15px;
     margin-top: 20px;
 }
-
 
 .page-buttons {
     width: 100%;
@@ -441,7 +433,6 @@ input[type="radio"]{
     cursor: pointer !important;
 }
 
-
 .dropdown-menu.options {
     z-index: 100;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -457,7 +448,6 @@ input[type="radio"]{
         transform: scaleY(1) translateX(-100px) translateY(30px);
     }
 }
-
 
 .dropdown-item.eliminar {
     background-color: #e03444;
@@ -539,7 +529,7 @@ input[type="radio"]{
     width: 650px !important;
 }
 
-.swal2-html-container input[type="text"], 
+.swal2-html-container input[type="text"],
 .swal2-html-container input[type="password"],
 .swal2-html-container input[type="number"],
 .swal2-html-container input[type="email"] {
@@ -567,7 +557,6 @@ input[type="radio"]{
 }
 
 
-
 /* CHECKBOX */
 
 .checkbox {
@@ -578,11 +567,14 @@ input[type="radio"]{
     --tick: #fff;
     position: relative;
 }
-.checkbox input, .checkbox svg {
+
+.checkbox input,
+.checkbox svg {
     width: 18px;
     height: 18px;
     display: block;
 }
+
 .checkbox input {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -597,13 +589,16 @@ input[type="radio"]{
     transition: box-shadow 0.3s;
     box-shadow: inset 0 0 0 var(--s, 1px) var(--b, var(--border));
 }
+
 .checkbox input:hover {
     --s: 2px;
     --b: var(--border-hover);
 }
+
 .checkbox input:checked {
     --b: var(--border-active);
 }
+
 .checkbox svg {
     pointer-events: none;
     fill: none;
@@ -618,41 +613,49 @@ input[type="radio"]{
     height: 18px;
     transform: scale(var(--scale, 1)) translateZ(0);
 }
+
 .checkbox.path input:checked {
     --s: 2px;
     transition-delay: 0.4s;
 }
-.checkbox.path input:checked + svg {
+
+.checkbox.path input:checked+svg {
     --a: 16.1 86.12;
     --o: 102.22;
 }
+
 .checkbox.path svg {
     stroke-dasharray: var(--a, 86.12);
     stroke-dashoffset: var(--o, 86.12);
     transition: stroke-dasharray 0.6s, stroke-dashoffset 0.6s;
 }
+
 .checkbox.bounce {
     --stroke: var(--tick);
 }
+
 .checkbox.bounce input:checked {
     --s: 11px;
 }
-.checkbox.bounce input:checked + svg {
+
+.checkbox.bounce input:checked+svg {
     animation: bounce 0.4s linear forwards 0.2s;
 }
+
 .checkbox.bounce svg {
     --scale: 0;
 }
+
 @keyframes bounce {
     50% {
         transform: scale(1.2);
-   }
+    }
     75% {
         transform: scale(0.9);
-   }
+    }
     100% {
         transform: scale(1);
-   }
+    }
 }
 
 .animated-button {
@@ -678,6 +681,19 @@ input[type="radio"]{
 
 .custom-file input[type="file"]:valid~label {
     border-color: #e28743;
+}
+
+.text-not-found {
+    text-align: center;
+}
+
+.text-not-found:first-of-type {
+    padding-top: 30vh;
+    margin-top: 0;
+}
+
+.text-not-found i {
+    font-size: 100px;
 }
 
 
@@ -765,13 +781,11 @@ input[type="radio"]{
     }
 }
 
-
 @media (max-width: 700px) {
     .dropdown-content {
         top: -140px;
         right: 0px;
     }
-
     #table-prof .column-admin {
         display: none;
     }

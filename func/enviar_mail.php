@@ -60,14 +60,10 @@ function sendMultipleMail($conexion, $asunto, $cuerpo, $clase, $adjunto=null) {
     }
 
     // COMPROBAR SI HAY ARCHIVOS ADJUNTOS Y ENVIARLOS
-    if (!isset($adjunto)) {
-        $localPath = "../proc/archivos_temporales/";
-        move_uploaded_file($adjunto["tmp_name"], $localPath.$adjunto["name"]);
-
-        $fichero = $localPath.$adjunto['name'];
-        $email->AddAttachment( $fichero );
+    if ($adjunto != null) {
+        $email->AddAttachment( $adjunto );
         $email->Send();
-        unlink($fichero);
+        unlink($adjunto);
     } else {
         $email->Send();
     }

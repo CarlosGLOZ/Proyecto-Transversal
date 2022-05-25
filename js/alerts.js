@@ -477,7 +477,8 @@ export function alertMultipleMail() {
         title: 'Enviar correo multiple',
         html: `<select id="select-clases" class="swal2-input" name='clases'></select>
                <input id="asunto" class="swal2-input" type="text" placeholder="Asunto" />
-               <textarea id="mensaje" class="swal2-input" placeholder="Mensaje"></textarea>`,
+               <textarea id="mensaje" class="swal2-input" placeholder="Mensaje"></textarea>
+               <input id="adjunto" type="file">`,
         confirmButtonText: 'Enviar',
         showCancelButton: true,
         customClass: 'swal-wide',
@@ -497,7 +498,13 @@ export function alertMultipleMail() {
             let clase = Swal.getPopup().querySelector('#select-clases').value
             let asunto = Swal.getPopup().querySelector('#asunto').value
             let mensaje = Swal.getPopup().querySelector('#mensaje').value
-            return { clase: clase, asunto: asunto, mensaje: mensaje }
+            if (Swal.getPopup().querySelector('#adjunto').files.length > 0) {
+                let adjunto = Swal.getPopup().querySelector('#adjunto').files[0]
+                console.log("TIPO: " + adjunto);
+                return { clase: clase, asunto: asunto, mensaje: mensaje, adjunto: adjunto }
+            } else {
+                return { clase: clase, asunto: asunto, mensaje: mensaje }
+            }
         }
     }).then((result) => {
         if (result.isConfirmed) {

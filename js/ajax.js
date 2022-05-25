@@ -329,17 +329,11 @@ export function asyncDownload(values) {
 
 export function asyncSendMail(values) {
     console.log(":: " + values.adjunto);
-    if (values.adjunto == null) {
-        var data = new FormData();
-        data.append("asunto", values.asunto);
-        data.append("mensaje", values.mensaje);
-        data.append("email", values.email);
-        console.log(data);
-    } else {
-        var data = new FormData();
-        data.append("asunto", values.asunto);
-        data.append("mensaje", values.mensaje);
-        data.append("email", values.email);
+    var data = new FormData();
+    data.append("asunto", values.asunto);
+    data.append("mensaje", values.mensaje);
+    data.append("email", values.email);
+    if (values.adjunto !== null) {
         data.append("adjunto", values.adjunto);
         console.log(data);
     }
@@ -357,7 +351,18 @@ export function asyncSendMail(values) {
 
 
 export function asyncSendMultipleMail(values) {
-    let data = { asunto: values.asunto, mensaje: values.mensaje, clase: values.clase }
+    console.log(":: " + values.adjunto);
+    var data = new FormData();
+    data.append("asunto", values.asunto);
+    console.log("mensaje: " + values.mensaje);
+    data.append("mensaje", values.mensaje);
+    console.log("clase: " + values.clase);
+    data.append("clase", values.clase);
+    if (values.adjunto != null) {
+        data.append("adjunto", values.adjunto);
+    }
+    console.log(data);
+    console.log("FormData from: " + data.get("asunto"));
     Swal.fire({
         title: 'Porfavor espere',
         html: 'enviando correo',
@@ -368,6 +373,8 @@ export function asyncSendMultipleMail(values) {
                 type: 'POST',
                 url: '../proc/multiple_enviar_mail_reg.php',
                 data: data,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     swal.close();
                     alertSuccessAction('Correo enviado')

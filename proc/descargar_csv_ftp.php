@@ -8,7 +8,8 @@ include '../func/comprobar_admin.php';
 if (isset($_GET['tipo_usuario'])) {
     require "conexion.php";
 
-    $ftp = ftp_connect('192.168.13.254', '21');
+    $ftp = ftp_connect('172.24.16.17', '21');
+    echo $ftp;
     ftp_login($ftp, 'mugaty', 'ASDasd123');
 
     if ($_GET['tipo_usuario'] == 'alumnos') {
@@ -41,7 +42,7 @@ if (isset($_GET['tipo_usuario'])) {
                 file_put_contents("profesores.csv", $line, FILE_APPEND);
             }
 
-            $ret = ftp_nb_put($ftp, "./profesores.csv", './profesores.csv"', FTP_ASCII , FTP_AUTORESUME);
+            $ret = ftp_nb_put($ftp, "./profesores.csv", './profesores.csv', FTP_ASCII , FTP_AUTORESUME);
 
             while (FTP_MOREDATA == $ret) {
                 $ret = ftp_nb_continue($ftp);
