@@ -10,7 +10,7 @@ if (isset($_GET['tipo_usuario'])) {
 
     $ftp = ftp_connect('172.24.16.17', '21');
     echo $ftp;
-    ftp_login($ftp, 'mugaty', 'ASDasd123');
+    ftp_login($ftp, 'mugaty', 'asdASD123');
 
     if ($_GET['tipo_usuario'] == 'alumnos') {
         

@@ -71,15 +71,17 @@ export function storeLocalFilter() {
 export function displayLocalFilter() {
     let filter = localStorage.getItem('filter');
     filter = JSON.parse(filter)
-    if (filter.nombre || filter.dni || filter.apellidos || filter.telefono || filter.email || filter.clase) {
-        if (filter.dni) {
-            document.getElementById('filtro-dni').value = filter.dni;
+    if (filter) {
+        if (filter.nombre || filter.dni || filter.apellidos || filter.telefono || filter.email || filter.clase) {
+            if (filter.dni) {
+                document.getElementById('filtro-dni').value = filter.dni;
+            }
+            document.getElementById('filtro-nombre').value = filter.nombre;
+            document.getElementById('filtro-apellidos').value = filter.apellidos;
+            document.getElementById('filtro-telefono').value = filter.telefono;
+            document.getElementById('filtro-email').value = filter.email;
+            document.getElementById('filtro-select').value = filter.clase;
         }
-        document.getElementById('filtro-nombre').value = filter.nombre;
-        document.getElementById('filtro-apellidos').value = filter.apellidos;
-        document.getElementById('filtro-telefono').value = filter.telefono;
-        document.getElementById('filtro-email').value = filter.email;
-        document.getElementById('filtro-select').value = filter.clase;
     }
     let limit = localStorage.getItem('limit')
     if (limit && limit != 'none') {

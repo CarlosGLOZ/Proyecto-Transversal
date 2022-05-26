@@ -704,6 +704,10 @@ input[type="radio"] {
     opacity: 60% !important;
 }
 
+.paginacion:disabled {
+    opacity: 60% !important;
+}
+
 
 /* Safari */
 
