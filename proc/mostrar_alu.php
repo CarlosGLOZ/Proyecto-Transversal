@@ -21,8 +21,12 @@ if (!isset($_GET['nombre']) && !isset($_GET['dni']) && !isset($_GET['apellidos']
     $telefono = $_GET['telefono'];
     $email = $_GET['email'];
     $clase = $_GET['clase'];
-    $sql = "SELECT * FROM tbl_alumne INNER JOIN tbl_classe ON tbl_alumne.classe = tbl_classe.id_classe WHERE `dni_alu` LIKE '%$dni%' AND `nom_alu` LIKE '%$nombre%' AND `cognoms_alu` LIKE '%$apellidos%' AND `telf_alu` LIKE '%$telefono%' AND `email_alu` LIKE '%$email%' AND `classe` = $clase";
-    $sql_total = "SELECT count(1) as 'total' FROM tbl_alumne INNER JOIN tbl_classe ON tbl_alumne.classe = tbl_classe.id_classe WHERE `dni_alu` LIKE '%$dni%' AND `nom_alu` LIKE '%$nombre%' AND `cognoms_alu` LIKE '%$apellidos%' AND `telf_alu` LIKE '%$telefono%' AND `email_alu` LIKE '%$email%' AND `classe` LIKE '%$clase%'";
+    $sql = "SELECT * FROM tbl_alumne INNER JOIN tbl_classe ON tbl_alumne.classe = tbl_classe.id_classe WHERE `dni_alu` LIKE '%$dni%' AND `nom_alu` LIKE '%$nombre%' AND `cognoms_alu` LIKE '%$apellidos%' AND `telf_alu` LIKE '%$telefono%' AND `email_alu` LIKE '%$email%'";
+    $sql_total = "SELECT count(1) as 'total' FROM tbl_alumne INNER JOIN tbl_classe ON tbl_alumne.classe = tbl_classe.id_classe WHERE `dni_alu` LIKE '%$dni%' AND `nom_alu` LIKE '%$nombre%' AND `cognoms_alu` LIKE '%$apellidos%' AND `telf_alu` LIKE '%$telefono%' AND `email_alu` LIKE '%$email%'";
+    if ($clase) {
+        $sql .= " AND `classe` = $clase";
+        $sql_total .= " AND `classe` = $clase";
+    }
     $filtrado = true;
 }
 

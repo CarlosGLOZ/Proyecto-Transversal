@@ -26,13 +26,17 @@ if (!isset($_GET['nombre']) && !isset($_GET['apellidos']) && !isset($_GET['telef
     $sql = "SELECT tbl_professor.id_professor, tbl_professor.nom_prof, tbl_professor.cognoms_prof, tbl_professor.email_prof, tbl_professor.telf, tbl_professor.admin, tbl_dept.id_dept, tbl_dept.nom_dept, tbl_classe.codi_classe, tbl_classe.id_classe
             FROM tbl_professor INNER JOIN tbl_dept ON tbl_professor.dept = tbl_dept.id_dept 
             LEFT JOIN tbl_classe ON tbl_classe.tutor = tbl_professor.id_professor
-            WHERE `nom_prof` LIKE '%$nombre%' AND `cognoms_prof` LIKE '%$apellidos%' AND `telf` LIKE '%$telefono%' AND `email_prof` LIKE '%$email%' AND `dept` LIKE '%$dept%'";
+            WHERE `nom_prof` LIKE '%$nombre%' AND `cognoms_prof` LIKE '%$apellidos%' AND `telf` LIKE '%$telefono%' AND `email_prof` LIKE '%$email%'";
 
     $sql_total = "SELECT count(1) as `total`
                   FROM tbl_professor INNER JOIN tbl_dept ON tbl_professor.dept = tbl_dept.id_dept 
                   LEFT JOIN tbl_classe ON tbl_classe.tutor = tbl_professor.id_professor 
-                  WHERE `nom_prof` LIKE '%$nombre%' AND `cognoms_prof` LIKE '%$apellidos%' AND `telf` LIKE '%$telefono%' AND `email_prof` LIKE '%$email%' AND `dept` LIKE '%$dept%'";
+                  WHERE `nom_prof` LIKE '%$nombre%' AND `cognoms_prof` LIKE '%$apellidos%' AND `telf` LIKE '%$telefono%' AND `email_prof` LIKE '%$email%'";
 
+    if ($dept) {
+        $sql .= " AND `dept` LIKE '%$dept%'";
+        $sql_total .= " AND `dept` LIKE '%$dept%'";
+    }
     $filtrado = true;
 }
 
