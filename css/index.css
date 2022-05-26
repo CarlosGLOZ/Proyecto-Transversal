@@ -696,6 +696,14 @@ input[type="radio"] {
     margin-top: 10px;
 }
 
+#multiple-modify-button:disabled {
+    opacity: 60% !important;
+}
+
+#multiple-delete-button:disabled {
+    opacity: 60% !important;
+}
+
 
 /* Safari */
 
