@@ -14,11 +14,12 @@ if ((isset($_POST['email_login']) && isset($_POST['password_login'])) && (!empty
     $email_login = $conexion->real_escape_string($_POST['email_login']);
     $password_login = $conexion->real_escape_string($_POST['password_login']);
 
-    // ENCRIPTAR PASSWORD si no es una cuenta de testeo
-    if ($email_login !== '100007082.joan23@fje.edu') {
-        $password_login = sha1($password_login);
-    }
+    // // ENCRIPTAR PASSWORD si no es una cuenta de testeo
+    // if ($email_login !== '100007082.joan23@fje.edu') {
+    //     $password_login = sha1($password_login);
+    // }
 
+    $password_login = sha1($password_login);
 
     // COMPROBAR LA CONEXIÓN A LA BDD
     if (!$conexion) {
