@@ -27,12 +27,12 @@ export function checkAllCheckboxes() {
     let scope = localStorage.getItem('data_scope')
     let ele;
     if (!scope || scope == 'alumnos') {
-        ele =  document.getElementsByName('alumno');
+        ele = document.getElementsByName('alumno');
     } else {
-        ele  = document.getElementsByName('profesor');
+        ele = document.getElementsByName('profesor');
     }
     let isChecked = document.getElementById('check-all').checked;
-    
+
     for (var i = 0; i < ele.length; i++) {
         if (ele[i].type == 'checkbox') {
             if (isChecked) {
@@ -241,4 +241,40 @@ export function changeFilterInputs() {
 export function changeUsername() {
     let nombreUsuario = localStorage.getItem('nombre_usuario');
     document.getElementById('nombre-usuario').innerHTML = `Bienvenido, ${nombreUsuario}`;
+}
+
+export function aplicarFondo() {
+    var fondo_div = document.getElementById('fondo_div');
+    var fondo_nav = document.getElementById('fondo_nav');
+
+    var color_div = localStorage.getItem('color_div');
+    var color_nav = localStorage.getItem('color_nav');
+
+    fondo_div.style.background = color_div;
+    fondo_nav.style.background = color_nav;
+}
+
+export function aplicarBotones() {
+    var btn_colores = document.getElementsByClassName('fondo_btn');
+
+    var fondo_boton = localStorage.getItem('fondo_btn');
+    var border_boton = localStorage.getItem('border_btn');
+
+    for (let i = 0; i < btn_colores.length; i++) {
+        const element = btn_colores[i];
+        element.style.background = fondo_boton;
+        element.style.borderColor = border_boton;
+    }
+}
+
+export function aplicarLetra() {
+    var letra = document.getElementsByClassName('color_letra');
+
+    var color_letra = localStorage.getItem('color');
+
+    for (let i = 0; i < letra.length; i++) {
+        var element = letra[i]; // RECORRER TODOS LOS ELEMENTOS QUE TENGAN LA CLASE QUE ESPECIFICAMOS
+        // PONER LOS COLORES A TODAS ESAS CLASES:
+        element.style.color = color_letra;
+    }
 }

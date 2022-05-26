@@ -1,0 +1,369 @@
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+
+/* Redimensión de fuente utilizando rem */
+
+p {
+    font-size: 1rem;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+}
+
+h4 {
+    font-size: 1.3rem;
+    margin-bottom: 20px !important;
+}
+
+.titulo-change:hover {
+    font-weight: bold;
+}
+
+.btn_logout {
+    border-radius: 5px;
+    background-color: rgb(125, 162, 205);
+    border-width: 2px !important;
+    border-color: rgb(65, 118, 199);
+    padding: 4%;
+    width: 50px;
+    margin-bottom: 10%;
+}
+
+#color-picker {
+    width: 120px;
+    background-color: rgb(125, 162, 205);
+    border-color: rgb(65, 118, 199);
+    border-radius: 7px;
+    height: 30px;
+    padding: 1%;
+}
+
+#btn_submit {
+    background-color: rgb(125, 162, 205);
+    border-width: 2px;
+    border-color: rgb(65, 118, 199);
+}
+
+.btn {
+    padding: 2%;
+    margin-right: 1%;
+}
+
+h5 {
+    font-size: 1.15rem;
+    margin-top: 4% !important;
+}
+
+h6 {
+    font-size: 1.05rem;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(180deg, rgba(54, 97, 116, 1) 0%, rgba(4, 52, 68, 1) 100%);
+    font-family: 'Roboto Flex', sans-serif !important;
+    color: rgb(142, 202, 230);
+    color: rgb(14, 14, 14);
+}
+
+
+/* Clear floats after the columns */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+article {
+    border-radius: 10px;
+}
+
+
+/* Diseño de columnas */
+
+.column-1 {
+    width: 100%;
+    float: left;
+}
+
+.column-2 {
+    width: 45%;
+    float: left;
+}
+
+.column-3 {
+    width: 30%;
+    float: left;
+}
+
+.column-4 {
+    width: 25%;
+    float: left;
+}
+
+.column-nav {
+    /* width: 27%; */
+    width: 10%;
+    float: left;
+    height: 100vh;
+}
+
+.column-75 {
+    /* width: 72%; */
+    width: 87%;
+    float: left;
+    padding: 2%;
+}
+
+
+/* clases web */
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header {
+    height: 100vh;
+    background-image: url("../img/brandon-burridge-4o7f9_Z73a4-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+img {
+    width: 100%;
+}
+
+.arrows {
+    width: 50px;
+}
+
+#img-1 {
+    height: 50vh;
+    background-image: url("../img/arya-krisdyantara-LTEfj149DLQ-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#img-2 {
+    height: 50vh;
+    background-image: url("../img/colin-lloyd-DvVcwl4cUsc-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#img-3 {
+    height: 50vh;
+    background-image: url("../img/scott-rodgerson-G6dXvXN2gVM-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#card-1 {
+    height: 50vh;
+    background-image: url("../img/card-1.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#card-2 {
+    height: 50vh;
+    background-image: url("../img/card-2.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#card-3 {
+    height: 50vh;
+    background-image: url("../img/card-3.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#card-4 {
+    height: 50vh;
+    background-image: url("../img/card-4.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+article {
+    background-color: rgb(227, 227, 227);
+}
+
+a {
+    text-decoration: none !important;
+}
+
+#conf {
+    width: 100%;
+    margin-bottom: 3%;
+}
+
+#galeria {
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+#prefooter {
+    background-color: #495057;
+    color: whitesmoke;
+}
+
+footer {
+    background-color: black;
+    color: rgba(245, 245, 245, 0.536);
+}
+
+footer p {
+    font-size: 0.8rem;
+}
+
+
+/* clases auxiliares */
+
+.padding-s {
+    padding: 2%;
+}
+
+.padding-m {
+    padding: 6%;
+}
+
+.back-light {
+    background-color: rgb(125, 162, 205);
+    border-width: 2px !important;
+    border-color: rgb(65, 118, 199);
+}
+
+
+/* SCROLLBAR */
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(33, 158, 188);
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: rgb(30, 135, 161);
+}
+
+
+/* NAVBAR */
+
+nav.navbar {
+    background-color: rgb(33, 158, 188);
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn_logout {
+    background-color: rgb(241, 89, 89)!important;
+    color: black !important;
+    cursor: pointer;
+    border: 3px solid rgb(211, 80, 80);
+    padding: 6px 12px;
+}
+
+.btn_settings {
+    background-color: rgb(114, 114, 198) !important;
+    color: black !important;
+    cursor: pointer;
+    border: 3px solid rgb(99, 99, 173);
+}
+
+
+/* ESTILOS MENU DESPLEGABLE: */
+
+
+/* Estilos para el ícono del Menú */
+
+.icono-menu {
+    margin-top: 60px;
+    margin-left: 67px;
+    position: relative;
+    z-index: 10;
+}
+
+.icono-menu img {
+    vertical-align: top;
+    width: 40px;
+    cursor: pointer;
+}
+
+
+/* Estilos para el contenedor del Menú */
+
+.cont-menu {
+    background-color: rgba(4, 52, 68, 1);
+    box-shadow: 2px 0px 5px 2px rgb(8, 76, 99);
+    width: 350px;
+    height: 55vh;
+    margin-top: 98px;
+    margin-left: 30px;
+    border-radius: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all .5s ease;
+}
+
+
+/* Estilos por agregar en JavaScript */
+
+.active {
+    transform: translate(-600px);
+}
+
+
+/* Estilos para el listado del Menú */
+
+.cont-menu ul {
+    padding: 90px 0px 20px 0px;
+    list-style: none;
+}
+
+.cont-menu ul li {
+    color: white;
+    display: block;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px 40px;
+    cursor: pointer;
+}
+
+.cont-menu ul li:hover {
+    background-color: rgb(8, 76, 99);
+    color: rgb(42, 42, 42);
+}

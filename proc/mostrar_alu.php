@@ -85,9 +85,9 @@ $alumnos = mysqli_query($conexion, $sql);
 
 /* MOSTRAR LOS DATOS */
 if (!$filtrado) {
-    echo "<b  style='color: rgb(142, 202, 230); margin-bottom: 10px' class='text-center'>$total registros</b>";
+    echo "<b  style='margin-bottom: 10px' class='text-center'>$total registros</b>";
 } else {
-    echo "<b  style='color: rgb(142, 202, 230); margin-bottom: 10px' class='text-center'>$total registros coinciden con los criterios de busqueda</b>";
+    echo "<b  style='margin-bottom: 10px' class='text-center'>$total registros coinciden con los criterios de busqueda</b>";
 }
 
 ?>
