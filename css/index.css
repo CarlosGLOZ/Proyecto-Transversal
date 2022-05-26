@@ -696,6 +696,11 @@ input[type="radio"] {
     font-size: 100px;
 }
 
+.custom-file.mail-adjunto {
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
 
 /* Safari */
 

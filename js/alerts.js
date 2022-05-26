@@ -436,7 +436,10 @@ export function alertSendMail(email) {
         html: `<input id="email" class="swal2-input" type="text" value="${email}" placeholder="Correo" />
                <input id="asunto" class="swal2-input" type="text" placeholder="Asunto" />
                <textarea id="mensaje" class="swal2-input" placeholder="Mensaje"></textarea>
-               <input id="adjunto" type="file">`,
+               <div class="custom-file mail-adjunto">
+                    <input id="adjunto" class="custom-file-input" type="file" name="csv" aria-describedby="inputGroupFileAddon01" required>
+                    <label class="custom-file-label" for="adjunto">Selecciona el archivo</label>
+                </div>`,
         confirmButtonText: 'Enviar',
         showCancelButton: true,
         customClass: 'swal-wide',
@@ -478,7 +481,10 @@ export function alertMultipleMail() {
         html: `<select id="select-clases" class="swal2-input" name='clases'></select>
                <input id="asunto" class="swal2-input" type="text" placeholder="Asunto" />
                <textarea id="mensaje" class="swal2-input" placeholder="Mensaje"></textarea>
-               <input id="adjunto" type="file">`,
+               <div class="custom-file mail-adjunto">
+                    <input id="adjunto" class="custom-file-input" type="file" name="csv" aria-describedby="inputGroupFileAddon01" required>
+                    <label class="custom-file-label" for="adjunto">Selecciona el archivo</label>
+                </div>`,
         confirmButtonText: 'Enviar',
         showCancelButton: true,
         customClass: 'swal-wide',

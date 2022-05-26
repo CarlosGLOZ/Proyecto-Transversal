@@ -60,10 +60,12 @@ if ($_POST['scope'] == 'alumnos') {
 } else {
     $password = sha1($_POST['password']);
     $dept = strip_tags($_POST['dept']);
-    $sql = "INSERT INTO tbl_professor (`nom_prof`, `cognoms_prof`, `email_prof`, `telf`, `contra`, `dept`) VALUES ('$nombre', '$apellidos', '$email', '$telefono', '$password', $dept);";
-
+    $sql = "INSERT INTO tbl_professor (`nom_prof`, `cognoms_prof`, `email_prof`, `telf`, `contra`, `dept`, `admin`) VALUES ('$nombre', '$apellidos', '$email', '$telefono', '$password', $dept, 0);";
+    echo $sql;
 }
 
 $insert = mysqli_query($conexion, $sql);
+
+var_dump($insert);
 
 
